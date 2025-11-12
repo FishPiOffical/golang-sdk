@@ -20,7 +20,7 @@ func main() {
 	}
 
 	// 创建SDK实例
-	fishpi := sdk.NewSDK(apiKey)
+	fishpi := sdk.NewSDKWithAPIKey(apiKey)
 
 	// 创建聊天室WebSocket连接
 	// 这里直接使用默认节点，实际使用时应该先获取节点列表

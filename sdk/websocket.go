@@ -108,11 +108,11 @@ func (ws *ChatroomWebSocket) Connect() error {
 	}
 
 	// 构建WebSocket URL
-	wsURL := fmt.Sprintf("%s?apiKey=%s", ws.endpoint, ws.sdk.apiKey)
+	wsURL := fmt.Sprintf("%s?apiKey=%s", ws.endpoint, ws.sdk.GetAPIKey())
 
 	// 创建WebSocket连接
 	header := http.Header{}
-	header.Set("User-Agent", ws.sdk.getUserAgent())
+	header.Set("User-Agent", ws.sdk.GetUserAgent())
 
 	socket, _, err := gws.NewClient(&chatroomWebSocketHandler{ws: ws}, &gws.ClientOption{
 		Addr:          wsURL,
@@ -271,7 +271,7 @@ func (h *privateChatWebSocketHandler) OnMessage(socket *gws.Conn, message *gws.M
 func (s *FishPiSDK) NewPrivateChatWebSocket() *PrivateChatWebSocket {
 	ctx, cancel := context.WithCancel(context.Background())
 
-	endpoint := fmt.Sprintf("wss://%s/chat-channel", s.domain)
+	endpoint := fmt.Sprintf("wss://%s/chat-channel", s.GetConfig().BaseUrl)
 
 	return &PrivateChatWebSocket{
 		sdk:      s,
@@ -291,11 +291,11 @@ func (ws *PrivateChatWebSocket) Connect() error {
 	}
 
 	// 构建WebSocket URL
-	wsURL := fmt.Sprintf("%s?apiKey=%s", ws.endpoint, ws.sdk.apiKey)
+	wsURL := fmt.Sprintf("%s?apiKey=%s", ws.endpoint, ws.sdk.GetAPIKey())
 
 	// 创建WebSocket连接
 	header := http.Header{}
-	header.Set("User-Agent", ws.sdk.getUserAgent())
+	header.Set("User-Agent", ws.sdk.GetUserAgent())
 
 	socket, _, err := gws.NewClient(&privateChatWebSocketHandler{ws: ws}, &gws.ClientOption{
 		Addr:          wsURL,
@@ -455,7 +455,7 @@ func (h *userNotificationWebSocketHandler) OnMessage(socket *gws.Conn, message *
 func (s *FishPiSDK) NewUserNotificationWebSocket() *UserNotificationWebSocket {
 	ctx, cancel := context.WithCancel(context.Background())
 
-	endpoint := fmt.Sprintf("wss://%s/user-channel", s.domain)
+	endpoint := fmt.Sprintf("wss://%s/user-channel", s.GetConfig().BaseUrl)
 
 	return &UserNotificationWebSocket{
 		sdk:      s,
@@ -475,11 +475,11 @@ func (ws *UserNotificationWebSocket) Connect() error {
 	}
 
 	// 构建WebSocket URL
-	wsURL := fmt.Sprintf("%s?apiKey=%s", ws.endpoint, ws.sdk.apiKey)
+	wsURL := fmt.Sprintf("%s?apiKey=%s", ws.endpoint, ws.sdk.GetAPIKey())
 
 	// 创建WebSocket连接
 	header := http.Header{}
-	header.Set("User-Agent", ws.sdk.getUserAgent())
+	header.Set("User-Agent", ws.sdk.GetUserAgent())
 
 	socket, _, err := gws.NewClient(&userNotificationWebSocketHandler{ws: ws}, &gws.ClientOption{
 		Addr:          wsURL,

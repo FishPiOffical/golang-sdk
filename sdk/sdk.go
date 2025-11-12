@@ -3,60 +3,29 @@ package sdk
 import (
 	"bytes"
 	"encoding/base32"
-	"errors"
 	"fmt"
 	"log/slog"
 	"net/http"
 	"time"
 
 	"fishpi-golang-sdk/types"
+
 	"github.com/imroc/req/v3"
 	"github.com/pquerna/otp"
 	"github.com/pquerna/otp/totp"
 )
 
-// FishPiSDK SDK客户端（新版本）
+// FishPiSDK SDK客户端
 type FishPiSDK struct {
-	apiKey string
-	domain string
-	client *req.Client
-}
-
-// NewSDK 创建新的SDK实例
-func NewSDK(apiKey string, domain ...string) *FishPiSDK {
-	d := "fishpi.cn"
-	if len(domain) > 0 && domain[0] != "" {
-		d = domain[0]
-	}
-
-	baseURL := fmt.Sprintf("https://%s", d)
-
-	client := req.NewClient().
-		SetBaseURL(baseURL).
-		SetCommonHeader("User-Agent", UserAgent).
-		SetCommonQueryParam("apiKey", apiKey)
-
-	return &FishPiSDK{
-		apiKey: apiKey,
-		domain: d,
-		client: client,
-	}
-}
-
-// getUserAgent 获取User-Agent
-func (s *FishPiSDK) getUserAgent() string {
-	return UserAgent
-}
-
-// Client 旧版客户端（保持兼容性）
-type Client struct {
 	configProvider ConfigProvider
 	client         *req.Client
 }
 
-type Option func(client *Client)
+// Option SDK选项函数
+type Option func(sdk *FishPiSDK)
 
-func NewClient(configProvider ConfigProvider, options ...Option) *Client {
+// NewSDK 创建新的SDK实例（使用ConfigProvider）
+func NewSDK(configProvider ConfigProvider, options ...Option) *FishPiSDK {
 	conf := configProvider.Get()
 
 	if conf.BaseUrl == "" {
@@ -68,39 +37,69 @@ func NewClient(configProvider ConfigProvider, options ...Option) *Client {
 		SetCommonHeader("User-Agent", UserAgent).
 		SetCommonQueryParam("apiKey", conf.ApiKey)
 
-	client := &Client{
+	sdk := &FishPiSDK{
 		configProvider: configProvider,
 		client:         reqClient,
 	}
 
 	for _, option := range options {
-		option(client)
+		option(sdk)
 	}
 
-	return client
+	return sdk
+}
+
+// NewSDKWithAPIKey 使用API Key快速创建SDK实例（便捷方法）
+func NewSDKWithAPIKey(apiKey string, domain ...string) *FishPiSDK {
+	d := "fishpi.cn"
+	if len(domain) > 0 && domain[0] != "" {
+		d = domain[0]
+	}
+
+	config := &Config{
+		BaseUrl: fmt.Sprintf("https://%s", d),
+		ApiKey:  apiKey,
+	}
+
+	provider := NewMemoryConfigProvider(config)
+	return NewSDK(provider)
 }
 
 // GetConfig 获取配置
-func (c *Client) GetConfig() *Config {
-	return c.configProvider.Get()
+func (s *FishPiSDK) GetConfig() *Config {
+	return s.configProvider.Get()
 }
 
 // UpdateConfig 更新配置
-func (c *Client) UpdateConfig(config *Config) error {
-	if err := c.configProvider.Update(config); err != nil {
-		return err
+func (s *FishPiSDK) UpdateConfig(config *Config) error {
+	if err := s.configProvider.Update(config); err != nil {
+		return fmt.Errorf("failed to update config: %w", err)
 	}
 
 	// 更新 HTTP 客户端配置
-	c.client.SetBaseURL(config.BaseUrl).
+	s.client.SetBaseURL(config.BaseUrl).
 		SetCommonQueryParam("apiKey", config.ApiKey)
 
 	return nil
 }
 
+// GetUserAgent 获取User-Agent
+func (s *FishPiSDK) GetUserAgent() string {
+	return UserAgent
+}
+
+// GetAPIKey 获取当前API Key
+func (s *FishPiSDK) GetAPIKey() string {
+	return s.configProvider.Get().ApiKey
+}
+
 // PostApiGetKey 获取登录key
-func (c *Client) PostApiGetKey() error {
-	conf := c.configProvider.Get()
+func (s *FishPiSDK) PostApiGetKey() error {
+	conf := s.configProvider.Get()
+
+	if conf.Username == "" || conf.Password == "" {
+		return fmt.Errorf("username and password are required")
+	}
 
 	request := &types.PostApiGetKeyRequest{
 		NameOrEmail:  conf.Username,
@@ -118,65 +117,66 @@ func (c *Client) PostApiGetKey() error {
 			Algorithm: otp.AlgorithmSHA512,
 		})
 		if err != nil {
-			return err
+			return fmt.Errorf("failed to generate TOTP: %w", err)
 		}
 		request.MfaCode = passcode
 	}
 
-	res, err := c.client.R().
+	res, err := s.client.R().
 		SetBodyJsonMarshal(request).
 		Post("/api/getKey")
 	if err != nil {
-		return err
+		return fmt.Errorf("failed to get api key: %w", err)
 	}
 
 	resp := new(types.PostApiGetKeyResponse)
 	if err = res.Unmarshal(resp); err != nil {
-		return err
+		return fmt.Errorf("failed to unmarshal response: %w", err)
 	}
 	if resp.Code != 0 {
-		return errors.New(resp.Msg)
+		return fmt.Errorf("get api key failed: %s", resp.Msg)
 	}
 
 	// 更新配置中的 ApiKey
 	conf.ApiKey = resp.Key
-	if err = c.configProvider.Update(conf); err != nil {
-		return err
+	if err = s.configProvider.Update(conf); err != nil {
+		return fmt.Errorf("failed to save api key: %w", err)
 	}
 
 	// 更新 HTTP 客户端配置
-	c.client.SetCommonQueryParam("apiKey", conf.ApiKey)
+	s.client.SetCommonQueryParam("apiKey", conf.ApiKey)
 
 	return nil
 }
 
 // GetApiUser 获取自己的信息
-func (c *Client) GetApiUser() (*types.ApiResponse[*types.UserInfo], error) {
-	res, err := c.client.R().Get("/api/user")
+func (s *FishPiSDK) GetApiUser() (*types.ApiResponse[*types.UserInfo], error) {
+	res, err := s.client.R().Get("/api/user")
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("failed to get user info: %w", err)
 	}
 
 	response := new(types.ApiResponse[*types.UserInfo])
 	if err = res.Unmarshal(&response); err != nil {
-		return nil, err
+		return nil, fmt.Errorf("failed to unmarshal response: %w", err)
 	}
 
 	return response, nil
 }
 
 // GetCaptcha 获取验证码
-func (c *Client) GetCaptcha() (http.Header, *bytes.Buffer, error) {
+func (s *FishPiSDK) GetCaptcha() (http.Header, *bytes.Buffer, error) {
 	body := new(bytes.Buffer)
-	res, err := c.client.R().
+	res, err := s.client.R().
 		SetOutput(body).
 		Get("/captcha")
 	if err != nil {
-		return nil, nil, err
+		return nil, nil, fmt.Errorf("failed to get captcha: %w", err)
 	}
 	return res.Header, body, nil
 }
 
+// PostRegisterRequest 用户注册请求
 type PostRegisterRequest struct {
 	UserName   string `json:"userName"`
 	UserPhone  string `json:"userPhone"`
@@ -185,12 +185,19 @@ type PostRegisterRequest struct {
 }
 
 // PostRegister 用户注册
-func (c *Client) PostRegister(req *PostRegisterRequest) error {
-	res, err := c.client.R().
+func (s *FishPiSDK) PostRegister(req *PostRegisterRequest) error {
+	if req == nil {
+		return fmt.Errorf("request is required")
+	}
+	if req.UserName == "" {
+		return fmt.Errorf("userName is required")
+	}
+
+	res, err := s.client.R().
 		SetBodyJsonMarshal(req).
 		Post("/register")
 	if err != nil {
-		return err
+		return fmt.Errorf("failed to register: %w", err)
 	}
 	slog.Info("请求结果", slog.String("res", res.String()))
 
@@ -198,12 +205,16 @@ func (c *Client) PostRegister(req *PostRegisterRequest) error {
 }
 
 // GetVerify 验证短信验证码是否正确
-func (c *Client) GetVerify(code string) error {
-	res, err := c.client.R().
+func (s *FishPiSDK) GetVerify(code string) error {
+	if code == "" {
+		return fmt.Errorf("code is required")
+	}
+
+	res, err := s.client.R().
 		SetQueryParam("code", code).
 		Get("/verify")
 	if err != nil {
-		return err
+		return fmt.Errorf("failed to verify code: %w", err)
 	}
 	slog.Info("请求结果", slog.String("res", res.String()))
 

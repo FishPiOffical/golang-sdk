@@ -11,9 +11,6 @@ type (
 	// FishPiSDK SDK客户端
 	FishPiSDK = sdk.FishPiSDK
 
-	// Client 旧版客户端
-	Client = sdk.Client
-
 	// Config 配置
 	Config = sdk.Config
 
@@ -47,12 +44,15 @@ type (
 
 // 构造函数别名
 var (
-	// NewSDK 创建SDK实例
+	// NewSDK 创建SDK实例（使用ConfigProvider）
 	NewSDK = sdk.NewSDK
 
-	// NewClient 创建旧版Client实例
-	NewClient = sdk.NewClient
+	// NewSDKWithAPIKey 使用API Key快速创建SDK实例
+	NewSDKWithAPIKey = sdk.NewSDKWithAPIKey
 
 	// NewFileConfigProvider 创建文件配置提供者
 	NewFileConfigProvider = sdk.NewFileConfigProvider
+
+	// NewMemoryConfigProvider 创建内存配置提供者
+	NewMemoryConfigProvider = sdk.NewMemoryConfigProvider
 )

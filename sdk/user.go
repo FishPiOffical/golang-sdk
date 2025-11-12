@@ -45,8 +45,8 @@ type UserEmotionsResponse struct {
 }
 
 // GetUserInfo 获取当前用户信息
-func (c *Client) GetUserInfo() (*UserInfoResponse, error) {
-	res, err := c.client.R().Get("/api/user")
+func (s *FishPiSDK) GetUserInfo() (*UserInfoResponse, error) {
+	res, err := s.client.R().Get("/api/user")
 	if err != nil {
 		return nil, err
 	}
@@ -60,8 +60,8 @@ func (c *Client) GetUserInfo() (*UserInfoResponse, error) {
 }
 
 // GetUserLiveness 获取当前用户活跃度
-func (c *Client) GetUserLiveness() (*UserLivenessResponse, error) {
-	res, err := c.client.R().Get("/user/liveness")
+func (s *FishPiSDK) GetUserLiveness() (*UserLivenessResponse, error) {
+	res, err := s.client.R().Get("/user/liveness")
 	if err != nil {
 		return nil, err
 	}
@@ -75,8 +75,8 @@ func (c *Client) GetUserLiveness() (*UserLivenessResponse, error) {
 }
 
 // GetUserCheckedIn 检查是否已签到
-func (c *Client) GetUserCheckedIn() (*UserCheckedInResponse, error) {
-	res, err := c.client.R().Get("/user/checkedIn")
+func (s *FishPiSDK) GetUserCheckedIn() (*UserCheckedInResponse, error) {
+	res, err := s.client.R().Get("/user/checkedIn")
 	if err != nil {
 		return nil, err
 	}
@@ -90,8 +90,8 @@ func (c *Client) GetUserCheckedIn() (*UserCheckedInResponse, error) {
 }
 
 // GetIsCollectedLiveness 检查是否已领取昨日活跃奖励
-func (c *Client) GetIsCollectedLiveness() (*IsCollectedLivenessResponse, error) {
-	res, err := c.client.R().Get("/api/activity/is-collected-liveness")
+func (s *FishPiSDK) GetIsCollectedLiveness() (*IsCollectedLivenessResponse, error) {
+	res, err := s.client.R().Get("/api/activity/is-collected-liveness")
 	if err != nil {
 		return nil, err
 	}
@@ -105,8 +105,8 @@ func (c *Client) GetIsCollectedLiveness() (*IsCollectedLivenessResponse, error) 
 }
 
 // GetYesterdayLivenessReward 领取昨日活跃度奖励
-func (c *Client) GetYesterdayLivenessReward() (*YesterdayLivenessRewardResponse, error) {
-	res, err := c.client.R().Get("/activity/yesterday-liveness-reward-api")
+func (s *FishPiSDK) GetYesterdayLivenessReward() (*YesterdayLivenessRewardResponse, error) {
+	res, err := s.client.R().Get("/activity/yesterday-liveness-reward-api")
 	if err != nil {
 		return nil, err
 	}
@@ -120,8 +120,8 @@ func (c *Client) GetYesterdayLivenessReward() (*YesterdayLivenessRewardResponse,
 }
 
 // PostPointTransfer 转账
-func (c *Client) PostPointTransfer(req *types.TransferRequest) (*types.SimpleResponse, error) {
-	res, err := c.client.R().
+func (s *FishPiSDK) PostPointTransfer(req *types.TransferRequest) (*types.SimpleResponse, error) {
+	res, err := s.client.R().
 		SetBodyJsonMarshal(req).
 		Post("/point/transfer")
 	if err != nil {
@@ -137,8 +137,8 @@ func (c *Client) PostPointTransfer(req *types.TransferRequest) (*types.SimpleRes
 }
 
 // GetUserEmotions 获取用户常用表情
-func (c *Client) GetUserEmotions() (*UserEmotionsResponse, error) {
-	res, err := c.client.R().Get("/users/emotions")
+func (s *FishPiSDK) GetUserEmotions() (*UserEmotionsResponse, error) {
+	res, err := s.client.R().Get("/users/emotions")
 	if err != nil {
 		return nil, err
 	}

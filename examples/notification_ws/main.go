@@ -19,7 +19,7 @@ func main() {
 	}
 
 	// 创建SDK实例
-	fishpi := sdk.NewSDK(apiKey)
+	fishpi := sdk.NewSDKWithAPIKey(apiKey)
 
 	// 创建用户通知WebSocket连接
 	ws := fishpi.NewUserNotificationWebSocket()
