@@ -1,31 +1,21 @@
 package fishPiSdk
 
-import "strconv"
+import (
+	"fishpi-golang-sdk/types"
+	"strconv"
+)
 
-// BreezemoonContent 清风明月内容
-type BreezemoonContent struct {
-	OId                          string `json:"oId"`
-	BreezemoonAuthorName         string `json:"breezemoonAuthorName"`
-	BreezemoonAuthorThumbnailURL string `json:"breezemoonAuthorThumbnailURL"`
-	BreezemoonContent            string `json:"breezemoonContent"`
-	BreezemoonCreateTime         int64  `json:"breezemoonCreateTime"`
-	BreezemoonCity               string `json:"breezemoonCity"`
-	BreezemoonAuthorURL          string `json:"breezemoonAuthorURL"`
-}
+// BreezemoonContent 清风明月内容（别名）
+type BreezemoonContent = types.BreezemoonInfo
 
-// BreezemoonListData 清风明月列表数据
-type BreezemoonListData struct {
-	Breezemoons []BreezemoonContent `json:"breezemoons"`
-	Pagination  Pagination          `json:"pagination"`
-}
+// BreezemoonListData 清风明月列表数据（别名）
+type BreezemoonListData = types.BreezemoonList
 
-// BreezemoonPostRequest 发布清风明月请求
-type BreezemoonPostRequest struct {
-	BreezemoonContent string `json:"breezemoonContent"`
-}
+// BreezemoonPostRequest 发布清风明月请求（别名）
+type BreezemoonPostRequest = types.PostBreezemoonRequest
 
 // GetBreezemoonList 获取清风明月列表
-func (c *Client) GetBreezemoonList(page, size int) (*ApiResponse[BreezemoonListData], error) {
+func (c *Client) GetBreezemoonList(page, size int) (*types.ApiResponse[types.BreezemoonList], error) {
 	res, err := c.client.R().
 		SetQueryParams(map[string]string{
 			"p":    strconv.Itoa(page),
@@ -36,7 +26,7 @@ func (c *Client) GetBreezemoonList(page, size int) (*ApiResponse[BreezemoonListD
 		return nil, err
 	}
 
-	var response ApiResponse[BreezemoonListData]
+	var response types.ApiResponse[types.BreezemoonList]
 	if err = res.Unmarshal(&response); err != nil {
 		return nil, err
 	}
@@ -45,7 +35,7 @@ func (c *Client) GetBreezemoonList(page, size int) (*ApiResponse[BreezemoonListD
 }
 
 // GetUserBreezemoonList 获取用户清风明月列表
-func (c *Client) GetUserBreezemoonList(userName string, page, size int) (*ApiResponse[BreezemoonListData], error) {
+func (c *Client) GetUserBreezemoonList(userName string, page, size int) (*types.ApiResponse[types.BreezemoonList], error) {
 	res, err := c.client.R().
 		SetQueryParams(map[string]string{
 			"p":    strconv.Itoa(page),

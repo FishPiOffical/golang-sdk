@@ -7,18 +7,51 @@ import (
 	"fmt"
 	"log/slog"
 	"net/http"
-	"strings"
 	"time"
 
+	"fishpi-golang-sdk/types"
 	"github.com/imroc/req/v3"
 	"github.com/pquerna/otp"
 	"github.com/pquerna/otp/totp"
 )
 
+// FishPiSDK SDK客户端（新版本）
+type FishPiSDK struct {
+	apiKey string
+	domain string
+	client *req.Client
+}
+
+// NewSDK 创建新的SDK实例
+func NewSDK(apiKey string, domain ...string) *FishPiSDK {
+	d := "fishpi.cn"
+	if len(domain) > 0 && domain[0] != "" {
+		d = domain[0]
+	}
+
+	baseURL := fmt.Sprintf("https://%s", d)
+
+	client := req.NewClient().
+		SetBaseURL(baseURL).
+		SetCommonHeader("User-Agent", UserAgent).
+		SetCommonQueryParam("apiKey", apiKey)
+
+	return &FishPiSDK{
+		apiKey: apiKey,
+		domain: d,
+		client: client,
+	}
+}
+
+// getUserAgent 获取User-Agent
+func (s *FishPiSDK) getUserAgent() string {
+	return UserAgent
+}
+
+// Client 旧版客户端（保持兼容性）
 type Client struct {
 	configProvider ConfigProvider
-
-	client *req.Client
+	client         *req.Client
 }
 
 type Option func(client *Client)
@@ -69,7 +102,7 @@ func (c *Client) UpdateConfig(config *Config) error {
 func (c *Client) PostApiGetKey() error {
 	conf := c.configProvider.Get()
 
-	request := &PostApiGetKeyRequest{
+	request := &types.PostApiGetKeyRequest{
 		NameOrEmail:  conf.Username,
 		UserPassword: conf.Password,
 	}
@@ -97,7 +130,7 @@ func (c *Client) PostApiGetKey() error {
 		return err
 	}
 
-	resp := new(PostApiGetKeyResponse)
+	resp := new(types.PostApiGetKeyResponse)
 	if err = res.Unmarshal(resp); err != nil {
 		return err
 	}
@@ -118,13 +151,13 @@ func (c *Client) PostApiGetKey() error {
 }
 
 // GetApiUser 获取自己的信息
-func (c *Client) GetApiUser() (*ApiResponse[*ApiUserGetData], error) {
+func (c *Client) GetApiUser() (*types.ApiResponse[*types.UserInfo], error) {
 	res, err := c.client.R().Get("/api/user")
 	if err != nil {
 		return nil, err
 	}
 
-	response := new(ApiResponse[*ApiUserGetData])
+	response := new(types.ApiResponse[*types.UserInfo])
 	if err = res.Unmarshal(&response); err != nil {
 		return nil, err
 	}
@@ -175,176 +208,4 @@ func (c *Client) GetVerify(code string) error {
 	slog.Info("请求结果", slog.String("res", res.String()))
 
 	return nil
-}
-
-type PostRegister2Request struct {
-	UserAppRole  string `json:"userAppRole"`
-	UserPassword string `json:"userPassword"`
-	UserId       string `json:"userId"`
-	R            string `json:"r"`
-}
-
-// PostRegister2 设置密码等基础信息
-func (c *Client) PostRegister2(req *PostRegister2Request) error {
-	res, err := c.client.R().
-		SetBodyJsonMarshal(req).
-		SetQueryParam("r", req.R).
-		Post("/register2")
-	if err != nil {
-		return err
-	}
-	slog.Info("请求结果", slog.String("res", res.String()))
-	return nil
-}
-
-// GetChatRevoke 撤回私聊消息
-func (c *Client) GetChatRevoke(oId string) (*ResponseResult[any], error) {
-	res, err := c.client.R().
-		SetQueryParam("oId", oId).
-		Get("/chat/revoke")
-	if err != nil {
-		return nil, err
-	}
-	response := new(ResponseResult[any])
-	if err = res.Unmarshal(&response); err != nil {
-		return nil, err
-	}
-	return response, nil
-}
-
-// GetChatMarkAsRead 标记私聊消息为已读
-func (c *Client) GetChatMarkAsRead(fromUser string) error {
-	res, err := c.client.R().
-		SetQueryParam("fromUser", fromUser).
-		Get("/chat/mark-as-read")
-	if err != nil {
-		return err
-	}
-	response := new(ResponseResult[any])
-	if err = res.Unmarshal(&response); err != nil {
-		return err
-	}
-	if response.Result != 0 {
-		return errors.New(response.Msg)
-	}
-	return nil
-}
-
-// GetChatGetMessage 获取私聊消息
-func (c *Client) GetChatGetMessage(toUser string, page int, pageSize int) (*ApiResponse[[]*GetChatGetMessageData], error) {
-	res, err := c.client.R().
-		SetQueryParamsAnyType(map[string]interface{}{
-			"toUser":   toUser,
-			"page":     page,
-			"pageSize": pageSize,
-		}).
-		Get("/chat/get-message")
-	if err != nil {
-		return nil, err
-	}
-	response := new(ApiResponse[[]*GetChatGetMessageData])
-	if err = res.Unmarshal(&response); err != nil {
-		return nil, err
-	}
-	return response, nil
-}
-
-// GetChatHasUnread 获取私聊未读消息
-func (c *Client) GetChatHasUnread() (*ResponseResult[[]*GetChatHasUnreadData], error) {
-	res, err := c.client.R().
-		Get("/chat/has-unread")
-	if err != nil {
-		return nil, err
-	}
-	response := new(ResponseResult[[]*GetChatHasUnreadData])
-	if err = res.Unmarshal(&response); err != nil {
-		return nil, err
-	}
-	return response, nil
-}
-
-// GetChatGetList 获取私聊聊天列表
-func (c *Client) GetChatGetList() (*ResponseResult[[]*GetChatGetListData], error) {
-	res, err := c.client.R().
-		Get("/chat/get-list")
-	if err != nil {
-		return nil, err
-	}
-	response := new(ResponseResult[[]*GetChatGetListData])
-	if err = res.Unmarshal(&response); err != nil {
-		return nil, err
-	}
-	return response, nil
-}
-
-// GetUserChannelLink 获取用户私聊链接
-func (c *Client) GetUserChannelLink() string {
-	link := c.client.BaseURL
-	link = strings.ReplaceAll(link, "http", "ws")
-	link += fmt.Sprintf("/user-channel?apiKey=%s", c.configProvider.Get().ApiKey)
-	return link
-}
-
-// GetChatChannelLink 获取用户私聊链接
-func (c *Client) GetChatChannelLink(toUser string) string {
-	link := c.client.BaseURL
-	link = strings.ReplaceAll(link, "http", "ws")
-	link += fmt.Sprintf("/chat-channel?apiKey=%s&toUser=%s", c.configProvider.Get().ApiKey, toUser)
-	return link
-}
-
-// GetApiGetNotifications 获取通知列表 todo 还有更多参数需要补全
-func (c *Client) GetApiGetNotifications(typ NotificationType, page int) ([]*GetApiGetNotificationsData, error) {
-	res, err := c.client.R().
-		SetQueryParamsAnyType(map[string]interface{}{
-			"type": typ,
-			"p":    page,
-		}).
-		Get("/api/getNotifications")
-	if err != nil {
-		return nil, err
-	}
-	response := new(ApiResponse[[]*GetApiGetNotificationsData])
-	if err = res.Unmarshal(&response); err != nil {
-		return nil, err
-	}
-	if response.Code != 0 {
-		return nil, errors.New(response.Msg)
-	}
-	return response.Data, nil
-}
-
-// GetChatroomNodeGet 获取节点列表
-func (c *Client) GetChatroomNodeGet() (*GetChatroomNodeGetResponse, error) {
-	res, err := c.client.R().
-		Get("/chat-room/node/get")
-	if err != nil {
-		return nil, err
-	}
-	response := new(GetChatroomNodeGetResponse)
-	if err = res.Unmarshal(&response); err != nil {
-		return nil, err
-	}
-	if response.Code != 0 {
-		return nil, errors.New(response.Msg)
-	}
-	for _, node := range response.Avaliable {
-		node.Node += fmt.Sprintf("?apiKey=%s", c.configProvider.Get().ApiKey)
-	}
-	return response, nil
-}
-
-// PostChatroomRedPacketOpen 打开聊天室红包
-func (c *Client) PostChatroomRedPacketOpen(req *PostChatroomRedPacketOpenRequest) (*PostChatroomRedPacketOpenResponse, error) {
-	res, err := c.client.R().
-		SetBodyJsonMarshal(req).
-		Post("/chat-room/red-packet/open")
-	if err != nil {
-		return nil, err
-	}
-	response := new(PostChatroomRedPacketOpenResponse)
-	if err = res.Unmarshal(&response); err != nil {
-		return nil, err
-	}
-	return response, nil
 }

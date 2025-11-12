@@ -1,13 +1,9 @@
 package fishPiSdk
 
-// CommentPostRequest 发布评论请求
-type CommentPostRequest struct {
-	ArticleId                string `json:"articleId"`
-	CommentAnonymous         int    `json:"commentAnonymous"` // 0:不匿名 1:匿名
-	CommentVisible           int    `json:"commentVisible"`   // 0:不可见 1:可见
-	CommentContent           string `json:"commentContent"`
-	CommentOriginalCommentId string `json:"commentOriginalCommentId,omitempty"` // 回复评论ID
-}
+import "fishpi-golang-sdk/types"
+
+// CommentPostRequest 发布评论请求（别名）
+type CommentPostRequest = types.PostCommentRequest
 
 // CommentPostResponse 发布评论响应
 type CommentPostResponse struct {
@@ -16,10 +12,8 @@ type CommentPostResponse struct {
 	CommentId string `json:"commentId"`
 }
 
-// CommentUpdateRequest 更新评论请求
-type CommentUpdateRequest struct {
-	CommentContent string `json:"commentContent"`
-}
+// CommentUpdateRequest 更新评论请求（别名）
+type CommentUpdateRequest = types.UpdateCommentRequest
 
 // CommentUpdateResponse 更新评论响应
 type CommentUpdateResponse struct {

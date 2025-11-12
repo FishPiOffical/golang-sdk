@@ -1,10 +1,12 @@
 package fishPiSdk
 
+import "fishpi-golang-sdk/types"
+
 // UserInfoResponse 用户信息响应
 type UserInfoResponse struct {
 	Code int            `json:"code"`
 	Msg  string         `json:"msg"`
-	Data ApiUserGetData `json:"data"`
+	Data types.UserInfo `json:"data"`
 }
 
 // UserLivenessResponse 用户活跃度响应
