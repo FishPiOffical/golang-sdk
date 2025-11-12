@@ -364,3 +364,33 @@ func (s *FishPiSDK) GetArticleHeat(articleId string) (*types.ArticleHeat, error)
 
 	return resp.Data, nil
 }
+
+// GetArticleComments 获取文章评论列表
+func (s *FishPiSDK) GetArticleComments(articleId string, page, size int) ([]*types.CommentInfo, error) {
+	if articleId == "" {
+		return nil, fmt.Errorf("articleId is required")
+	}
+	if page < 1 {
+		page = 1
+	}
+	if size < 1 || size > 100 {
+		size = 20
+	}
+
+	url := fmt.Sprintf("/article/%s/comments?p=%d&size=%d", articleId, page, size)
+
+	var resp types.ApiResponse[[]*types.CommentInfo]
+	_, err := s.client.R().
+		SetSuccessResult(&resp).
+		Get(url)
+
+	if err != nil {
+		return nil, fmt.Errorf("failed to get article comments: %w", err)
+	}
+
+	if resp.Code != 0 {
+		return nil, fmt.Errorf("get article comments failed: %s", resp.Msg)
+	}
+
+	return resp.Data, nil
+}

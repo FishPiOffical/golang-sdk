@@ -5,25 +5,7 @@ import (
 	"fmt"
 )
 
-// GetChatList 获取私聊列表
-func (s *FishPiSDK) GetChatList() ([]*types.GetChatListData, error) {
-	var resp types.ApiResponse[[]*types.GetChatListData]
-	_, err := s.client.R().
-		SetSuccessResult(&resp).
-		Get("/chat/get-list")
-
-	if err != nil {
-		return nil, fmt.Errorf("failed to get chat list: %w", err)
-	}
-
-	if resp.Code != 0 {
-		return nil, fmt.Errorf("get chat list failed: %s", resp.Msg)
-	}
-
-	return resp.Data, nil
-}
-
-// GetChatMessages 获取与指定用户的私聊消息
+// GetChatMessages 获取私聊消息
 func (s *FishPiSDK) GetChatMessages(toUser string, page, pageSize int) ([]*types.ChatMessageData, error) {
 	if toUser == "" {
 		return nil, fmt.Errorf("toUser is required")
@@ -82,16 +64,18 @@ func (s *FishPiSDK) SendChatMessage(toUser, content string) error {
 	return nil
 }
 
-// MarkChatRead 标记私聊消息已读
+// MarkChatRead 标记私聊已读
 func (s *FishPiSDK) MarkChatRead(fromUser string) error {
 	if fromUser == "" {
 		return fmt.Errorf("fromUser is required")
 	}
 
+	url := fmt.Sprintf("/chat/mark-as-read?fromUser=%s", fromUser)
+
 	var resp types.SimpleResponse
 	_, err := s.client.R().
 		SetSuccessResult(&resp).
-		Get("/chat/mark-as-read?fromUser=" + fromUser)
+		Get(url)
 
 	if err != nil {
 		return fmt.Errorf("failed to mark chat as read: %w", err)
@@ -104,20 +88,44 @@ func (s *FishPiSDK) MarkChatRead(fromUser string) error {
 	return nil
 }
 
-// GetChatUnread 获取未读私聊消息
-func (s *FishPiSDK) GetChatUnread() (*types.GetChatHasUnreadData, error) {
-	var resp types.ApiResponse[*types.GetChatHasUnreadData]
+// GetChatList 获取私聊列表
+func (s *FishPiSDK) GetChatList() ([]*types.ChatListItem, error) {
+	var resp types.ApiResponse[[]*types.ChatListItem]
+	_, err := s.client.R().
+		SetSuccessResult(&resp).
+		Get("/chat/list")
+
+	if err != nil {
+		return nil, fmt.Errorf("failed to get chat list: %w", err)
+	}
+
+	if resp.Code != 0 {
+		return nil, fmt.Errorf("get chat list failed: %s", resp.Msg)
+	}
+
+	return resp.Data, nil
+}
+
+// GetChatUnread 检查是否有未读私聊
+func (s *FishPiSDK) GetChatUnread() (bool, error) {
+	var resp types.ApiResponse[map[string]bool]
 	_, err := s.client.R().
 		SetSuccessResult(&resp).
 		Get("/chat/has-unread")
 
 	if err != nil {
-		return nil, fmt.Errorf("failed to get chat unread: %w", err)
+		return false, fmt.Errorf("failed to check unread chat: %w", err)
 	}
 
 	if resp.Code != 0 {
-		return nil, fmt.Errorf("get chat unread failed: %s", resp.Msg)
+		return false, fmt.Errorf("check unread chat failed: %s", resp.Msg)
 	}
 
-	return resp.Data, nil
+	if resp.Data != nil {
+		if hasUnread, ok := resp.Data["hasUnread"]; ok {
+			return hasUnread, nil
+		}
+	}
+
+	return false, nil
 }

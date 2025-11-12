@@ -61,3 +61,13 @@ type ChatQuery struct {
 	Size     int  `json:"size,omitempty"`
 	AutoRead bool `json:"autoRead,omitempty"`
 }
+
+// ChatListItem 私聊列表项
+type ChatListItem struct {
+	UserName      string `json:"userName"`
+	UserNickname  string `json:"userNickname"`
+	UserAvatarURL string `json:"userAvatarURL"`
+	LastMessage   string `json:"lastMessage"`
+	LastTime      int64  `json:"lastTime"`
+	UnreadCount   int    `json:"unreadCount"`
+}

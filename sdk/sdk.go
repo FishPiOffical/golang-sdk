@@ -176,8 +176,8 @@ func (s *FishPiSDK) GetCaptcha() (http.Header, *bytes.Buffer, error) {
 	return res.Header, body, nil
 }
 
-// PostRegister 用户注册
-func (s *FishPiSDK) PostRegister(req *types.PostRegisterRequest) error {
+// Register 用户注册
+func (s *FishPiSDK) Register(req *types.PostRegisterRequest) error {
 	if req == nil {
 		return fmt.Errorf("request is required")
 	}
@@ -196,8 +196,8 @@ func (s *FishPiSDK) PostRegister(req *types.PostRegisterRequest) error {
 	return nil
 }
 
-// GetVerify 验证短信验证码是否正确
-func (s *FishPiSDK) GetVerify(code string) error {
+// VerifyPhone 验证短信验证码是否正确
+func (s *FishPiSDK) VerifyPhone(code string) error {
 	if code == "" {
 		return fmt.Errorf("code is required")
 	}
@@ -208,7 +208,35 @@ func (s *FishPiSDK) GetVerify(code string) error {
 	if err != nil {
 		return fmt.Errorf("failed to verify code: %w", err)
 	}
-	slog.Info("请求结果", slog.String("res", res.String()))
+	slog.Info("验证结果", slog.String("res", res.String()))
+
+	return nil
+}
+
+// PreRegister 预注册
+func (s *FishPiSDK) PreRegister(userName, userPhone, inviteCode, captcha string) error {
+	if userName == "" {
+		return fmt.Errorf("userName is required")
+	}
+
+	var resp types.SimpleResponse
+	_, err := s.client.R().
+		SetBodyJsonMarshal(map[string]string{
+			"userName":   userName,
+			"userPhone":  userPhone,
+			"invitecode": inviteCode,
+			"captcha":    captcha,
+		}).
+		SetSuccessResult(&resp).
+		Post("/register/preregister")
+
+	if err != nil {
+		return fmt.Errorf("failed to pre-register: %w", err)
+	}
+
+	if resp.Code != 0 {
+		return fmt.Errorf("pre-register failed: %s", resp.Msg)
+	}
 
 	return nil
 }

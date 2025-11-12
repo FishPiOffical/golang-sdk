@@ -288,3 +288,62 @@ func (s *FishPiSDK) UploadFile(file []byte, fileName string) (*types.UploadFileR
 
 	return resp.Data, nil
 }
+
+// GetUserNames 获取用户名列表（管理员功能）
+func (s *FishPiSDK) GetUserNames() ([]string, error) {
+	var resp types.ApiResponse[[]string]
+	_, err := s.client.R().
+		SetSuccessResult(&resp).
+		Get("/user/names")
+
+	if err != nil {
+		return nil, fmt.Errorf("failed to get user names: %w", err)
+	}
+
+	if resp.Code != 0 {
+		return nil, fmt.Errorf("get user names failed: %s", resp.Msg)
+	}
+
+	return resp.Data, nil
+}
+
+// GetRecentRegister 获取最近注册用户（管理员功能）
+func (s *FishPiSDK) GetRecentRegister() ([]*types.UserInfo, error) {
+	var resp types.ApiResponse[[]*types.UserInfo]
+	_, err := s.client.R().
+		SetSuccessResult(&resp).
+		Get("/user/recentRegister")
+
+	if err != nil {
+		return nil, fmt.Errorf("failed to get recent register: %w", err)
+	}
+
+	if resp.Code != 0 {
+		return nil, fmt.Errorf("get recent register failed: %s", resp.Msg)
+	}
+
+	return resp.Data, nil
+}
+
+// GetLogs 获取日志（管理员功能）
+func (s *FishPiSDK) GetLogs(page int) ([]map[string]interface{}, error) {
+	if page < 1 {
+		page = 1
+	}
+
+	var resp types.ApiResponse[[]map[string]interface{}]
+	_, err := s.client.R().
+		SetQueryParam("p", fmt.Sprintf("%d", page)).
+		SetSuccessResult(&resp).
+		Get("/logs")
+
+	if err != nil {
+		return nil, fmt.Errorf("failed to get logs: %w", err)
+	}
+
+	if resp.Code != 0 {
+		return nil, fmt.Errorf("get logs failed: %s", resp.Msg)
+	}
+
+	return resp.Data, nil
+}
