@@ -1,15 +1,5 @@
 package types
 
-// ArticleType 文章类型
-type ArticleType int
-
-const (
-	ArticleTypeNormal     ArticleType = 0 // 普通帖子
-	ArticleTypeDiscussion ArticleType = 1 // 讨论区
-	ArticleTypeCity       ArticleType = 2 // 同城
-	ArticleTypeQnA        ArticleType = 3 // 问答
-)
-
 // PostArticleRequest 发布文章请求
 type PostArticleRequest struct {
 	ArticleTitle           string      `json:"articleTitle"`

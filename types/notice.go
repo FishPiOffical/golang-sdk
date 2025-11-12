@@ -1,40 +1,5 @@
 package types
 
-// DataType 数据类型
-type DataType int
-
-const (
-	DataTypeArticle                   DataType = 0
-	DataTypeComment                   DataType = 1
-	DataTypeAt                        DataType = 2
-	DataTypeCommented                 DataType = 3
-	DataTypeFollowingUser             DataType = 4
-	DataTypePointCharge               DataType = 5
-	DataTypePointTransfer             DataType = 6
-	DataTypePointArticleReward        DataType = 7
-	DataTypePointArticleThank         DataType = 8
-	DataTypePointCommentThank         DataType = 9
-	DataTypePointInviteRegister       DataType = 10
-	DataTypePointInviteJoinActivation DataType = 11
-	DataTypePointPerfectArticle       DataType = 12
-	DataTypePointCommentAccept        DataType = 13
-	DataTypePointFollowing            DataType = 14
-	DataTypePointFollower             DataType = 15
-	DataTypePointExchange             DataType = 16
-	DataTypePointAbuseDeduct          DataType = 17
-	DataTypePointStickArticle         DataType = 18
-	DataTypePointRedPacket            DataType = 19
-	DataTypePointTopArticle           DataType = 20
-	DataTypePointReport               DataType = 21
-	DataTypePointRepublishArticle     DataType = 22
-	DataTypePointSellerBuyerAdvance   DataType = 23
-	DataTypePointCommentVote          DataType = 24
-	DataTypePointArticleVote          DataType = 25
-	DataTypePointAppeal               DataType = 26
-	DataTypePointPurchaseInvitecode   DataType = 27
-	DataTypePointForward              DataType = 28
-)
-
 // NotificationCount 通知数量
 type NotificationCount struct {
 	UserNotifyStatus                   bool `json:"userNotifyStatus"`

@@ -1,37 +1,7 @@
 //go:generate go-enum --marshal --names --values --ptr --mustparse
 package types
 
-// ArticleListType 文章列表类型
-/*
-ENUM(
-// 最新
-// 热门
-hot
-// 精华
-good
-// 精选
-perfect
-// 回复
-reply
-)
-*/
-type ArticleListType string
-
-// NotificationType 通知类型
-/*
-ENUM(
-point // 积分
-commented // 收到的回帖
-reply // 收到的回复
-at // 提及我的
-following // 我关注的
-broadcast // 同城
-sys-announce // 系统
-)
-*/
-type NotificationType string
-
-// ChatroomMsgType 消息类型
+// ChatroomMsgType 聊天室消息类型
 /*
 ENUM(
 online // 在线
@@ -61,26 +31,17 @@ type ChatroomRedPacketType string
 // GestureType 猜拳类型
 /*
 ENUM(
-rock // 石头
-scissors // 剪刀
-paper // 布
+rock=0 // 石头
+scissors=1 // 剪刀
+paper=2 // 布
 )
 */
 type GestureType int
 
-// VoteType 投票类型
-/*
-ENUM(
-unVote = -1 // 未投票
-voted = 0  // 点赞
-)
-*/
-type VoteType int
-
 // ChatContentType 聊天内容类型
 /*
 ENUM(
-md   // Markdown
+md // Markdown
 html // HTML
 )
 */
@@ -89,9 +50,9 @@ type ChatContentType string
 // ChatMessageType 聊天消息查询类型
 /*
 ENUM(
-context // 上下文
-before  // 之前
-after   // 之后
+context=0 // 上下文
+before=1 // 之前
+after=2 // 之后
 )
 */
 type ChatMessageType int

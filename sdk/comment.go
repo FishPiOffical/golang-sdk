@@ -1,132 +1,273 @@
 package sdk
 
-import "fishpi-golang-sdk/types"
-
-// CommentPostRequest 发布评论请求（别名）
-type CommentPostRequest = types.PostCommentRequest
-
-// CommentPostResponse 发布评论响应
-type CommentPostResponse struct {
-	Code      int    `json:"code"`
-	Msg       string `json:"msg"`
-	CommentId string `json:"commentId"`
-}
-
-// CommentUpdateRequest 更新评论请求（别名）
-type CommentUpdateRequest = types.UpdateCommentRequest
-
-// CommentUpdateResponse 更新评论响应
-type CommentUpdateResponse struct {
-	Code           int    `json:"code"`
-	Msg            string `json:"msg"`
-	CommentContent string `json:"commentContent"`
-}
-
-// CommentVoteRequest 评论投票请求
-type CommentVoteRequest struct {
-	DataId string `json:"dataId"`
-}
-
-// CommentVoteResponse 评论投票响应
-type CommentVoteResponse struct {
-	Code int    `json:"code"`
-	Msg  string `json:"msg"`
-	Type int    `json:"type"` // -1:未投票 0:点赞 1:点踩
-}
+import (
+	"fishpi-golang-sdk/types"
+	"fmt"
+)
 
 // PostComment 发布评论
-func (c *Client) PostComment(req *CommentPostRequest) (*CommentPostResponse, error) {
-	res, err := c.client.R().
+func (s *FishPiSDK) PostComment(req *types.PostCommentRequest) error {
+	if req.ArticleId == "" {
+		return fmt.Errorf("articleId is required")
+	}
+	if req.CommentContent == "" {
+		return fmt.Errorf("comment content is required")
+	}
+
+	var resp types.SimpleResponse
+	_, err := s.client.R().
 		SetBodyJsonMarshal(req).
+		SetSuccessResult(&resp).
 		Post("/comment")
+
 	if err != nil {
-		return nil, err
+		return fmt.Errorf("failed to post comment: %w", err)
 	}
 
-	var response CommentPostResponse
-	if err = res.Unmarshal(&response); err != nil {
-		return nil, err
+	if resp.Code != 0 {
+		return fmt.Errorf("post comment failed: %s", resp.Msg)
 	}
 
-	return &response, nil
+	return nil
 }
 
-// PutComment 更新评论
-func (c *Client) PutComment(commentId string, req *CommentUpdateRequest) (*CommentUpdateResponse, error) {
-	res, err := c.client.R().
+// UpdateComment 更新评论
+func (s *FishPiSDK) UpdateComment(commentId string, req *types.UpdateCommentRequest) error {
+	if commentId == "" {
+		return fmt.Errorf("commentId is required")
+	}
+	if req.CommentContent == "" {
+		return fmt.Errorf("comment content is required")
+	}
+
+	var resp types.SimpleResponse
+	_, err := s.client.R().
 		SetBodyJsonMarshal(req).
+		SetSuccessResult(&resp).
 		Put("/comment/" + commentId)
+
 	if err != nil {
-		return nil, err
+		return fmt.Errorf("failed to update comment: %w", err)
 	}
 
-	var response CommentUpdateResponse
-	if err = res.Unmarshal(&response); err != nil {
-		return nil, err
+	if resp.Code != 0 {
+		return fmt.Errorf("update comment failed: %s", resp.Msg)
 	}
 
-	return &response, nil
+	return nil
 }
 
-// VoteUpComment 评论点赞
-func (c *Client) VoteUpComment(commentId string) (*CommentVoteResponse, error) {
-	req := &CommentVoteRequest{
-		DataId: commentId,
+// VoteComment 评论投票
+func (s *FishPiSDK) VoteComment(commentId string, voteType string) (types.VoteType, error) {
+	if commentId == "" {
+		return types.VoteTypeUnvoted, fmt.Errorf("commentId is required")
+	}
+	if voteType != "up" && voteType != "down" {
+		return types.VoteTypeUnvoted, fmt.Errorf("voteType must be 'up' or 'down'")
 	}
 
-	res, err := c.client.R().
-		SetBodyJsonMarshal(req).
-		Post("/vote/up/comment")
+	url := fmt.Sprintf("/vote/%s/comment", voteType)
+
+	var resp types.ApiResponse[map[string]types.VoteType]
+	_, err := s.client.R().
+		SetBodyJsonMarshal(map[string]string{
+			"dataId": commentId,
+		}).
+		SetSuccessResult(&resp).
+		Post(url)
+
 	if err != nil {
-		return nil, err
+		return types.VoteTypeUnvoted, fmt.Errorf("failed to vote comment: %w", err)
 	}
 
-	var response CommentVoteResponse
-	if err = res.Unmarshal(&response); err != nil {
-		return nil, err
+	if resp.Code != 0 {
+		return types.VoteTypeUnvoted, fmt.Errorf("vote comment failed: %s", resp.Msg)
 	}
 
-	return &response, nil
-}
-
-// VoteDownComment 评论点踩
-func (c *Client) VoteDownComment(commentId string) (*CommentVoteResponse, error) {
-	req := &CommentVoteRequest{
-		DataId: commentId,
+	if resp.Data == nil {
+		return types.VoteTypeUnvoted, fmt.Errorf("vote response data is nil")
 	}
 
-	res, err := c.client.R().
-		SetBodyJsonMarshal(req).
-		Post("/vote/down/comment")
-	if err != nil {
-		return nil, err
+	voteResult, ok := resp.Data["type"]
+	if !ok {
+		return types.VoteTypeUnvoted, fmt.Errorf("vote type not found in response")
 	}
 
-	var response CommentVoteResponse
-	if err = res.Unmarshal(&response); err != nil {
-		return nil, err
-	}
-
-	return &response, nil
+	return voteResult, nil
 }
 
 // ThankComment 感谢评论
-func (c *Client) ThankComment(commentId string) (*SimpleResponse, error) {
-	req := &CommentVoteRequest{
-		DataId: commentId,
+func (s *FishPiSDK) ThankComment(commentId string) error {
+	if commentId == "" {
+		return fmt.Errorf("commentId is required")
 	}
 
-	res, err := c.client.R().
-		SetBodyJsonMarshal(req).
+	var resp types.SimpleResponse
+	_, err := s.client.R().
+		SetBodyJsonMarshal(map[string]string{
+			"commentId": commentId,
+		}).
+		SetSuccessResult(&resp).
 		Post("/comment/thank")
+
 	if err != nil {
-		return nil, err
+		return fmt.Errorf("failed to thank comment: %w", err)
 	}
 
-	var response SimpleResponse
-	if err = res.Unmarshal(&response); err != nil {
-		return nil, err
+	if resp.Code != 0 {
+		return fmt.Errorf("thank comment failed: %s", resp.Msg)
 	}
 
-	return &response, nil
+	return nil
+}
+
+// RemoveComment 删除评论
+func (s *FishPiSDK) RemoveComment(commentId string) error {
+	if commentId == "" {
+		return fmt.Errorf("commentId is required")
+	}
+
+	var resp types.SimpleResponse
+	_, err := s.client.R().
+		SetBodyJsonMarshal(map[string]string{
+			"apiKey": s.apiKey,
+		}).
+		SetSuccessResult(&resp).
+		Post("/comment/" + commentId + "/remove")
+
+	if err != nil {
+		return fmt.Errorf("failed to remove comment: %w", err)
+	}
+
+	if resp.Code != 0 {
+		return fmt.Errorf("remove comment failed: %s", resp.Msg)
+	}
+
+	return nil
+}
+
+// 旧版Client的Comment方法
+func (c *Client) PostComment(req *types.PostCommentRequest) error {
+	if req == nil {
+		return fmt.Errorf("request is required")
+	}
+	if req.ArticleId == "" {
+		return fmt.Errorf("articleId is required")
+	}
+	if req.CommentContent == "" {
+		return fmt.Errorf("comment content is required")
+	}
+
+	var resp types.SimpleResponse
+	_, err := c.client.R().
+		SetBodyJsonMarshal(req).
+		SetSuccessResult(&resp).
+		Post("/comment")
+
+	if err != nil {
+		return fmt.Errorf("failed to post comment: %w", err)
+	}
+
+	if resp.Code != 0 {
+		return fmt.Errorf("post comment failed: %s", resp.Msg)
+	}
+
+	return nil
+}
+
+func (c *Client) UpdateComment(commentId string, req *types.UpdateCommentRequest) error {
+	if commentId == "" {
+		return fmt.Errorf("commentId is required")
+	}
+	if req == nil || req.CommentContent == "" {
+		return fmt.Errorf("comment content is required")
+	}
+
+	var resp types.SimpleResponse
+	_, err := c.client.R().
+		SetBodyJsonMarshal(req).
+		SetSuccessResult(&resp).
+		Put("/comment/" + commentId)
+
+	if err != nil {
+		return fmt.Errorf("failed to update comment: %w", err)
+	}
+
+	if resp.Code != 0 {
+		return fmt.Errorf("update comment failed: %s", resp.Msg)
+	}
+
+	return nil
+}
+
+func (c *Client) PostCommentVoteUp(commentId string) error {
+	if commentId == "" {
+		return fmt.Errorf("commentId is required")
+	}
+
+	var resp types.SimpleResponse
+	_, err := c.client.R().
+		SetBodyJsonMarshal(map[string]string{
+			"dataId": commentId,
+		}).
+		SetSuccessResult(&resp).
+		Post("/vote/up/comment")
+
+	if err != nil {
+		return fmt.Errorf("failed to vote up comment: %w", err)
+	}
+
+	if resp.Code != 0 {
+		return fmt.Errorf("vote up comment failed: %s", resp.Msg)
+	}
+
+	return nil
+}
+
+func (c *Client) PostCommentVoteDown(commentId string) error {
+	if commentId == "" {
+		return fmt.Errorf("commentId is required")
+	}
+
+	var resp types.SimpleResponse
+	_, err := c.client.R().
+		SetBodyJsonMarshal(map[string]string{
+			"dataId": commentId,
+		}).
+		SetSuccessResult(&resp).
+		Post("/vote/down/comment")
+
+	if err != nil {
+		return fmt.Errorf("failed to vote down comment: %w", err)
+	}
+
+	if resp.Code != 0 {
+		return fmt.Errorf("vote down comment failed: %s", resp.Msg)
+	}
+
+	return nil
+}
+
+func (c *Client) ThankComment(commentId string) error {
+	if commentId == "" {
+		return fmt.Errorf("commentId is required")
+	}
+
+	var resp types.SimpleResponse
+	_, err := c.client.R().
+		SetBodyJsonMarshal(map[string]string{
+			"commentId": commentId,
+		}).
+		SetSuccessResult(&resp).
+		Post("/comment/thank")
+
+	if err != nil {
+		return fmt.Errorf("failed to thank comment: %w", err)
+	}
+
+	if resp.Code != 0 {
+		return fmt.Errorf("thank comment failed: %s", resp.Msg)
+	}
+
+	return nil
 }

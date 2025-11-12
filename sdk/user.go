@@ -120,7 +120,7 @@ func (c *Client) GetYesterdayLivenessReward() (*YesterdayLivenessRewardResponse,
 }
 
 // PostPointTransfer 转账
-func (c *Client) PostPointTransfer(req *TransferRequest) (*SimpleResponse, error) {
+func (c *Client) PostPointTransfer(req *types.TransferRequest) (*types.SimpleResponse, error) {
 	res, err := c.client.R().
 		SetBodyJsonMarshal(req).
 		Post("/point/transfer")
@@ -128,7 +128,7 @@ func (c *Client) PostPointTransfer(req *TransferRequest) (*SimpleResponse, error
 		return nil, err
 	}
 
-	var response SimpleResponse
+	var response types.SimpleResponse
 	if err = res.Unmarshal(&response); err != nil {
 		return nil, err
 	}
