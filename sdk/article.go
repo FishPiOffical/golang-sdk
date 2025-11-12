@@ -245,3 +245,50 @@ func (s *FishPiSDK) WatchArticle(articleId string, watch bool) error {
 
 	return nil
 }
+
+// FollowArticle 收藏/取消收藏文章
+func (s *FishPiSDK) FollowArticle(followingId string) error {
+	if followingId == "" {
+		return fmt.Errorf("followingId is required")
+	}
+
+	var resp types.SimpleResponse
+	_, err := s.client.R().
+		SetBodyJsonMarshal(map[string]string{
+			"followingId": followingId,
+		}).
+		SetSuccessResult(&resp).
+		Post("/follow/article")
+
+	if err != nil {
+		return fmt.Errorf("failed to follow article: %w", err)
+	}
+
+	if resp.Code != 0 {
+		return fmt.Errorf("follow article failed: %s", resp.Msg)
+	}
+
+	return nil
+}
+
+// RewardArticle 打赏文章
+func (s *FishPiSDK) RewardArticle(articleId string) error {
+	if articleId == "" {
+		return fmt.Errorf("articleId is required")
+	}
+
+	var resp types.SimpleResponse
+	_, err := s.client.R().
+		SetSuccessResult(&resp).
+		Post("/article/reward?articleId=" + articleId)
+
+	if err != nil {
+		return fmt.Errorf("failed to reward article: %w", err)
+	}
+
+	if resp.Code != 0 {
+		return fmt.Errorf("reward article failed: %s", resp.Msg)
+	}
+
+	return nil
+}

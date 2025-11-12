@@ -7,9 +7,9 @@ type UserIP struct {
 	IP string `json:"ip"`
 }
 
-// UserBag 用户背包
+// UserBag 用户背包信息
 type UserBag struct {
-	Items []string `json:"items"`
+	Items map[string]int `json:"items"` // 物品名称 -> 数量
 }
 
 // MetalBase 勋章基础信息
