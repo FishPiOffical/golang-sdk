@@ -1,32 +1,5 @@
 package types
 
-// ClientType 客户端类型
-type ClientType string
-
-const (
-	ClientTypeWeb         ClientType = "Web"
-	ClientTypePC          ClientType = "PC"
-	ClientTypeMobile      ClientType = "Mobile"
-	ClientTypeWindows     ClientType = "Windows"
-	ClientTypeMacOS       ClientType = "macOS"
-	ClientTypeLinux       ClientType = "Linux"
-	ClientTypeIOS         ClientType = "iOS"
-	ClientTypeAndroid     ClientType = "Android"
-	ClientTypeIDEA        ClientType = "IDEA"
-	ClientTypeChrome      ClientType = "Chrome"
-	ClientTypeEdge        ClientType = "Edge"
-	ClientTypeVSCode      ClientType = "VSCode"
-	ClientTypePython      ClientType = "Python"
-	ClientTypeGolang      ClientType = "Golang"
-	ClientTypeRust        ClientType = "Rust"
-	ClientTypeHarmony     ClientType = "Harmony"
-	ClientTypeCLI         ClientType = "CLI"
-	ClientTypeBird        ClientType = "Bird"
-	ClientTypeIceNet      ClientType = "IceNet"
-	ClientTypeElvesOnline ClientType = "ElvesOnline"
-	ClientTypeOther       ClientType = "Other"
-)
-
 // ChatRoomSource 聊天室消息来源
 type ChatRoomSource struct {
 	Client  ClientType `json:"client"`

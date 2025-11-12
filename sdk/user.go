@@ -2,56 +2,14 @@ package sdk
 
 import "fishpi-golang-sdk/types"
 
-// UserInfoResponse 用户信息响应
-type UserInfoResponse struct {
-	Code int            `json:"code"`
-	Msg  string         `json:"msg"`
-	Data types.UserInfo `json:"data"`
-}
-
-// UserLivenessResponse 用户活跃度响应
-type UserLivenessResponse struct {
-	Code     int    `json:"code"`
-	Msg      string `json:"msg"`
-	Liveness int    `json:"liveness"`
-}
-
-// UserCheckedInResponse 用户签到状态响应
-type UserCheckedInResponse struct {
-	Code      int    `json:"code"`
-	Msg       string `json:"msg"`
-	CheckedIn bool   `json:"checkedIn"`
-}
-
-// IsCollectedLivenessResponse 是否已领取昨日活跃奖励响应
-type IsCollectedLivenessResponse struct {
-	Code                               int    `json:"code"`
-	Msg                                string `json:"msg"`
-	IsCollectedYesterdayLivenessReward bool   `json:"isCollectedYesterdayLivenessReward"`
-}
-
-// YesterdayLivenessRewardResponse 领取昨日活跃奖励响应
-type YesterdayLivenessRewardResponse struct {
-	Code int    `json:"code"`
-	Msg  string `json:"msg"`
-	Sum  int    `json:"sum"`
-}
-
-// UserEmotionsResponse 用户常用表情响应
-type UserEmotionsResponse struct {
-	Code int                `json:"code"`
-	Msg  string             `json:"msg"`
-	Data map[string]float64 `json:"data"`
-}
-
 // GetUserInfo 获取当前用户信息
-func (s *FishPiSDK) GetUserInfo() (*UserInfoResponse, error) {
+func (s *FishPiSDK) GetUserInfo() (*types.UserInfoResponse, error) {
 	res, err := s.client.R().Get("/api/user")
 	if err != nil {
 		return nil, err
 	}
 
-	var response UserInfoResponse
+	var response types.UserInfoResponse
 	if err = res.Unmarshal(&response); err != nil {
 		return nil, err
 	}
@@ -60,13 +18,13 @@ func (s *FishPiSDK) GetUserInfo() (*UserInfoResponse, error) {
 }
 
 // GetUserLiveness 获取当前用户活跃度
-func (s *FishPiSDK) GetUserLiveness() (*UserLivenessResponse, error) {
+func (s *FishPiSDK) GetUserLiveness() (*types.UserLivenessResponse, error) {
 	res, err := s.client.R().Get("/user/liveness")
 	if err != nil {
 		return nil, err
 	}
 
-	var response UserLivenessResponse
+	var response types.UserLivenessResponse
 	if err = res.Unmarshal(&response); err != nil {
 		return nil, err
 	}
@@ -75,13 +33,13 @@ func (s *FishPiSDK) GetUserLiveness() (*UserLivenessResponse, error) {
 }
 
 // GetUserCheckedIn 检查是否已签到
-func (s *FishPiSDK) GetUserCheckedIn() (*UserCheckedInResponse, error) {
+func (s *FishPiSDK) GetUserCheckedIn() (*types.UserCheckedInResponse, error) {
 	res, err := s.client.R().Get("/user/checkedIn")
 	if err != nil {
 		return nil, err
 	}
 
-	var response UserCheckedInResponse
+	var response types.UserCheckedInResponse
 	if err = res.Unmarshal(&response); err != nil {
 		return nil, err
 	}
@@ -90,13 +48,13 @@ func (s *FishPiSDK) GetUserCheckedIn() (*UserCheckedInResponse, error) {
 }
 
 // GetIsCollectedLiveness 检查是否已领取昨日活跃奖励
-func (s *FishPiSDK) GetIsCollectedLiveness() (*IsCollectedLivenessResponse, error) {
+func (s *FishPiSDK) GetIsCollectedLiveness() (*types.IsCollectedLivenessResponse, error) {
 	res, err := s.client.R().Get("/api/activity/is-collected-liveness")
 	if err != nil {
 		return nil, err
 	}
 
-	var response IsCollectedLivenessResponse
+	var response types.IsCollectedLivenessResponse
 	if err = res.Unmarshal(&response); err != nil {
 		return nil, err
 	}
@@ -105,13 +63,13 @@ func (s *FishPiSDK) GetIsCollectedLiveness() (*IsCollectedLivenessResponse, erro
 }
 
 // GetYesterdayLivenessReward 领取昨日活跃度奖励
-func (s *FishPiSDK) GetYesterdayLivenessReward() (*YesterdayLivenessRewardResponse, error) {
+func (s *FishPiSDK) GetYesterdayLivenessReward() (*types.YesterdayLivenessRewardResponse, error) {
 	res, err := s.client.R().Get("/activity/yesterday-liveness-reward-api")
 	if err != nil {
 		return nil, err
 	}
 
-	var response YesterdayLivenessRewardResponse
+	var response types.YesterdayLivenessRewardResponse
 	if err = res.Unmarshal(&response); err != nil {
 		return nil, err
 	}
@@ -137,13 +95,13 @@ func (s *FishPiSDK) PostPointTransfer(req *types.TransferRequest) (*types.Simple
 }
 
 // GetUserEmotions 获取用户常用表情
-func (s *FishPiSDK) GetUserEmotions() (*UserEmotionsResponse, error) {
+func (s *FishPiSDK) GetUserEmotions() (*types.UserEmotionsResponse, error) {
 	res, err := s.client.R().Get("/users/emotions")
 	if err != nil {
 		return nil, err
 	}
 
-	var response UserEmotionsResponse
+	var response types.UserEmotionsResponse
 	if err = res.Unmarshal(&response); err != nil {
 		return nil, err
 	}

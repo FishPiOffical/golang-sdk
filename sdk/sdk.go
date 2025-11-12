@@ -176,16 +176,8 @@ func (s *FishPiSDK) GetCaptcha() (http.Header, *bytes.Buffer, error) {
 	return res.Header, body, nil
 }
 
-// PostRegisterRequest 用户注册请求
-type PostRegisterRequest struct {
-	UserName   string `json:"userName"`
-	UserPhone  string `json:"userPhone"`
-	InviteCode string `json:"invitecode"`
-	Captcha    string `json:"captcha"`
-}
-
 // PostRegister 用户注册
-func (s *FishPiSDK) PostRegister(req *PostRegisterRequest) error {
+func (s *FishPiSDK) PostRegister(req *types.PostRegisterRequest) error {
 	if req == nil {
 		return fmt.Errorf("request is required")
 	}

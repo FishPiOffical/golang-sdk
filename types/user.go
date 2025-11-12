@@ -2,14 +2,6 @@ package types
 
 import "time"
 
-// UserAppRole 用户应用角色
-type UserAppRole int
-
-const (
-	UserAppRoleHack UserAppRole = iota
-	UserAppRolePainter
-)
-
 // PostApiGetKeyRequest 获取ApiKey请求
 type PostApiGetKeyRequest struct {
 	NameOrEmail  string `json:"nameOrEmail"`
@@ -77,4 +69,54 @@ type CheckinResponse struct {
 // LivenessReward 活跃度奖励信息
 type LivenessReward struct {
 	Sum int `json:"sum"`
+}
+
+// UserInfoResponse 用户信息响应
+type UserInfoResponse struct {
+	Code int      `json:"code"`
+	Msg  string   `json:"msg"`
+	Data UserInfo `json:"data"`
+}
+
+// UserLivenessResponse 用户活跃度响应
+type UserLivenessResponse struct {
+	Code     int    `json:"code"`
+	Msg      string `json:"msg"`
+	Liveness int    `json:"liveness"`
+}
+
+// UserCheckedInResponse 用户签到状态响应
+type UserCheckedInResponse struct {
+	Code      int    `json:"code"`
+	Msg       string `json:"msg"`
+	CheckedIn bool   `json:"checkedIn"`
+}
+
+// IsCollectedLivenessResponse 是否已领取昨日活跃奖励响应
+type IsCollectedLivenessResponse struct {
+	Code                               int    `json:"code"`
+	Msg                                string `json:"msg"`
+	IsCollectedYesterdayLivenessReward bool   `json:"isCollectedYesterdayLivenessReward"`
+}
+
+// YesterdayLivenessRewardResponse 领取昨日活跃奖励响应
+type YesterdayLivenessRewardResponse struct {
+	Code int    `json:"code"`
+	Msg  string `json:"msg"`
+	Sum  int    `json:"sum"`
+}
+
+// UserEmotionsResponse 用户常用表情响应
+type UserEmotionsResponse struct {
+	Code int                `json:"code"`
+	Msg  string             `json:"msg"`
+	Data map[string]float64 `json:"data"`
+}
+
+// PostRegisterRequest 用户注册请求
+type PostRegisterRequest struct {
+	UserName   string `json:"userName"`
+	UserPhone  string `json:"userPhone"`
+	InviteCode string `json:"invitecode"`
+	Captcha    string `json:"captcha"`
 }
