@@ -1,4 +1,4 @@
-package fishPiSdk
+package sdk
 
 // ConfigProvider 配置提供者接口
 type ConfigProvider interface {

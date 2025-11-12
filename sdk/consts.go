@@ -1,4 +1,4 @@
-package fishPiSdk
+package sdk
 
 const (
 	VERSION = "0.0.1"

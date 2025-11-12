@@ -33,57 +33,6 @@ type ChatRoomSource struct {
 	Version string     `json:"version"`
 }
 
-// ChatContentType 历史消息内容类型
-type ChatContentType string
-
-const (
-	ChatContentTypeMarkdown ChatContentType = "md"
-	ChatContentTypeHTML     ChatContentType = "html"
-)
-
-// ChatMessageType 历史消息查询类型
-type ChatMessageType int
-
-const (
-	ChatMessageTypeContext ChatMessageType = 0 // 前后消息
-	ChatMessageTypeBefore  ChatMessageType = 1 // 前面的消息
-	ChatMessageTypeAfter   ChatMessageType = 2 // 后面的消息
-)
-
-// ChatroomMsgType 聊天室消息类型
-type ChatroomMsgType string
-
-const (
-	ChatroomMsgTypeOnline          ChatroomMsgType = "online"
-	ChatroomMsgTypeDiscussChanged  ChatroomMsgType = "discussChanged"
-	ChatroomMsgTypeRevoke          ChatroomMsgType = "revoke"
-	ChatroomMsgTypeMsg             ChatroomMsgType = "msg"
-	ChatroomMsgTypeRedPacket       ChatroomMsgType = "redPacket"
-	ChatroomMsgTypeRedPacketStatus ChatroomMsgType = "redPacketStatus"
-	ChatroomMsgTypeCustomMessage   ChatroomMsgType = "customMessage"
-	ChatroomMsgTypeBarrager        ChatroomMsgType = "barrager"
-)
-
-// ChatroomRedPacketType 聊天室红包类型
-type ChatroomRedPacketType string
-
-const (
-	ChatroomRedPacketTypeRandom            ChatroomRedPacketType = "random"
-	ChatroomRedPacketTypeAverage           ChatroomRedPacketType = "average"
-	ChatroomRedPacketTypeSpecify           ChatroomRedPacketType = "specify"
-	ChatroomRedPacketTypeHeartbeat         ChatroomRedPacketType = "heartbeat"
-	ChatroomRedPacketTypeRockPaperScissors ChatroomRedPacketType = "rockPaperScissors"
-)
-
-// GestureType 猜拳类型
-type GestureType int
-
-const (
-	GestureTypeRock     GestureType = 0 // 石头
-	GestureTypeScissors GestureType = 1 // 剪刀
-	GestureTypePaper    GestureType = 2 // 布
-)
-
 // ChatroomNodeInfo 聊天室节点信息
 type ChatroomNodeInfo struct {
 	Name   string `json:"name"`

@@ -8,7 +8,7 @@ import (
 	"syscall"
 	"time"
 
-	sdk "fishpi-golang-sdk"
+	sdk "fishpi-golang-sdk/sdk"
 	"fishpi-golang-sdk/types"
 )
 

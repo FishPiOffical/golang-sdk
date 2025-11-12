@@ -1,4 +1,4 @@
-package fishPiSdk
+package sdk
 
 type Config struct {
 	BaseUrl string `json:"base_url,omitempty" yaml:"baseUrl,omitempty"`

@@ -1,18 +1,5 @@
 package types
 
-// NotificationType 通知类型
-type NotificationType string
-
-const (
-	NotificationTypePoint       NotificationType = "point"
-	NotificationTypeCommented   NotificationType = "commented"
-	NotificationTypeReply       NotificationType = "reply"
-	NotificationTypeAt          NotificationType = "at"
-	NotificationTypeFollowing   NotificationType = "following"
-	NotificationTypeBroadcast   NotificationType = "broadcast"
-	NotificationTypeSysAnnounce NotificationType = "sys-announce"
-)
-
 // DataType 数据类型
 type DataType int
 

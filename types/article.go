@@ -62,6 +62,17 @@ type ArticleInfo struct {
 	ArticleStick                int64  `json:"articleStick"`
 	ArticleQnAOfferPoint        int    `json:"articleQnAOfferPoint"`
 	Offered                     bool   `json:"offered"`
+	ArticlePreviewContent       string `json:"articlePreviewContent"`
+	ArticleToC                  string `json:"articleToC"`
+	ArticleAudioURL             string `json:"articleAudioURL"`
+}
+
+// ArticleDetail 文章详情（包含评论等）
+type ArticleDetail struct {
+	ArticleInfo
+	ArticleComments     []CommentInfo `json:"articleComments"`
+	ArticleNiceComments []CommentInfo `json:"articleNiceComments"`
+	Pagination          Pagination    `json:"pagination"`
 }
 
 // ArticleList 文章列表
@@ -73,4 +84,9 @@ type ArticleList struct {
 // ArticleReward 文章打赏
 type ArticleReward struct {
 	ArticleId string `json:"articleId"`
+}
+
+// ArticleHeat 文章热度消息
+type ArticleHeat struct {
+	ArticleHeat string `json:"articleHeat"`
 }

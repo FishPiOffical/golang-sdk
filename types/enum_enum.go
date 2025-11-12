@@ -4,12 +4,290 @@
 // Build Date:
 // Built By:
 
-package fishPiSdk
+package types
 
 import (
 	"fmt"
 	"strings"
 )
+
+const (
+	// ArticleListTypeHot is a ArticleListType of type hot.
+	ArticleListTypeHot ArticleListType = "hot"
+	// ArticleListTypeGood is a ArticleListType of type good.
+	ArticleListTypeGood ArticleListType = "good"
+	// ArticleListTypePerfect is a ArticleListType of type perfect.
+	ArticleListTypePerfect ArticleListType = "perfect"
+	// ArticleListTypeReply is a ArticleListType of type reply.
+	ArticleListTypeReply ArticleListType = "reply"
+)
+
+var ErrInvalidArticleListType = fmt.Errorf("not a valid ArticleListType, try [%s]", strings.Join(_ArticleListTypeNames, ", "))
+
+var _ArticleListTypeNames = []string{
+	string(ArticleListTypeHot),
+	string(ArticleListTypeGood),
+	string(ArticleListTypePerfect),
+	string(ArticleListTypeReply),
+}
+
+// ArticleListTypeNames returns a list of possible string values of ArticleListType.
+func ArticleListTypeNames() []string {
+	tmp := make([]string, len(_ArticleListTypeNames))
+	copy(tmp, _ArticleListTypeNames)
+	return tmp
+}
+
+// ArticleListTypeValues returns a list of the values for ArticleListType
+func ArticleListTypeValues() []ArticleListType {
+	return []ArticleListType{
+		ArticleListTypeHot,
+		ArticleListTypeGood,
+		ArticleListTypePerfect,
+		ArticleListTypeReply,
+	}
+}
+
+// String implements the Stringer interface.
+func (x ArticleListType) String() string {
+	return string(x)
+}
+
+// IsValid provides a quick way to determine if the typed value is
+// part of the allowed enumerated values
+func (x ArticleListType) IsValid() bool {
+	_, err := ParseArticleListType(string(x))
+	return err == nil
+}
+
+var _ArticleListTypeValue = map[string]ArticleListType{
+	"hot":     ArticleListTypeHot,
+	"good":    ArticleListTypeGood,
+	"perfect": ArticleListTypePerfect,
+	"reply":   ArticleListTypeReply,
+}
+
+// ParseArticleListType attempts to convert a string to a ArticleListType.
+func ParseArticleListType(name string) (ArticleListType, error) {
+	if x, ok := _ArticleListTypeValue[name]; ok {
+		return x, nil
+	}
+	return ArticleListType(""), fmt.Errorf("%s is %w", name, ErrInvalidArticleListType)
+}
+
+// MustParseArticleListType converts a string to a ArticleListType, and panics if is not valid.
+func MustParseArticleListType(name string) ArticleListType {
+	val, err := ParseArticleListType(name)
+	if err != nil {
+		panic(err)
+	}
+	return val
+}
+
+func (x ArticleListType) Ptr() *ArticleListType {
+	return &x
+}
+
+// MarshalText implements the text marshaller method.
+func (x ArticleListType) MarshalText() ([]byte, error) {
+	return []byte(string(x)), nil
+}
+
+// UnmarshalText implements the text unmarshaller method.
+func (x *ArticleListType) UnmarshalText(text []byte) error {
+	tmp, err := ParseArticleListType(string(text))
+	if err != nil {
+		return err
+	}
+	*x = tmp
+	return nil
+}
+
+const (
+	// ChatContentTypeMd is a ChatContentType of type md.
+	// Markdown
+	ChatContentTypeMd ChatContentType = "md"
+	// ChatContentTypeHtml is a ChatContentType of type html.
+	// HTML
+	ChatContentTypeHtml ChatContentType = "html"
+)
+
+var ErrInvalidChatContentType = fmt.Errorf("not a valid ChatContentType, try [%s]", strings.Join(_ChatContentTypeNames, ", "))
+
+var _ChatContentTypeNames = []string{
+	string(ChatContentTypeMd),
+	string(ChatContentTypeHtml),
+}
+
+// ChatContentTypeNames returns a list of possible string values of ChatContentType.
+func ChatContentTypeNames() []string {
+	tmp := make([]string, len(_ChatContentTypeNames))
+	copy(tmp, _ChatContentTypeNames)
+	return tmp
+}
+
+// ChatContentTypeValues returns a list of the values for ChatContentType
+func ChatContentTypeValues() []ChatContentType {
+	return []ChatContentType{
+		ChatContentTypeMd,
+		ChatContentTypeHtml,
+	}
+}
+
+// String implements the Stringer interface.
+func (x ChatContentType) String() string {
+	return string(x)
+}
+
+// IsValid provides a quick way to determine if the typed value is
+// part of the allowed enumerated values
+func (x ChatContentType) IsValid() bool {
+	_, err := ParseChatContentType(string(x))
+	return err == nil
+}
+
+var _ChatContentTypeValue = map[string]ChatContentType{
+	"md":   ChatContentTypeMd,
+	"html": ChatContentTypeHtml,
+}
+
+// ParseChatContentType attempts to convert a string to a ChatContentType.
+func ParseChatContentType(name string) (ChatContentType, error) {
+	if x, ok := _ChatContentTypeValue[name]; ok {
+		return x, nil
+	}
+	return ChatContentType(""), fmt.Errorf("%s is %w", name, ErrInvalidChatContentType)
+}
+
+// MustParseChatContentType converts a string to a ChatContentType, and panics if is not valid.
+func MustParseChatContentType(name string) ChatContentType {
+	val, err := ParseChatContentType(name)
+	if err != nil {
+		panic(err)
+	}
+	return val
+}
+
+func (x ChatContentType) Ptr() *ChatContentType {
+	return &x
+}
+
+// MarshalText implements the text marshaller method.
+func (x ChatContentType) MarshalText() ([]byte, error) {
+	return []byte(string(x)), nil
+}
+
+// UnmarshalText implements the text unmarshaller method.
+func (x *ChatContentType) UnmarshalText(text []byte) error {
+	tmp, err := ParseChatContentType(string(text))
+	if err != nil {
+		return err
+	}
+	*x = tmp
+	return nil
+}
+
+const (
+	// ChatMessageTypeContext is a ChatMessageType of type Context.
+	// 上下文
+	ChatMessageTypeContext ChatMessageType = iota
+	// ChatMessageTypeBefore is a ChatMessageType of type Before.
+	// 之前
+	ChatMessageTypeBefore
+	// ChatMessageTypeAfter is a ChatMessageType of type After.
+	// 之后
+	ChatMessageTypeAfter
+)
+
+var ErrInvalidChatMessageType = fmt.Errorf("not a valid ChatMessageType, try [%s]", strings.Join(_ChatMessageTypeNames, ", "))
+
+const _ChatMessageTypeName = "contextbeforeafter"
+
+var _ChatMessageTypeNames = []string{
+	_ChatMessageTypeName[0:7],
+	_ChatMessageTypeName[7:13],
+	_ChatMessageTypeName[13:18],
+}
+
+// ChatMessageTypeNames returns a list of possible string values of ChatMessageType.
+func ChatMessageTypeNames() []string {
+	tmp := make([]string, len(_ChatMessageTypeNames))
+	copy(tmp, _ChatMessageTypeNames)
+	return tmp
+}
+
+// ChatMessageTypeValues returns a list of the values for ChatMessageType
+func ChatMessageTypeValues() []ChatMessageType {
+	return []ChatMessageType{
+		ChatMessageTypeContext,
+		ChatMessageTypeBefore,
+		ChatMessageTypeAfter,
+	}
+}
+
+var _ChatMessageTypeMap = map[ChatMessageType]string{
+	ChatMessageTypeContext: _ChatMessageTypeName[0:7],
+	ChatMessageTypeBefore:  _ChatMessageTypeName[7:13],
+	ChatMessageTypeAfter:   _ChatMessageTypeName[13:18],
+}
+
+// String implements the Stringer interface.
+func (x ChatMessageType) String() string {
+	if str, ok := _ChatMessageTypeMap[x]; ok {
+		return str
+	}
+	return fmt.Sprintf("ChatMessageType(%d)", x)
+}
+
+// IsValid provides a quick way to determine if the typed value is
+// part of the allowed enumerated values
+func (x ChatMessageType) IsValid() bool {
+	_, ok := _ChatMessageTypeMap[x]
+	return ok
+}
+
+var _ChatMessageTypeValue = map[string]ChatMessageType{
+	_ChatMessageTypeName[0:7]:   ChatMessageTypeContext,
+	_ChatMessageTypeName[7:13]:  ChatMessageTypeBefore,
+	_ChatMessageTypeName[13:18]: ChatMessageTypeAfter,
+}
+
+// ParseChatMessageType attempts to convert a string to a ChatMessageType.
+func ParseChatMessageType(name string) (ChatMessageType, error) {
+	if x, ok := _ChatMessageTypeValue[name]; ok {
+		return x, nil
+	}
+	return ChatMessageType(0), fmt.Errorf("%s is %w", name, ErrInvalidChatMessageType)
+}
+
+// MustParseChatMessageType converts a string to a ChatMessageType, and panics if is not valid.
+func MustParseChatMessageType(name string) ChatMessageType {
+	val, err := ParseChatMessageType(name)
+	if err != nil {
+		panic(err)
+	}
+	return val
+}
+
+func (x ChatMessageType) Ptr() *ChatMessageType {
+	return &x
+}
+
+// MarshalText implements the text marshaller method.
+func (x ChatMessageType) MarshalText() ([]byte, error) {
+	return []byte(x.String()), nil
+}
+
+// UnmarshalText implements the text unmarshaller method.
+func (x *ChatMessageType) UnmarshalText(text []byte) error {
+	name := string(text)
+	tmp, err := ParseChatMessageType(name)
+	if err != nil {
+		return err
+	}
+	*x = tmp
+	return nil
+}
 
 const (
 	// ChatroomMsgTypeOnline is a ChatroomMsgType of type online.
@@ -24,6 +302,9 @@ const (
 	// ChatroomMsgTypeMsg is a ChatroomMsgType of type msg.
 	// 聊天
 	ChatroomMsgTypeMsg ChatroomMsgType = "msg"
+	// ChatroomMsgTypeRedPacket is a ChatroomMsgType of type redPacket.
+	// 红包
+	ChatroomMsgTypeRedPacket ChatroomMsgType = "redPacket"
 	// ChatroomMsgTypeRedPacketStatus is a ChatroomMsgType of type redPacketStatus.
 	// 红包领取
 	ChatroomMsgTypeRedPacketStatus ChatroomMsgType = "redPacketStatus"
@@ -42,6 +323,7 @@ var _ChatroomMsgTypeNames = []string{
 	string(ChatroomMsgTypeDiscussChanged),
 	string(ChatroomMsgTypeRevoke),
 	string(ChatroomMsgTypeMsg),
+	string(ChatroomMsgTypeRedPacket),
 	string(ChatroomMsgTypeRedPacketStatus),
 	string(ChatroomMsgTypeCustomMessage),
 	string(ChatroomMsgTypeBarrager),
@@ -61,6 +343,7 @@ func ChatroomMsgTypeValues() []ChatroomMsgType {
 		ChatroomMsgTypeDiscussChanged,
 		ChatroomMsgTypeRevoke,
 		ChatroomMsgTypeMsg,
+		ChatroomMsgTypeRedPacket,
 		ChatroomMsgTypeRedPacketStatus,
 		ChatroomMsgTypeCustomMessage,
 		ChatroomMsgTypeBarrager,
@@ -84,6 +367,7 @@ var _ChatroomMsgTypeValue = map[string]ChatroomMsgType{
 	"discussChanged":  ChatroomMsgTypeDiscussChanged,
 	"revoke":          ChatroomMsgTypeRevoke,
 	"msg":             ChatroomMsgTypeMsg,
+	"redPacket":       ChatroomMsgTypeRedPacket,
 	"redPacketStatus": ChatroomMsgTypeRedPacketStatus,
 	"customMessage":   ChatroomMsgTypeCustomMessage,
 	"barrager":        ChatroomMsgTypeBarrager,
@@ -436,6 +720,101 @@ func (x NotificationType) MarshalText() ([]byte, error) {
 // UnmarshalText implements the text unmarshaller method.
 func (x *NotificationType) UnmarshalText(text []byte) error {
 	tmp, err := ParseNotificationType(string(text))
+	if err != nil {
+		return err
+	}
+	*x = tmp
+	return nil
+}
+
+const (
+	// VoteTypeUnVote is a VoteType of type UnVote.
+	// 未投票
+	VoteTypeUnVote VoteType = iota + -1
+	// VoteTypeVoted is a VoteType of type Voted.
+	// 点赞
+	VoteTypeVoted
+)
+
+var ErrInvalidVoteType = fmt.Errorf("not a valid VoteType, try [%s]", strings.Join(_VoteTypeNames, ", "))
+
+const _VoteTypeName = "unVotevoted"
+
+var _VoteTypeNames = []string{
+	_VoteTypeName[0:6],
+	_VoteTypeName[6:11],
+}
+
+// VoteTypeNames returns a list of possible string values of VoteType.
+func VoteTypeNames() []string {
+	tmp := make([]string, len(_VoteTypeNames))
+	copy(tmp, _VoteTypeNames)
+	return tmp
+}
+
+// VoteTypeValues returns a list of the values for VoteType
+func VoteTypeValues() []VoteType {
+	return []VoteType{
+		VoteTypeUnVote,
+		VoteTypeVoted,
+	}
+}
+
+var _VoteTypeMap = map[VoteType]string{
+	VoteTypeUnVote: _VoteTypeName[0:6],
+	VoteTypeVoted:  _VoteTypeName[6:11],
+}
+
+// String implements the Stringer interface.
+func (x VoteType) String() string {
+	if str, ok := _VoteTypeMap[x]; ok {
+		return str
+	}
+	return fmt.Sprintf("VoteType(%d)", x)
+}
+
+// IsValid provides a quick way to determine if the typed value is
+// part of the allowed enumerated values
+func (x VoteType) IsValid() bool {
+	_, ok := _VoteTypeMap[x]
+	return ok
+}
+
+var _VoteTypeValue = map[string]VoteType{
+	_VoteTypeName[0:6]:  VoteTypeUnVote,
+	_VoteTypeName[6:11]: VoteTypeVoted,
+}
+
+// ParseVoteType attempts to convert a string to a VoteType.
+func ParseVoteType(name string) (VoteType, error) {
+	if x, ok := _VoteTypeValue[name]; ok {
+		return x, nil
+	}
+	return VoteType(0), fmt.Errorf("%s is %w", name, ErrInvalidVoteType)
+}
+
+// MustParseVoteType converts a string to a VoteType, and panics if is not valid.
+func MustParseVoteType(name string) VoteType {
+	val, err := ParseVoteType(name)
+	if err != nil {
+		panic(err)
+	}
+	return val
+}
+
+func (x VoteType) Ptr() *VoteType {
+	return &x
+}
+
+// MarshalText implements the text marshaller method.
+func (x VoteType) MarshalText() ([]byte, error) {
+	return []byte(x.String()), nil
+}
+
+// UnmarshalText implements the text unmarshaller method.
+func (x *VoteType) UnmarshalText(text []byte) error {
+	name := string(text)
+	tmp, err := ParseVoteType(name)
 	if err != nil {
 		return err
 	}

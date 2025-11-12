@@ -1,5 +1,21 @@
 //go:generate go-enum --marshal --names --values --ptr --mustparse
-package fishPiSdk
+package types
+
+// ArticleListType 文章列表类型
+/*
+ENUM(
+// 最新
+// 热门
+hot
+// 精华
+good
+// 精选
+perfect
+// 回复
+reply
+)
+*/
+type ArticleListType string
 
 // NotificationType 通知类型
 /*
@@ -22,6 +38,7 @@ online // 在线
 discussChanged // 话题变更
 revoke // 撤回
 msg // 聊天
+redPacket // 红包
 redPacketStatus // 红包领取
 customMessage // 进入离开聊天室消息
 barrager // 弹幕
@@ -50,3 +67,31 @@ paper // 布
 )
 */
 type GestureType int
+
+// VoteType 投票类型
+/*
+ENUM(
+unVote = -1 // 未投票
+voted = 0  // 点赞
+)
+*/
+type VoteType int
+
+// ChatContentType 聊天内容类型
+/*
+ENUM(
+md   // Markdown
+html // HTML
+)
+*/
+type ChatContentType string
+
+// ChatMessageType 聊天消息查询类型
+/*
+ENUM(
+context // 上下文
+before  // 之前
+after   // 之后
+)
+*/
+type ChatMessageType int

@@ -1,4 +1,4 @@
-package fishPiSdk
+package sdk
 
 import (
 	"bytes"

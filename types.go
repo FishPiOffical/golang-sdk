@@ -1,4 +1,6 @@
-package fishPiSdk
+// Package fishpi_golang_sdk 提供类型别名以保持向后兼容
+// 建议使用 fishpi-golang-sdk/types 和 fishpi-golang-sdk/sdk 包
+package fishpi_golang_sdk
 
 import "fishpi-golang-sdk/types"
 
@@ -13,71 +15,32 @@ type SimpleResponse = types.SimpleResponse
 // ResponseResult 特殊响应结构(使用sc字段而非code)
 type ResponseResult[T any] = types.ResponseResult[T]
 
-// PostApiGetKeyRequest 获取ApiKey请求
-type PostApiGetKeyRequest = types.PostApiGetKeyRequest
+// UserInfo 用户信息
+type UserInfo = types.UserInfo
 
-// PostApiGetKeyResponse 获取ApiKey响应
-type PostApiGetKeyResponse = types.PostApiGetKeyResponse
+// ArticleInfo 文章信息
+type ArticleInfo = types.ArticleInfo
 
-// ApiUserGetData 获取用户信息数据（别名）
-type ApiUserGetData = types.UserInfo
+// ArticleList 文章列表
+type ArticleList = types.ArticleList
 
-// GetChatGetMessageData 获取私聊消息数据（已废弃，使用types.ChatMessageData）
-type GetChatGetMessageData = types.ChatMessageData
+// PostArticleRequest 发布文章请求
+type PostArticleRequest = types.PostArticleRequest
 
-// GetChatHasUnreadData 获取私聊未读消息数据
-type GetChatHasUnreadData = types.GetChatHasUnreadData
+// CommentInfo 评论信息
+type CommentInfo = types.CommentInfo
 
-// GetChatGetListData 获取私聊列表数据
-type GetChatGetListData = types.GetChatListData
+// PostCommentRequest 发布评论请求
+type PostCommentRequest = types.PostCommentRequest
 
-// GetApiGetNotificationsData 获取通知列表数据
-type GetApiGetNotificationsData = types.NotificationInfo
+// BreezemoonInfo 清风明月信息
+type BreezemoonInfo = types.BreezemoonInfo
 
-// GetChatroomNodeGetResponse 获取聊天室节点响应
-type GetChatroomNodeGetResponse = types.GetChatroomNodeGetResponse
+// BreezemoonList 清风明月列表
+type BreezemoonList = types.BreezemoonList
 
-// ChatroomNodeInfo 聊天室节点信息
-type ChatroomNodeInfo = types.ChatroomNodeInfo
-
-// PostChatroomRedPacketOpenRequest 打开聊天室红包请求
-type PostChatroomRedPacketOpenRequest = types.PostChatroomRedPacketOpenRequest
-
-// PostChatroomRedPacketOpenResponse 打开聊天室红包响应
-type PostChatroomRedPacketOpenResponse = types.PostChatroomRedPacketOpenResponse
-
-// ChatroomMessage 聊天室消息
-type ChatroomMessage = types.ChatroomMessage
-
-// ChatroomOnlineData 在线用户数据
-type ChatroomOnlineData = types.ChatroomOnlineData
-
-// OnlineUser 在线用户
-type OnlineUser = types.OnlineUser
-
-// ChatroomDiscussData 话题变更数据
-type ChatroomDiscussData = types.ChatroomDiscussData
-
-// ChatroomRevokeData 撤回消息数据
-type ChatroomRevokeData = types.ChatroomRevokeData
-
-// ChatroomMsgData 聊天消息数据
-type ChatroomMsgData = types.ChatroomMsgData
-
-// ChatroomRedPacketData 红包消息数据
-type ChatroomRedPacketData = types.ChatroomRedPacketData
-
-// RedPacketInfo 红包信息
-type RedPacketInfo = types.RedPacketInfo
-
-// ChatroomRedPacketStatusData 红包领取状态数据
-type ChatroomRedPacketStatusData = types.ChatroomRedPacketStatusData
-
-// ChatroomCustomData 自定义消息数据
-type ChatroomCustomData = types.ChatroomCustomData
-
-// ChatroomBarragerData 弹幕消息数据
-type ChatroomBarragerData = types.ChatroomBarragerData
+// PostBreezemoonRequest 发布清风明月请求
+type PostBreezemoonRequest = types.PostBreezemoonRequest
 
 // ChatMessage 私聊消息
 type ChatMessage = types.ChatMessage
@@ -85,23 +48,11 @@ type ChatMessage = types.ChatMessage
 // ChatMessageData 私聊消息数据
 type ChatMessageData = types.ChatMessageData
 
-// UserMessage 用户频道消息
-type UserMessage = types.UserMessage
+// ChatroomMessage 聊天室消息
+type ChatroomMessage = types.ChatroomMessage
 
-// BreezemoonData 清风明月数据
-type BreezemoonData = types.BreezemoonData
+// NotificationInfo 通知信息
+type NotificationInfo = types.NotificationInfo
 
-// ArticleData 文章数据
-type ArticleData = types.ArticleData
-
-// PostArticleRequest 发布文章请求
-type PostArticleRequest = types.PostArticleRequest
-
-// PostBreezemoonRequest 发布清风明月请求
-type PostBreezemoonRequest = types.PostBreezemoonRequest
-
-// PostCommentRequest 发布评论请求
-type PostCommentRequest = types.PostCommentRequest
-
-// TransferRequest 转账请求
-type TransferRequest = types.TransferRequest
+// Pagination 分页信息
+type Pagination = types.Pagination

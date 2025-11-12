@@ -7,7 +7,7 @@ import (
 	"os/signal"
 	"syscall"
 
-	sdk "fishpi-golang-sdk"
+	sdk "fishpi-golang-sdk/sdk"
 	"fishpi-golang-sdk/types"
 )
 
