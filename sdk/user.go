@@ -1,6 +1,9 @@
 package sdk
 
-import "fishpi-golang-sdk/types"
+import (
+	"fishpi-golang-sdk/types"
+	"fmt"
+)
 
 // GetUserInfo 获取当前用户信息
 func (s *FishPiSDK) GetUserInfo() (*types.UserInfoResponse, error) {
@@ -17,7 +20,7 @@ func (s *FishPiSDK) GetUserInfo() (*types.UserInfoResponse, error) {
 	return &response, nil
 }
 
-// GetUserLiveness 获取当前用户活跃度
+// GetUserLiveness 获取当前用户活跃度响应
 func (s *FishPiSDK) GetUserLiveness() (*types.UserLivenessResponse, error) {
 	res, err := s.client.R().Get("/user/liveness")
 	if err != nil {
@@ -107,4 +110,78 @@ func (s *FishPiSDK) GetUserEmotions() (*types.UserEmotionsResponse, error) {
 	}
 
 	return &response, nil
+}
+
+// PostUserCheckin 用户签到
+func (s *FishPiSDK) PostUserCheckin() (*types.CheckinResponse, error) {
+	var resp types.ApiResponse[*types.CheckinResponse]
+	_, err := s.client.R().
+		SetSuccessResult(&resp).
+		Get("/activity/daily-checkin")
+
+	if err != nil {
+		return nil, fmt.Errorf("failed to checkin: %w", err)
+	}
+
+	if resp.Code != 0 {
+		return nil, fmt.Errorf("checkin failed: %s", resp.Msg)
+	}
+
+	return resp.Data, nil
+}
+
+// RewardLiveness 领取昨日活跃度奖励
+func (s *FishPiSDK) RewardLiveness() (int, error) {
+	resp, err := s.GetYesterdayLivenessReward()
+	if err != nil {
+		return 0, err
+	}
+
+	if resp.Code != 0 {
+		return 0, fmt.Errorf("reward liveness failed: %s", resp.Msg)
+	}
+
+	return resp.Sum, nil
+}
+
+// IsCheckIn 检查是否已签到
+func (s *FishPiSDK) IsCheckIn() (bool, error) {
+	resp, err := s.GetUserCheckedIn()
+	if err != nil {
+		return false, err
+	}
+
+	if resp.Code != 0 {
+		return false, fmt.Errorf("check signin failed: %s", resp.Msg)
+	}
+
+	return resp.CheckedIn, nil
+}
+
+// IsCollectedLiveness 检查是否已领取昨日活跃度奖励
+func (s *FishPiSDK) IsCollectedLiveness() (bool, error) {
+	resp, err := s.GetIsCollectedLiveness()
+	if err != nil {
+		return false, err
+	}
+
+	if resp.Code != 0 {
+		return false, fmt.Errorf("check collected liveness failed: %s", resp.Msg)
+	}
+
+	return resp.IsCollectedYesterdayLivenessReward, nil
+}
+
+// GetLiveness 获取当前活跃度值
+func (s *FishPiSDK) GetLiveness() (int, error) {
+	resp, err := s.GetUserLiveness()
+	if err != nil {
+		return 0, err
+	}
+
+	if resp.Code != 0 {
+		return 0, fmt.Errorf("get liveness failed: %s", resp.Msg)
+	}
+
+	return resp.Liveness, nil
 }

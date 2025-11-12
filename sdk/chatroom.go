@@ -112,3 +112,60 @@ func (s *FishPiSDK) OpenRedPacket(oId string, gesture *types.GestureType) (*type
 
 	return resp, nil
 }
+
+// GetChatroomNode 获取聊天室节点信息
+func (s *FishPiSDK) GetChatroomNode() (*types.GetChatroomNodeGetResponse, error) {
+	var resp types.GetChatroomNodeGetResponse
+	_, err := s.client.R().
+		SetSuccessResult(&resp).
+		Get("/chat-room/node/get")
+
+	if err != nil {
+		return nil, fmt.Errorf("failed to get chatroom node: %w", err)
+	}
+
+	return &resp, nil
+}
+
+// GetChatroomMutes 获取聊天室禁言列表
+func (s *FishPiSDK) GetChatroomMutes() ([]*types.MuteItem, error) {
+	var resp types.ApiResponse[[]*types.MuteItem]
+	_, err := s.client.R().
+		SetSuccessResult(&resp).
+		Get("/chat-room/mutes")
+
+	if err != nil {
+		return nil, fmt.Errorf("failed to get mutes list: %w", err)
+	}
+
+	if resp.Code != 0 {
+		return nil, fmt.Errorf("get mutes list failed: %s", resp.Msg)
+	}
+
+	return resp.Data, nil
+}
+
+// SendChatroomBarrage 发送弹幕
+func (s *FishPiSDK) SendChatroomBarrage(content string) error {
+	if content == "" {
+		return fmt.Errorf("content is required")
+	}
+
+	var resp types.SimpleResponse
+	_, err := s.client.R().
+		SetBodyJsonMarshal(map[string]string{
+			"content": content,
+		}).
+		SetSuccessResult(&resp).
+		Post("/chat-room/barrager")
+
+	if err != nil {
+		return fmt.Errorf("failed to send barrage: %w", err)
+	}
+
+	if resp.Code != 0 {
+		return fmt.Errorf("send barrage failed: %s", resp.Msg)
+	}
+
+	return nil
+}

@@ -10,6 +10,7 @@ import (
 	"time"
 
 	"fishpi-golang-sdk/types"
+
 	"github.com/lxzan/gws"
 )
 
@@ -186,23 +187,34 @@ func (ws *ChatroomWebSocket) SendMessage(content string) error {
 
 // OnMessage 设置消息回调
 func (ws *ChatroomWebSocket) OnMessage(callback func(message *types.ChatroomMessage)) {
-	ws.mu.Lock()
-	defer ws.mu.Unlock()
 	ws.onMessageCallback = callback
 }
 
 // OnError 设置错误回调
 func (ws *ChatroomWebSocket) OnError(callback func(err error)) {
-	ws.mu.Lock()
-	defer ws.mu.Unlock()
 	ws.onErrorCallback = callback
 }
 
 // OnClose 设置关闭回调
 func (ws *ChatroomWebSocket) OnClose(callback func()) {
-	ws.mu.Lock()
-	defer ws.mu.Unlock()
 	ws.onCloseCallback = callback
+}
+
+// GetParser 获取消息解析器
+func (ws *ChatroomWebSocket) GetParser() *MessageParser {
+	return NewMessageParser()
+}
+
+// SendRaw 发送原始数据
+func (ws *ChatroomWebSocket) SendRaw(data []byte) error {
+	ws.mu.RLock()
+	defer ws.mu.RUnlock()
+
+	if !ws.connected || ws.conn == nil {
+		return fmt.Errorf("not connected")
+	}
+
+	return ws.conn.WriteMessage(gws.OpcodeText, data)
 }
 
 // PrivateChatWebSocket 私聊WebSocket连接

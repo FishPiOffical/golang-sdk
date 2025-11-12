@@ -38,8 +38,9 @@ type NotificationList struct {
 
 // UserMessage 用户频道消息
 type UserMessage struct {
-	Type string      `json:"type"`
-	Data interface{} `json:"data"`
+	Type    string      `json:"type"`
+	Command string      `json:"command"`
+	Data    interface{} `json:"data"`
 }
 
 // BreezemoonData 清风明月通知数据

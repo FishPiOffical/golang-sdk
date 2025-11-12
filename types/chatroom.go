@@ -104,6 +104,34 @@ type ChatroomBarragerData struct {
 	Content       string `json:"content"`
 }
 
+// MuteItem 禁言项
+type MuteItem struct {
+	OId              string `json:"oId"`
+	UserName         string `json:"userName"`
+	UserNickname     string `json:"userNickname"`
+	UserAvatarURL    string `json:"userAvatarURL"`
+	MuteTime         int64  `json:"muteTime"`
+	MuteEndTime      int64  `json:"muteEndTime"`
+	MuteReason       string `json:"muteReason"`
+	MuteOperatorName string `json:"muteOperatorName"`
+}
+
+// IMusicMessage 音乐消息
+type IMusicMessage struct {
+	Name   string `json:"name"`
+	Author string `json:"author"`
+	URL    string `json:"url"`
+	Cover  string `json:"cover"`
+}
+
+// IWeatherMessage 天气消息
+type IWeatherMessage struct {
+	City        string `json:"city"`
+	Temperature string `json:"temperature"`
+	Weather     string `json:"weather"`
+	AQI         string `json:"aqi"`
+}
+
 // PostChatroomRedPacketOpenRequest 打开聊天室红包请求
 type PostChatroomRedPacketOpenRequest struct {
 	OId     string      `json:"oId"`
