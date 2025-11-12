@@ -185,3 +185,106 @@ func (s *FishPiSDK) GetLiveness() (int, error) {
 
 	return resp.Liveness, nil
 }
+
+// GetUserByUsername 通过用户名获取用户信息
+func (s *FishPiSDK) GetUserByUsername(username string) (*types.UserInfo, error) {
+	if username == "" {
+		return nil, fmt.Errorf("username is required")
+	}
+
+	var resp types.ApiResponse[*types.UserInfo]
+	_, err := s.client.R().
+		SetSuccessResult(&resp).
+		Get("/user/" + username)
+
+	if err != nil {
+		return nil, fmt.Errorf("failed to get user by username: %w", err)
+	}
+
+	if resp.Code != 0 {
+		return nil, fmt.Errorf("get user by username failed: %s", resp.Msg)
+	}
+
+	return resp.Data, nil
+}
+
+// FollowUser 关注/取消关注用户
+func (s *FishPiSDK) FollowUser(followingId string) error {
+	if followingId == "" {
+		return fmt.Errorf("followingId is required")
+	}
+
+	var resp types.SimpleResponse
+	_, err := s.client.R().
+		SetBodyJsonMarshal(map[string]string{
+			"followingId": followingId,
+		}).
+		SetSuccessResult(&resp).
+		Post("/follow")
+
+	if err != nil {
+		return fmt.Errorf("failed to follow user: %w", err)
+	}
+
+	if resp.Code != 0 {
+		return fmt.Errorf("follow user failed: %s", resp.Msg)
+	}
+
+	return nil
+}
+
+// ReportUser 举报用户
+func (s *FishPiSDK) ReportUser(reportedUserId, reportType, memo string) error {
+	if reportedUserId == "" {
+		return fmt.Errorf("reportedUserId is required")
+	}
+	if reportType == "" {
+		return fmt.Errorf("reportType is required")
+	}
+
+	var resp types.SimpleResponse
+	_, err := s.client.R().
+		SetBodyJsonMarshal(map[string]string{
+			"reportedUserId": reportedUserId,
+			"reportType":     reportType,
+			"reportMemo":     memo,
+		}).
+		SetSuccessResult(&resp).
+		Post("/report")
+
+	if err != nil {
+		return fmt.Errorf("failed to report user: %w", err)
+	}
+
+	if resp.Code != 0 {
+		return fmt.Errorf("report user failed: %s", resp.Msg)
+	}
+
+	return nil
+}
+
+// UploadFile 上传文件
+func (s *FishPiSDK) UploadFile(file []byte, fileName string) (*types.UploadFileResponse, error) {
+	if len(file) == 0 {
+		return nil, fmt.Errorf("file is required")
+	}
+	if fileName == "" {
+		return nil, fmt.Errorf("fileName is required")
+	}
+
+	var resp types.ApiResponse[*types.UploadFileResponse]
+	_, err := s.client.R().
+		SetFileBytes("file[]", fileName, file).
+		SetSuccessResult(&resp).
+		Post("/upload")
+
+	if err != nil {
+		return nil, fmt.Errorf("failed to upload file: %w", err)
+	}
+
+	if resp.Code != 0 {
+		return nil, fmt.Errorf("upload file failed: %s", resp.Msg)
+	}
+
+	return resp.Data, nil
+}

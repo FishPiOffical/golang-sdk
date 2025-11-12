@@ -292,3 +292,75 @@ func (s *FishPiSDK) RewardArticle(articleId string) error {
 
 	return nil
 }
+
+// DeleteArticle 删除文章
+func (s *FishPiSDK) DeleteArticle(articleId string) error {
+	if articleId == "" {
+		return fmt.Errorf("articleId is required")
+	}
+
+	var resp types.SimpleResponse
+	_, err := s.client.R().
+		SetBodyJsonMarshal(map[string]string{
+			"articleId": articleId,
+		}).
+		SetSuccessResult(&resp).
+		Delete("/article/" + articleId)
+
+	if err != nil {
+		return fmt.Errorf("failed to delete article: %w", err)
+	}
+
+	if resp.Code != 0 {
+		return fmt.Errorf("delete article failed: %s", resp.Msg)
+	}
+
+	return nil
+}
+
+// StickArticle 置顶文章（管理员功能）
+func (s *FishPiSDK) StickArticle(articleId string) error {
+	if articleId == "" {
+		return fmt.Errorf("articleId is required")
+	}
+
+	var resp types.SimpleResponse
+	_, err := s.client.R().
+		SetBodyJsonMarshal(map[string]string{
+			"articleId": articleId,
+		}).
+		SetSuccessResult(&resp).
+		Post("/article/stick")
+
+	if err != nil {
+		return fmt.Errorf("failed to stick article: %w", err)
+	}
+
+	if resp.Code != 0 {
+		return fmt.Errorf("stick article failed: %s", resp.Msg)
+	}
+
+	return nil
+}
+
+// GetArticleHeat 获取文章热度
+func (s *FishPiSDK) GetArticleHeat(articleId string) (*types.ArticleHeat, error) {
+	if articleId == "" {
+		return nil, fmt.Errorf("articleId is required")
+	}
+
+	var resp types.ApiResponse[*types.ArticleHeat]
+	_, err := s.client.R().
+		SetSuccessResult(&resp).
+		Get("/article/" + articleId + "/heat")
+
+	if err != nil {
+		return nil, fmt.Errorf("failed to get article heat: %w", err)
+	}
+
+	if resp.Code != 0 {
+		return nil, fmt.Errorf("get article heat failed: %s", resp.Msg)
+	}
+
+	return resp.Data, nil
+}
