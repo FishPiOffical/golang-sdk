@@ -1,0 +1,7 @@
+version: 3
+
+tasks:
+  test:
+    dir: ./_tmp/test/
+    cmds:
+      - go run main.go
