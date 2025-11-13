@@ -61,6 +61,50 @@ provider := sdk.NewMemoryConfigProvider(config)
 fishpi := sdk.NewSDK(provider)
 ```
 
+### 使用SDK选项
+
+SDK支持多种选项来自定义行为：
+
+```go
+import (
+    "log/slog"
+    "os"
+    
+    "fishpi-golang-sdk/sdk"
+)
+
+// 创建自定义logger
+logger := slog.New(slog.NewJSONHandler(os.Stdout, &slog.HandlerOptions{
+    Level: slog.LevelWarn,
+}))
+
+// 创建配置提供者
+provider := sdk.NewFileConfigProvider("config.json")
+
+// 使用选项创建SDK实例
+fishpi := sdk.NewSDK(
+    provider,
+    sdk.WithLogDir("./logs"),              // 选项1: 设置日志目录
+    sdk.WithCustomUnmarshaler(logger),     // 选项2: 设置自定义JSON反序列化器
+)
+```
+
+#### 选项说明
+
+**WithLogDir(logDir string)** - 设置日志目录
+- 将所有HTTP请求/响应保存到指定目录
+- 日志文件名格式: `{方法}{路径}_{日期时间}.txt`
+- 示例: `GET_api_user_20060102_150405.txt`
+- 自动创建目录（如果不存在）
+
+**WithCustomUnmarshaler(logger *slog.Logger)** - 设置自定义JSON反序列化器
+- 使用标准的 `json.Unmarshal` 进行反序列化
+- 自动检测JSON原文和Go结构体之间的字段差异
+- 当JSON中存在字段但结构体中不存在时，输出警告日志
+- 支持嵌套结构体检测
+- 支持驼峰和下划线命名转换
+- 如果logger为nil，使用默认logger
+
 ## 功能模块
 
 ### 认证模块
