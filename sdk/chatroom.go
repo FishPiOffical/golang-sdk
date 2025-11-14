@@ -1,7 +1,7 @@
 package sdk
 
 import (
-	"fishpi-golang-sdk/types"
+	"github.com/FishPiOffical/golang-sdk/types"
 	"fmt"
 )
 

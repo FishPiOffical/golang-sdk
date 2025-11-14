@@ -13,7 +13,7 @@ import (
 	"strings"
 	"time"
 
-	"fishpi-golang-sdk/types"
+	"github.com/FishPiOffical/golang-sdk/types"
 
 	"github.com/imroc/req/v3"
 	"github.com/pquerna/otp"

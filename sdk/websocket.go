@@ -9,7 +9,7 @@ import (
 	"sync"
 	"time"
 
-	"fishpi-golang-sdk/types"
+	"github.com/FishPiOffical/golang-sdk/types"
 
 	"github.com/lxzan/gws"
 )

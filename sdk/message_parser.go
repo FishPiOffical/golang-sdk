@@ -2,7 +2,7 @@ package sdk
 
 import (
 	"encoding/json"
-	"fishpi-golang-sdk/types"
+	"github.com/FishPiOffical/golang-sdk/types"
 	"fmt"
 )
 

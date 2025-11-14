@@ -15,7 +15,7 @@
 ## 安装
 
 ```bash
-go get github.com/fghwett/fishpi-golang-sdk
+go get github.com/fghwett/github.com/FishPiOffical/golang-sdk
 ```
 
 ## 快速开始
@@ -29,7 +29,7 @@ import (
     "fmt"
     "log"
     
-    "fishpi-golang-sdk/sdk"
+    "github.com/FishPiOffical/golang-sdk/sdk"
 )
 
 func main() {
@@ -70,7 +70,7 @@ import (
     "log/slog"
     "os"
     
-    "fishpi-golang-sdk/sdk"
+    "github.com/FishPiOffical/golang-sdk/sdk"
 )
 
 // 创建自定义logger
@@ -505,7 +505,7 @@ if err != nil {
 
 ```bash
 # 克隆项目
-git clone https://github.com/fghwett/fishpi-golang-sdk
+git clone https://github.com/fghwett/github.com/FishPiOffical/golang-sdk
 
 # 安装依赖
 go mod download
