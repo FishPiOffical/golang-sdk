@@ -84,18 +84,167 @@ func detectStructDefinitionDifferences(data []byte, v interface{}, logger *slog.
 		return
 	}
 
-	// 获取结构体的所有字段定义
-	structFields := getStructFields(v)
+	// 获取结构体的所有字段定义及其类型信息
+	structFieldsMap := getStructFieldsWithType(v)
 
-	// 查找原文中存在但结构体定义中不存在的字段
-	for key := range rawData {
-		if !containsField(structFields, key) {
+	// 查找原文中存在但结构体定义中不存在的字段，以及类型不匹配的字段
+	checkFieldDifferences(rawData, structFieldsMap, "", logger)
+}
+
+// checkFieldDifferences 递归检查字段差异和类型匹配
+func checkFieldDifferences(rawData map[string]interface{}, structFields map[string]reflect.Type, path string, logger *slog.Logger) {
+	for key, value := range rawData {
+		currentPath := key
+		if path != "" {
+			currentPath = path + "." + key
+		}
+
+		fieldType, exists := structFields[key]
+		if !exists {
 			logger.Warn("JSON字段在结构体定义中不存在",
-				slog.String("field", key),
-				slog.String("type", fmt.Sprintf("%T", v)),
-				slog.Any("value", rawData[key]))
+				slog.String("path", currentPath),
+				slog.Any("value", value),
+				slog.String("jsonType", fmt.Sprintf("%T", value)))
+			continue
+		}
+
+		// 检查类型是否匹配
+		if !isTypeCompatible(value, fieldType, logger, currentPath) {
+			logger.Warn("JSON字段类型与结构体定义不匹配",
+				slog.String("path", currentPath),
+				slog.String("jsonType", fmt.Sprintf("%T", value)),
+				slog.String("structType", fieldType.String()),
+				slog.Any("value", value))
+		}
+
+		// 如果是嵌套对象，递归检查
+		if nestedMap, ok := value.(map[string]interface{}); ok {
+			if fieldType.Kind() == reflect.Struct || (fieldType.Kind() == reflect.Ptr && fieldType.Elem().Kind() == reflect.Struct) {
+				actualType := fieldType
+				if fieldType.Kind() == reflect.Ptr {
+					actualType = fieldType.Elem()
+				}
+				nestedFields := getStructFieldsWithTypeFromType(actualType)
+				checkFieldDifferences(nestedMap, nestedFields, currentPath, logger)
+			}
+		}
+
+		// 如果是数组，检查数组元素
+		if arrayVal, ok := value.([]interface{}); ok {
+			if fieldType.Kind() == reflect.Slice || fieldType.Kind() == reflect.Array {
+				elemType := fieldType.Elem()
+				if len(arrayVal) > 0 {
+					if elemMap, ok := arrayVal[0].(map[string]interface{}); ok {
+						if elemType.Kind() == reflect.Struct || (elemType.Kind() == reflect.Ptr && elemType.Elem().Kind() == reflect.Struct) {
+							actualElemType := elemType
+							if elemType.Kind() == reflect.Ptr {
+								actualElemType = elemType.Elem()
+							}
+							elemFields := getStructFieldsWithTypeFromType(actualElemType)
+							checkFieldDifferences(elemMap, elemFields, fmt.Sprintf("%s[0]", currentPath), logger)
+						}
+					}
+				}
+			}
 		}
 	}
+}
+
+// isTypeCompatible 检查JSON值类型是否与结构体字段类型兼容
+func isTypeCompatible(jsonValue interface{}, structType reflect.Type, logger *slog.Logger, path string) bool {
+	// 处理指针类型
+	if structType.Kind() == reflect.Ptr {
+		structType = structType.Elem()
+	}
+
+	switch v := jsonValue.(type) {
+	case bool:
+		return structType.Kind() == reflect.Bool
+	case float64:
+		// JSON中的数字都是float64，可以兼容int/float等数值类型
+		return structType.Kind() >= reflect.Int && structType.Kind() <= reflect.Float64
+	case string:
+		return structType.Kind() == reflect.String
+	case map[string]interface{}:
+		return structType.Kind() == reflect.Struct || structType.Kind() == reflect.Map
+	case []interface{}:
+		return structType.Kind() == reflect.Slice || structType.Kind() == reflect.Array
+	case nil:
+		// nil可以赋值给指针、接口、切片、map等
+		return true
+	default:
+		logger.Debug("未知的JSON类型",
+			slog.String("path", path),
+			slog.String("type", fmt.Sprintf("%T", v)))
+		return true
+	}
+}
+
+// getStructFieldsWithType 获取结构体的所有字段名和类型信息
+func getStructFieldsWithType(v interface{}) map[string]reflect.Type {
+	fields := make(map[string]reflect.Type)
+
+	val := reflect.ValueOf(v)
+	if val.Kind() == reflect.Ptr {
+		val = val.Elem()
+	}
+
+	if val.Kind() != reflect.Struct {
+		return fields
+	}
+
+	typ := val.Type()
+	return getStructFieldsWithTypeFromType(typ)
+}
+
+// getStructFieldsWithTypeFromType 从reflect.Type获取字段名和类型信息
+func getStructFieldsWithTypeFromType(typ reflect.Type) map[string]reflect.Type {
+	fields := make(map[string]reflect.Type)
+
+	if typ.Kind() == reflect.Ptr {
+		typ = typ.Elem()
+	}
+
+	if typ.Kind() != reflect.Struct {
+		return fields
+	}
+
+	for i := 0; i < typ.NumField(); i++ {
+		field := typ.Field(i)
+
+		// 跳过未导出的字段
+		if !field.IsExported() {
+			continue
+		}
+
+		// 获取json tag作为字段名
+		jsonTag := field.Tag.Get("json")
+		if jsonTag != "" {
+			tagName := strings.Split(jsonTag, ",")[0]
+			if tagName != "-" && tagName != "" {
+				fields[tagName] = field.Type
+			}
+		} else {
+			// 没有json tag，使用字段名
+			fields[field.Name] = field.Type
+		}
+
+		// 处理嵌入结构体（匿名字段）
+		if field.Anonymous && (field.Type.Kind() == reflect.Struct || (field.Type.Kind() == reflect.Ptr && field.Type.Elem().Kind() == reflect.Struct)) {
+			embeddedType := field.Type
+			if embeddedType.Kind() == reflect.Ptr {
+				embeddedType = embeddedType.Elem()
+			}
+			embeddedFields := getStructFieldsWithTypeFromType(embeddedType)
+			for k, t := range embeddedFields {
+				if _, exists := fields[k]; !exists {
+					fields[k] = t
+				}
+			}
+		}
+	}
+
+	return fields
 }
 
 // detectUnmarshalDifferences 检测原始JSON和反序列化后数据的差异
@@ -193,98 +342,4 @@ func compareMapDifferences(original, unmarshaled map[string]interface{}, path st
 				slog.Any("value", unmarshaled[key]))
 		}
 	}
-}
-
-// getStructFields 获取结构体的所有字段名（包括json tag）
-func getStructFields(v interface{}) map[string]bool {
-	fields := make(map[string]bool)
-
-	val := reflect.ValueOf(v)
-	if val.Kind() == reflect.Ptr {
-		val = val.Elem()
-	}
-
-	if val.Kind() != reflect.Struct {
-		return fields
-	}
-
-	typ := val.Type()
-	for i := 0; i < typ.NumField(); i++ {
-		field := typ.Field(i)
-
-		// 添加字段名
-		fields[field.Name] = true
-
-		// 添加json tag名
-		if jsonTag := field.Tag.Get("json"); jsonTag != "" {
-			tagName := strings.Split(jsonTag, ",")[0]
-			if tagName != "" && tagName != "-" {
-				fields[tagName] = true
-			}
-		}
-
-		// 如果是嵌套结构体，递归处理
-		if field.Type.Kind() == reflect.Struct || (field.Type.Kind() == reflect.Ptr && field.Type.Elem().Kind() == reflect.Struct) {
-			fieldVal := val.Field(i)
-			if field.Type.Kind() == reflect.Ptr {
-				if !fieldVal.IsNil() {
-					nestedFields := getStructFields(fieldVal.Interface())
-					for k := range nestedFields {
-						fields[k] = true
-					}
-				}
-			} else {
-				nestedFields := getStructFields(fieldVal.Addr().Interface())
-				for k := range nestedFields {
-					fields[k] = true
-				}
-			}
-		}
-	}
-
-	return fields
-}
-
-// containsField 检查字段是否存在于字段集合中
-func containsField(fields map[string]bool, key string) bool {
-	// 直接匹配
-	if fields[key] {
-		return true
-	}
-
-	// 尝试驼峰和下划线转换
-	camelKey := toCamelCase(key)
-	if fields[camelKey] {
-		return true
-	}
-
-	snakeKey := toSnakeCase(key)
-	if fields[snakeKey] {
-		return true
-	}
-
-	return false
-}
-
-// toCamelCase 将下划线命名转换为驼峰命名
-func toCamelCase(s string) string {
-	parts := strings.Split(s, "_")
-	for i := 1; i < len(parts); i++ {
-		if len(parts[i]) > 0 {
-			parts[i] = strings.ToUpper(parts[i][:1]) + parts[i][1:]
-		}
-	}
-	return strings.Join(parts, "")
-}
-
-// toSnakeCase 将驼峰命名转换为下划线命名
-func toSnakeCase(s string) string {
-	var result strings.Builder
-	for i, r := range s {
-		if i > 0 && r >= 'A' && r <= 'Z' {
-			result.WriteRune('_')
-		}
-		result.WriteRune(r)
-	}
-	return strings.ToLower(result.String())
 }
