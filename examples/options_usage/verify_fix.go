@@ -1,7 +1,7 @@
 package main
 
 import (
-	"fishpi-golang-sdk/sdk"
+	"github.com/FishPiOffical/golang-sdk/sdk"
 	"fmt"
 	"os"
 )

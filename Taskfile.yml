@@ -5,3 +5,9 @@ tasks:
     dir: ./_tmp/test/
     cmds:
       - go run main.go
+
+  usage:
+    dir: ./examples/usage
+    cmds:
+      - go run main.go
+

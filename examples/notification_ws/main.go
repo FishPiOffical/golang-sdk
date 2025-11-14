@@ -7,8 +7,8 @@ import (
 	"os/signal"
 	"syscall"
 
-	sdk "fishpi-golang-sdk/sdk"
-	"fishpi-golang-sdk/types"
+	sdk "github.com/FishPiOffical/golang-sdk/sdk"
+	"github.com/FishPiOffical/golang-sdk/types"
 )
 
 func main() {

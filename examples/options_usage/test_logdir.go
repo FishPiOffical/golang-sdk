@@ -4,7 +4,7 @@ import (
 	"log"
 	"os"
 
-	"fishpi-golang-sdk/sdk"
+	"github.com/FishPiOffical/golang-sdk/sdk"
 )
 
 func main2() {
