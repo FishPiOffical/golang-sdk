@@ -68,6 +68,9 @@ func main() {
 	//postFollowUser()
 	//postUnfollowUser()
 
+	// 通知
+	//getNotificationCount()
+
 }
 
 func getUserInfoByUsername() {
@@ -180,4 +183,13 @@ func postUnfollowUser() {
 		return
 	}
 	logger.Info("取消关注用户结果", slog.Any("resp", resp))
+}
+
+func getNotificationCount() {
+	resp, err := client.GetNotificationCount()
+	if err != nil {
+		logger.Error("获取未读通知数量失败", slog.String("error", err.Error()))
+		return
+	}
+	logger.Info("未读通知数量结果", slog.Any("resp", resp))
 }

@@ -5,20 +5,6 @@ import (
 	"fmt"
 )
 
-// GetNotificationCount 获取未读通知数量
-func (s *FishPiSDK) GetNotificationCount() (*types.NotificationCount, error) {
-	var resp types.NotificationCount
-	_, err := s.client.R().
-		SetSuccessResult(&resp).
-		Get("/notifications/unread/count")
-
-	if err != nil {
-		return nil, err
-	}
-
-	return &resp, nil
-}
-
 // GetNotifications 获取通知列表
 func (s *FishPiSDK) GetNotifications(noticeType types.NotificationType) ([]*types.NotificationInfo, error) {
 	url := fmt.Sprintf("/api/getNotifications?type=%s", noticeType)

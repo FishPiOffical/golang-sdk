@@ -1,19 +1,5 @@
 package types
 
-// NotificationCount 通知数量
-type NotificationCount struct {
-	UserNotifyStatus                   bool `json:"userNotifyStatus"`
-	UnreadNotificationCount            int  `json:"unreadNotificationCnt"`
-	UnreadReplyNotificationCount       int  `json:"unreadReplyNotificationCnt"`
-	UnreadPointNotificationCount       int  `json:"unreadPointNotificationCnt"`
-	UnreadAtNotificationCount          int  `json:"unreadAtNotificationCnt"`
-	UnreadBroadcastNotificationCount   int  `json:"unreadBroadcastNotificationCnt"`
-	UnreadSysAnnounceNotificationCount int  `json:"unreadSysAnnounceNotificationCnt"`
-	UnreadNewFollowerNotificationCount int  `json:"unreadNewFollowerNotificationCnt"`
-	UnreadFollowingNotificationCount   int  `json:"unreadFollowingNotificationCnt"`
-	UnreadCommentedNotificationCount   int  `json:"unreadCommentedNotificationCnt"`
-}
-
 // NotificationInfo 通知信息
 type NotificationInfo struct {
 	OId                string   `json:"oId"`
