@@ -147,36 +147,6 @@ func (s *FishPiSDK) FollowUser(followingId string) error {
 	return nil
 }
 
-// ReportUser 举报用户
-func (s *FishPiSDK) ReportUser(reportedUserId, reportType, memo string) error {
-	if reportedUserId == "" {
-		return fmt.Errorf("reportedUserId is required")
-	}
-	if reportType == "" {
-		return fmt.Errorf("reportType is required")
-	}
-
-	var resp types.SimpleResponse
-	_, err := s.client.R().
-		SetBodyJsonMarshal(map[string]string{
-			"reportedUserId": reportedUserId,
-			"reportType":     reportType,
-			"reportMemo":     memo,
-		}).
-		SetSuccessResult(&resp).
-		Post("/report")
-
-	if err != nil {
-		return fmt.Errorf("failed to report user: %w", err)
-	}
-
-	if resp.Code != 0 {
-		return fmt.Errorf("report user failed: %s", resp.Msg)
-	}
-
-	return nil
-}
-
 // UploadFile 上传文件
 func (s *FishPiSDK) UploadFile(file []byte, fileName string) (*types.UploadFileResponse, error) {
 	if len(file) == 0 {

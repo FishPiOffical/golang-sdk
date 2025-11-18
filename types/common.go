@@ -1,11 +1,5 @@
 package types
 
-// SimpleResponse 简单响应结构(无Data字段)
-type SimpleResponse struct {
-	Code int    `json:"code"`
-	Msg  string `json:"msg"`
-}
-
 // ResponseResult 特殊响应结构(使用sc字段而非code)
 type ResponseResult[T any] struct {
 	Result int    `json:"sc"`

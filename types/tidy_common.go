@@ -1,5 +1,11 @@
 package types
 
+// SimpleResponse 简单响应结构(无Data字段)
+type SimpleResponse struct {
+	Code int    `json:"code"`
+	Msg  string `json:"msg"`
+}
+
 // ApiResponse 通用API响应结构(带Data字段)
 type ApiResponse[T any] struct {
 	Code int    `json:"code"`

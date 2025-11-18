@@ -3,6 +3,7 @@ package main
 import (
 	"github.com/FishPiOffical/golang-sdk/config"
 	"github.com/FishPiOffical/golang-sdk/sdk"
+	"github.com/FishPiOffical/golang-sdk/types"
 	"github.com/golang-cz/devslog"
 
 	"log/slog"
@@ -43,8 +44,9 @@ const (
 	configPath = "../../_tmp/config.yaml"
 	logPath    = "../../_tmp/logs/"
 
-	username      = "8888"
-	associateName = "888"
+	username        = "8888"
+	associateName   = "888"
+	reportArticleId = "1702103071389" // https://fishpi.cn/article/1702103071389
 )
 
 func main() {
@@ -59,6 +61,7 @@ func main() {
 	//getUserCheckedIn()
 	//getYesterdayLivenessReward()
 	//getIsCollectedLiveness()
+	//postReport()
 
 }
 
@@ -123,4 +126,13 @@ func getIsCollectedLiveness() {
 		return
 	}
 	logger.Info("是否已领取昨日活跃度奖励结果", slog.Any("resp", resp))
+}
+
+func postReport() {
+	resp, err := client.PostReport(reportArticleId, types.ReportDataTypeArticle, types.ReportTypeOther, "接口测试举报")
+	if err != nil {
+		logger.Error("举报用户失败", slog.String("error", err.Error()))
+		return
+	}
+	logger.Info("举报用户结果", slog.Any("resp", resp))
 }

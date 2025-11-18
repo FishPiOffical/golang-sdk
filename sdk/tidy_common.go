@@ -1,6 +1,8 @@
 package sdk
 
-import "github.com/FishPiOffical/golang-sdk/types"
+import (
+	"github.com/FishPiOffical/golang-sdk/types"
+)
 
 // GetUserInfoByUsername 根据用户名获取用户信息
 func (s *FishPiSDK) GetUserInfoByUsername(username string) (*types.User, error) {
@@ -104,6 +106,29 @@ func (s *FishPiSDK) GetIsCollectedLiveness() (*types.IsCollectedLivenessResponse
 		SetSuccessResult(response).
 		SetErrorResult(response).
 		Get("/api/activity/is-collected-liveness")
+	if err != nil {
+		return nil, err
+	}
+
+	return response, nil
+}
+
+// PostReport 举报用户
+func (s *FishPiSDK) PostReport(dataId string, dataType types.ReportDataType, reportType types.ReportType, memo string) (*types.SimpleResponse, error) {
+	response := new(types.SimpleResponse)
+
+	_, err := s.client.R().
+		SetFormDataAnyType(map[string]any{
+			"apiKey":         s.GetAPIKey(),
+			"reportDataId":   dataId,
+			"reportDataType": dataType,
+			"reportType":     reportType,
+			"reportMemo":     memo,
+		}).
+		SetSuccessResult(response).
+		SetErrorResult(response).
+		Post("/report")
+
 	if err != nil {
 		return nil, err
 	}
