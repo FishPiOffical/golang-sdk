@@ -1,11 +1,17 @@
 package main
 
 import (
+	"github.com/FishPiOffical/golang-sdk/config"
 	"github.com/FishPiOffical/golang-sdk/sdk"
 	"github.com/golang-cz/devslog"
 
 	"log/slog"
 	"os"
+)
+
+var (
+	client *sdk.FishPiSDK
+	logger *slog.Logger
 )
 
 func init() {
@@ -20,43 +26,40 @@ func init() {
 		StringerFormatter: true,
 	}
 
-	logger := slog.New(devslog.NewHandler(os.Stdout, opts))
+	logger = slog.New(devslog.NewHandler(os.Stdout, opts))
 	slog.SetDefault(logger)
+
+	provider := config.NewFileConfigProvider(configPath)
+
+	// 使用选项创建SDK
+	client = sdk.NewSDK(
+		provider,
+		sdk.WithLogDir(logPath),                   // 设置日志目录
+		sdk.WithCustomUnmarshaler(slog.Default()), // 设置自定义反序列化器
+	)
 }
+
+const (
+	configPath = "../../_tmp/config.yaml"
+	logPath    = "../../_tmp/logs/"
+
+	username = "8888"
+)
 
 func main() {
 
-	logger := slog.Default()
+	// 鉴权
 
-	// 从环境变量读取API Key，或使用默认值
-	apiKey := os.Getenv("FISHPI_API_KEY")
-	if apiKey == "" {
-		logger.Warn("警告: 未设置 FISHPI_API_KEY 环境变量")
-		logger.Warn("使用方式: export FISHPI_API_KEY=your-api-key")
-		apiKey = "your-api-key-here"
-	}
+	// 通用
+	getUserInfoByUsername()
 
-	// 创建配置
-	config := &sdk.Config{
-		ApiKey: apiKey,
-	}
-	provider := sdk.NewMemoryConfigProvider(config)
+}
 
-	// 使用选项创建SDK
-	client := sdk.NewSDK(
-		provider,
-		sdk.WithLogDir("../../_tmp/logs/"),        // 设置日志目录
-		sdk.WithCustomUnmarshaler(slog.Default()), // 设置自定义反序列化器
-	)
-
-	user, err := client.GetApiUser()
+func getUserInfoByUsername() {
+	user, err := client.GetUserInfoByUsername(username)
 	if err != nil {
 		logger.Error("获取用户信息失败", slog.String("error", err.Error()))
 		return
 	}
-	if user.Code != 0 {
-		logger.Error("获取用户信息失败", slog.Any("resp", user))
-		return
-	}
-	logger.Info("用户信息", slog.Any("user", user.Data.UserNickname))
+	logger.Info("用户信息", slog.Any("user", user.UserNickname))
 }
