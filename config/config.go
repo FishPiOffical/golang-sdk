@@ -1,13 +1,15 @@
-package sdk
+package config
 
 type Config struct {
-	BaseUrl string `json:"base_url,omitempty" yaml:"baseUrl,omitempty"`
+	BaseUrl   string `json:"base_url,omitempty" yaml:"baseUrl,omitempty"`
+	UserAgent string `json:"user_agent,omitempty" yaml:"userAgent,omitempty"`
 
-	ApiKey   string `json:"api_key,omitempty" yaml:"apiKey,omitempty"`
-	Username string `json:"username,omitempty" yaml:"username,omitempty"`
-	Password string `json:"password,omitempty" yaml:"password,omitempty"`
-	MfaCode  string `json:"mfa_code,omitempty" json:"mfaCode,omitempty"`
-	Totp     string `json:"totp,omitempty" yaml:"totp,omitempty"`
+	ApiKey      string `json:"api_key,omitempty" yaml:"apiKey,omitempty"`
+	Username    string `json:"username,omitempty" yaml:"username,omitempty"`
+	Password    string `json:"password,omitempty" yaml:"password,omitempty"`
+	PasswordMd5 string `json:"password_md5,omitempty" yaml:"passwordMd5,omitempty"`
+	MfaCode     string `json:"mfa_code,omitempty" json:"mfaCode,omitempty"`
+	Totp        string `json:"totp,omitempty" yaml:"totp,omitempty"`
 
 	PointGoldFingerKey    string `json:"point_gold_finger_key,omitempty" yaml:"pointGoldFingerKey,omitempty"`
 	LivenessGoldFingerKey string `json:"liveness_gold_finger_key,omitempty" yaml:"livenessGoldFingerKey,omitempty"`

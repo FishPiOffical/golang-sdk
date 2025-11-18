@@ -16,6 +16,13 @@ import (
 // Option SDK选项函数
 type Option func(sdk *FishPiSDK)
 
+// WithUserAgent 设置自定义User-Agent
+func WithUserAgent(userAgent string) Option {
+	return func(sdk *FishPiSDK) {
+		sdk.client.SetCommonHeader("User-Agent", userAgent)
+	}
+}
+
 // WithLogDir 设置日志目录，将请求日志保存到指定目录
 func WithLogDir(logDir string) Option {
 	return func(sdk *FishPiSDK) {

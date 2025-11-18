@@ -2,12 +2,14 @@ package sdk
 
 import (
 	"bytes"
+	"crypto/md5"
 	"encoding/base32"
 	"fmt"
 	"log/slog"
 	"net/http"
 	"time"
 
+	"github.com/FishPiOffical/golang-sdk/config"
 	"github.com/FishPiOffical/golang-sdk/types"
 
 	"github.com/imroc/req/v3"
@@ -17,23 +19,27 @@ import (
 
 // FishPiSDK SDK客户端
 type FishPiSDK struct {
-	configProvider ConfigProvider
+	configProvider config.Provider
 	client         *req.Client
 	logDir         string
 	logger         *slog.Logger
 }
 
 // NewSDK 创建新的SDK实例（使用ConfigProvider）
-func NewSDK(configProvider ConfigProvider, options ...Option) *FishPiSDK {
+func NewSDK(configProvider config.Provider, options ...Option) *FishPiSDK {
 	conf := configProvider.Get()
 
 	if conf.BaseUrl == "" {
 		conf.BaseUrl = BaseUrl
 	}
 
+	if conf.UserAgent == "" {
+		conf.UserAgent = UserAgent
+	}
+
 	reqClient := req.NewClient().
 		SetBaseURL(conf.BaseUrl).
-		SetCommonHeader("User-Agent", UserAgent).
+		SetCommonHeader("User-Agent", conf.UserAgent).
 		SetCommonQueryParam("apiKey", conf.ApiKey)
 
 	sdk := &FishPiSDK{
@@ -56,22 +62,22 @@ func NewSDKWithAPIKey(apiKey string, domain ...string) *FishPiSDK {
 		d = domain[0]
 	}
 
-	config := &Config{
+	conf := &config.Config{
 		BaseUrl: fmt.Sprintf("https://%s", d),
 		ApiKey:  apiKey,
 	}
 
-	provider := NewMemoryConfigProvider(config)
+	provider := config.NewMemoryConfigProvider(conf)
 	return NewSDK(provider)
 }
 
 // GetConfig 获取配置
-func (s *FishPiSDK) GetConfig() *Config {
+func (s *FishPiSDK) GetConfig() *config.Config {
 	return s.configProvider.Get()
 }
 
 // UpdateConfig 更新配置
-func (s *FishPiSDK) UpdateConfig(config *Config) error {
+func (s *FishPiSDK) UpdateConfig(config *config.Config) error {
 	if err := s.configProvider.Update(config); err != nil {
 		return fmt.Errorf("failed to update config: %w", err)
 	}
@@ -85,7 +91,7 @@ func (s *FishPiSDK) UpdateConfig(config *Config) error {
 
 // GetUserAgent 获取User-Agent
 func (s *FishPiSDK) GetUserAgent() string {
-	return UserAgent
+	return s.client.Headers.Get("User-Agent")
 }
 
 // GetAPIKey 获取当前API Key
@@ -97,13 +103,17 @@ func (s *FishPiSDK) GetAPIKey() string {
 func (s *FishPiSDK) PostApiGetKey() error {
 	conf := s.configProvider.Get()
 
-	if conf.Username == "" || conf.Password == "" {
+	if conf.Username == "" || (conf.Password == "" && conf.PasswordMd5 == "") {
 		return fmt.Errorf("username and password are required")
 	}
 
 	request := &types.PostApiGetKeyRequest{
 		NameOrEmail:  conf.Username,
-		UserPassword: conf.Password,
+		UserPassword: conf.PasswordMd5,
+	}
+	if conf.PasswordMd5 == "" {
+		sum := md5.Sum([]byte(conf.Password))
+		request.UserPassword = fmt.Sprintf("%x", sum)
 	}
 	if conf.MfaCode != "" {
 		request.MfaCode = conf.MfaCode
