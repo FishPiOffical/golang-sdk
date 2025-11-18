@@ -1,22 +1,23 @@
 package config
 
 import (
-	"encoding/json"
 	"fmt"
 	"os"
 	"sync"
+
+	"gopkg.in/yaml.v3"
 )
 
-// FileConfigProvider 文件配置提供者
-type FileConfigProvider struct {
+// FileYamlProvider 文件配置提供者
+type FileYamlProvider struct {
 	filePath string
 	config   *Config
 	mu       sync.RWMutex
 }
 
-// NewFileConfigProvider 创建文件配置提供者
-func NewFileConfigProvider(filePath string) *FileConfigProvider {
-	provider := &FileConfigProvider{
+// NewFileYamlProvider 创建文件配置提供者
+func NewFileYamlProvider(filePath string) *FileYamlProvider {
+	provider := &FileYamlProvider{
 		filePath: filePath,
 		config:   &Config{},
 	}
@@ -31,7 +32,7 @@ func NewFileConfigProvider(filePath string) *FileConfigProvider {
 }
 
 // Get 获取配置
-func (p *FileConfigProvider) Get() *Config {
+func (p *FileYamlProvider) Get() *Config {
 	p.mu.RLock()
 	defer p.mu.RUnlock()
 
@@ -41,7 +42,7 @@ func (p *FileConfigProvider) Get() *Config {
 }
 
 // Update 更新配置并保存到文件
-func (p *FileConfigProvider) Update(config *Config) error {
+func (p *FileYamlProvider) Update(config *Config) error {
 	if config == nil {
 		return fmt.Errorf("config cannot be nil")
 	}
@@ -54,13 +55,13 @@ func (p *FileConfigProvider) Update(config *Config) error {
 }
 
 // load 从文件加载配置
-func (p *FileConfigProvider) load() error {
+func (p *FileYamlProvider) load() error {
 	data, err := os.ReadFile(p.filePath)
 	if err != nil {
 		return fmt.Errorf("failed to read config file: %w", err)
 	}
 
-	if err := json.Unmarshal(data, p.config); err != nil {
+	if err = yaml.Unmarshal(data, p.config); err != nil {
 		return fmt.Errorf("failed to unmarshal config: %w", err)
 	}
 
@@ -68,8 +69,8 @@ func (p *FileConfigProvider) load() error {
 }
 
 // save 保存配置到文件
-func (p *FileConfigProvider) save() error {
-	data, err := json.MarshalIndent(p.config, "", "  ")
+func (p *FileYamlProvider) save() error {
+	data, err := yaml.Marshal(p.config)
 	if err != nil {
 		return fmt.Errorf("failed to marshal config: %w", err)
 	}

@@ -1,8 +1,9 @@
 package sdk
 
 import (
-	"github.com/FishPiOffical/golang-sdk/types"
 	"fmt"
+
+	"github.com/FishPiOffical/golang-sdk/types"
 )
 
 // GetUserInfo 获取当前用户信息
@@ -90,21 +91,6 @@ func (s *FishPiSDK) PostPointTransfer(req *types.TransferRequest) (*types.Simple
 	}
 
 	var response types.SimpleResponse
-	if err = res.Unmarshal(&response); err != nil {
-		return nil, err
-	}
-
-	return &response, nil
-}
-
-// GetUserEmotions 获取用户常用表情
-func (s *FishPiSDK) GetUserEmotions() (*types.UserEmotionsResponse, error) {
-	res, err := s.client.R().Get("/users/emotions")
-	if err != nil {
-		return nil, err
-	}
-
-	var response types.UserEmotionsResponse
 	if err = res.Unmarshal(&response); err != nil {
 		return nil, err
 	}

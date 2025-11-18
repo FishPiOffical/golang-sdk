@@ -106,13 +106,6 @@ type YesterdayLivenessRewardResponse struct {
 	Sum  int    `json:"sum"`
 }
 
-// UserEmotionsResponse 用户常用表情响应
-type UserEmotionsResponse struct {
-	Code int                `json:"code"`
-	Msg  string             `json:"msg"`
-	Data map[string]float64 `json:"data"`
-}
-
 // PostRegisterRequest 用户注册请求
 type PostRegisterRequest struct {
 	UserName   string `json:"userName"`

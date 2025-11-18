@@ -29,7 +29,7 @@ func init() {
 	logger = slog.New(devslog.NewHandler(os.Stdout, opts))
 	slog.SetDefault(logger)
 
-	provider := config.NewFileConfigProvider(configPath)
+	provider := config.NewFileYamlProvider(configPath)
 
 	// 使用选项创建SDK
 	client = sdk.NewSDK(
@@ -53,7 +53,8 @@ func main() {
 
 	// 通用
 	//getUserInfoByUsername()
-	postUsersNames()
+	//postUsersNames()
+	//getUsersEmotions()
 
 }
 
@@ -73,4 +74,13 @@ func postUsersNames() {
 		return
 	}
 	logger.Info("用户名联想结果", slog.Any("resp", resp))
+}
+
+func getUsersEmotions() {
+	resp, err := client.GetUsersEmotions()
+	if err != nil {
+		logger.Error("获取用户常用表情失败", slog.String("error", err.Error()))
+		return
+	}
+	logger.Info("用户常用表情结果", slog.Any("resp", resp))
 }

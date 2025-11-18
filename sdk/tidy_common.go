@@ -35,3 +35,18 @@ func (s *FishPiSDK) PostUsersNames(name string) (*types.ApiResponse[[]*types.Ass
 
 	return response, nil
 }
+
+// GetUsersEmotions 获取用户常用表情
+func (s *FishPiSDK) GetUsersEmotions() (*types.ApiResponse[[]map[string]any], error) {
+	response := new(types.ApiResponse[[]map[string]any])
+
+	_, err := s.client.R().
+		SetSuccessResult(response).
+		SetErrorResult(response).
+		Get("/users/emotions")
+	if err != nil {
+		return nil, err
+	}
+
+	return response, nil
+}
