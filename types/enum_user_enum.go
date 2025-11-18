@@ -12,21 +12,106 @@ import (
 )
 
 const (
-	// UserAppRoleHack is a UserAppRole of type Hack.
+	// CanFollowHide is a CanFollow of type hide.
+	CanFollowHide CanFollow = "hide"
+	// CanFollowNo is a CanFollow of type no.
+	CanFollowNo CanFollow = "no"
+	// CanFollowYes is a CanFollow of type yes.
+	CanFollowYes CanFollow = "yes"
+)
+
+var ErrInvalidCanFollow = fmt.Errorf("not a valid CanFollow, try [%s]", strings.Join(_CanFollowNames, ", "))
+
+var _CanFollowNames = []string{
+	string(CanFollowHide),
+	string(CanFollowNo),
+	string(CanFollowYes),
+}
+
+// CanFollowNames returns a list of possible string values of CanFollow.
+func CanFollowNames() []string {
+	tmp := make([]string, len(_CanFollowNames))
+	copy(tmp, _CanFollowNames)
+	return tmp
+}
+
+// CanFollowValues returns a list of the values for CanFollow
+func CanFollowValues() []CanFollow {
+	return []CanFollow{
+		CanFollowHide,
+		CanFollowNo,
+		CanFollowYes,
+	}
+}
+
+// String implements the Stringer interface.
+func (x CanFollow) String() string {
+	return string(x)
+}
+
+// IsValid provides a quick way to determine if the typed value is
+// part of the allowed enumerated values
+func (x CanFollow) IsValid() bool {
+	_, err := ParseCanFollow(string(x))
+	return err == nil
+}
+
+var _CanFollowValue = map[string]CanFollow{
+	"hide": CanFollowHide,
+	"no":   CanFollowNo,
+	"yes":  CanFollowYes,
+}
+
+// ParseCanFollow attempts to convert a string to a CanFollow.
+func ParseCanFollow(name string) (CanFollow, error) {
+	if x, ok := _CanFollowValue[name]; ok {
+		return x, nil
+	}
+	return CanFollow(""), fmt.Errorf("%s is %w", name, ErrInvalidCanFollow)
+}
+
+// MustParseCanFollow converts a string to a CanFollow, and panics if is not valid.
+func MustParseCanFollow(name string) CanFollow {
+	val, err := ParseCanFollow(name)
+	if err != nil {
+		panic(err)
+	}
+	return val
+}
+
+func (x CanFollow) Ptr() *CanFollow {
+	return &x
+}
+
+// MarshalText implements the text marshaller method.
+func (x CanFollow) MarshalText() ([]byte, error) {
+	return []byte(string(x)), nil
+}
+
+// UnmarshalText implements the text unmarshaller method.
+func (x *CanFollow) UnmarshalText(text []byte) error {
+	tmp, err := ParseCanFollow(string(text))
+	if err != nil {
+		return err
+	}
+	*x = tmp
+	return nil
+}
+
+const (
+	// UserAppRoleHack is a UserAppRole of type hack.
 	// 黑客
-	UserAppRoleHack UserAppRole = iota
-	// UserAppRolePainter is a UserAppRole of type Painter.
+	UserAppRoleHack UserAppRole = "0"
+	// UserAppRolePainter is a UserAppRole of type painter.
 	// 画家
-	UserAppRolePainter
+	UserAppRolePainter UserAppRole = "1"
 )
 
 var ErrInvalidUserAppRole = fmt.Errorf("not a valid UserAppRole, try [%s]", strings.Join(_UserAppRoleNames, ", "))
 
-const _UserAppRoleName = "hackpainter"
-
 var _UserAppRoleNames = []string{
-	_UserAppRoleName[0:4],
-	_UserAppRoleName[4:11],
+	string(UserAppRoleHack),
+	string(UserAppRolePainter),
 }
 
 // UserAppRoleNames returns a list of possible string values of UserAppRole.
@@ -44,29 +129,21 @@ func UserAppRoleValues() []UserAppRole {
 	}
 }
 
-var _UserAppRoleMap = map[UserAppRole]string{
-	UserAppRoleHack:    _UserAppRoleName[0:4],
-	UserAppRolePainter: _UserAppRoleName[4:11],
-}
-
 // String implements the Stringer interface.
 func (x UserAppRole) String() string {
-	if str, ok := _UserAppRoleMap[x]; ok {
-		return str
-	}
-	return fmt.Sprintf("UserAppRole(%d)", x)
+	return string(x)
 }
 
 // IsValid provides a quick way to determine if the typed value is
 // part of the allowed enumerated values
 func (x UserAppRole) IsValid() bool {
-	_, ok := _UserAppRoleMap[x]
-	return ok
+	_, err := ParseUserAppRole(string(x))
+	return err == nil
 }
 
 var _UserAppRoleValue = map[string]UserAppRole{
-	_UserAppRoleName[0:4]:  UserAppRoleHack,
-	_UserAppRoleName[4:11]: UserAppRolePainter,
+	"0": UserAppRoleHack,
+	"1": UserAppRolePainter,
 }
 
 // ParseUserAppRole attempts to convert a string to a UserAppRole.
@@ -74,7 +151,7 @@ func ParseUserAppRole(name string) (UserAppRole, error) {
 	if x, ok := _UserAppRoleValue[name]; ok {
 		return x, nil
 	}
-	return UserAppRole(0), fmt.Errorf("%s is %w", name, ErrInvalidUserAppRole)
+	return UserAppRole(""), fmt.Errorf("%s is %w", name, ErrInvalidUserAppRole)
 }
 
 // MustParseUserAppRole converts a string to a UserAppRole, and panics if is not valid.
@@ -92,13 +169,12 @@ func (x UserAppRole) Ptr() *UserAppRole {
 
 // MarshalText implements the text marshaller method.
 func (x UserAppRole) MarshalText() ([]byte, error) {
-	return []byte(x.String()), nil
+	return []byte(string(x)), nil
 }
 
 // UnmarshalText implements the text unmarshaller method.
 func (x *UserAppRole) UnmarshalText(text []byte) error {
-	name := string(text)
-	tmp, err := ParseUserAppRole(name)
+	tmp, err := ParseUserAppRole(string(text))
 	if err != nil {
 		return err
 	}

@@ -19,7 +19,7 @@ type PostApiGetKeyResponse struct {
 // UserInfo 用户信息
 type UserInfo struct {
 	OId                  string      `json:"oId"`
-	UserNo               int         `json:"userNo"`
+	UserNo               string      `json:"userNo"`
 	UserName             string      `json:"userName"`
 	UserNickname         string      `json:"userNickname"`
 	UserAvatarURL        string      `json:"userAvatarURL"`
@@ -36,8 +36,8 @@ type UserInfo struct {
 	CardBg               string      `json:"cardBg"`
 	FollowingUserCount   int         `json:"followingUserCount"`
 	FollowerCount        int         `json:"followerCount"`
-	CanFollow            string      `json:"canFollow"` // "hide" | "no" | "yes"
-	OnlineFlag           bool        `json:"onlineFlag"`
+	CanFollow            CanFollow   `json:"canFollow"`
+	UserOnlineFlag       bool        `json:"userOnlineFlag"`
 	UserCreateTime       time.Time   `json:"userCreateTime"`
 	UserCreateTimeStr    string      `json:"userCreateTimeStr"`
 	UserUpdateTime       time.Time   `json:"userUpdateTime"`

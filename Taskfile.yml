@@ -11,3 +11,6 @@ tasks:
     cmds:
       - go run main.go
 
+  generate:
+    cmds:
+      - go generate ./...
