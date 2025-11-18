@@ -80,3 +80,18 @@ func (s *FishPiSDK) GetUserCheckedIn() (*types.UserCheckedInResponse, error) {
 
 	return response, nil
 }
+
+// GetYesterdayLivenessReward 领取昨日活跃度奖励
+func (s *FishPiSDK) GetYesterdayLivenessReward() (*types.YesterdayLivenessRewardResponse, error) {
+	response := new(types.YesterdayLivenessRewardResponse)
+
+	_, err := s.client.R().
+		SetSuccessResult(response).
+		SetErrorResult(response).
+		Get("/activity/yesterday-liveness-reward-api")
+	if err != nil {
+		return nil, err
+	}
+
+	return response, nil
+}

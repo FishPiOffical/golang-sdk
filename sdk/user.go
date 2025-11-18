@@ -36,21 +36,6 @@ func (s *FishPiSDK) GetIsCollectedLiveness() (*types.IsCollectedLivenessResponse
 	return &response, nil
 }
 
-// GetYesterdayLivenessReward 领取昨日活跃度奖励
-func (s *FishPiSDK) GetYesterdayLivenessReward() (*types.YesterdayLivenessRewardResponse, error) {
-	res, err := s.client.R().Get("/activity/yesterday-liveness-reward-api")
-	if err != nil {
-		return nil, err
-	}
-
-	var response types.YesterdayLivenessRewardResponse
-	if err = res.Unmarshal(&response); err != nil {
-		return nil, err
-	}
-
-	return &response, nil
-}
-
 // PostPointTransfer 转账
 func (s *FishPiSDK) PostPointTransfer(req *types.TransferRequest) (*types.SimpleResponse, error) {
 	res, err := s.client.R().
@@ -91,10 +76,6 @@ func (s *FishPiSDK) RewardLiveness() (int, error) {
 	resp, err := s.GetYesterdayLivenessReward()
 	if err != nil {
 		return 0, err
-	}
-
-	if resp.Code != 0 {
-		return 0, fmt.Errorf("reward liveness failed: %s", resp.Msg)
 	}
 
 	return resp.Sum, nil

@@ -55,3 +55,8 @@ type UserLivenessResponse struct {
 type UserCheckedInResponse struct {
 	CheckedIn bool `json:"checkedIn"`
 }
+
+// YesterdayLivenessRewardResponse 领取昨日活跃奖励响应
+type YesterdayLivenessRewardResponse struct {
+	Sum int `json:"sum"`
+}

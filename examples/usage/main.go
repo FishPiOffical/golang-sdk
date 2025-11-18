@@ -57,6 +57,7 @@ func main() {
 	//getUsersEmotions()
 	//getUserLiveness()
 	//getUserCheckedIn()
+	//getYesterdayLivenessReward()
 
 }
 
@@ -103,4 +104,13 @@ func getUserCheckedIn() {
 		return
 	}
 	logger.Info("用户签到结果", slog.Any("resp", resp))
+}
+
+func getYesterdayLivenessReward() {
+	resp, err := client.GetYesterdayLivenessReward()
+	if err != nil {
+		logger.Error("获取昨日活跃度奖励失败", slog.String("error", err.Error()))
+		return
+	}
+	logger.Info("昨日活跃度奖励结果", slog.Any("resp", resp))
 }
