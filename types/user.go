@@ -78,13 +78,6 @@ type UserInfoResponse struct {
 	Data UserInfo `json:"data"`
 }
 
-// UserLivenessResponse 用户活跃度响应
-type UserLivenessResponse struct {
-	Code     int    `json:"code"`
-	Msg      string `json:"msg"`
-	Liveness int    `json:"liveness"`
-}
-
 // UserCheckedInResponse 用户签到状态响应
 type UserCheckedInResponse struct {
 	Code      int    `json:"code"`

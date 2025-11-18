@@ -21,21 +21,6 @@ func (s *FishPiSDK) GetUserInfo() (*types.UserInfoResponse, error) {
 	return &response, nil
 }
 
-// GetUserLiveness 获取当前用户活跃度响应
-func (s *FishPiSDK) GetUserLiveness() (*types.UserLivenessResponse, error) {
-	res, err := s.client.R().Get("/user/liveness")
-	if err != nil {
-		return nil, err
-	}
-
-	var response types.UserLivenessResponse
-	if err = res.Unmarshal(&response); err != nil {
-		return nil, err
-	}
-
-	return &response, nil
-}
-
 // GetUserCheckedIn 检查是否已签到
 func (s *FishPiSDK) GetUserCheckedIn() (*types.UserCheckedInResponse, error) {
 	res, err := s.client.R().Get("/user/checkedIn")
@@ -159,7 +144,7 @@ func (s *FishPiSDK) IsCollectedLiveness() (bool, error) {
 }
 
 // GetLiveness 获取当前活跃度值
-func (s *FishPiSDK) GetLiveness() (int, error) {
+func (s *FishPiSDK) GetLiveness() (float64, error) {
 	resp, err := s.GetUserLiveness()
 	if err != nil {
 		return 0, err

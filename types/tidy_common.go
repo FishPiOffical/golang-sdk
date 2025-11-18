@@ -43,3 +43,10 @@ type AssociateUser struct {
 	UserAvatarURL210  string `json:"userAvatarURL210"`
 	UserNameLowerCase string `json:"userNameLowerCase"`
 }
+
+// UserLivenessResponse 用户活跃度响应
+type UserLivenessResponse struct {
+	Code     int     `json:"code"`
+	Msg      string  `json:"msg"`
+	Liveness float64 `json:"liveness"`
+}

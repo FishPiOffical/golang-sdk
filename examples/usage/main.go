@@ -55,6 +55,7 @@ func main() {
 	//getUserInfoByUsername()
 	//postUsersNames()
 	//getUsersEmotions()
+	//getUserLiveness()
 
 }
 
@@ -83,4 +84,13 @@ func getUsersEmotions() {
 		return
 	}
 	logger.Info("用户常用表情结果", slog.Any("resp", resp))
+}
+
+func getUserLiveness() {
+	resp, err := client.GetUserLiveness()
+	if err != nil {
+		logger.Error("获取用户活跃度失败", slog.String("error", err.Error()))
+		return
+	}
+	logger.Info("用户活跃度结果", slog.Any("resp", resp))
 }

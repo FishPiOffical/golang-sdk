@@ -50,3 +50,18 @@ func (s *FishPiSDK) GetUsersEmotions() (*types.ApiResponse[[]map[string]any], er
 
 	return response, nil
 }
+
+// GetUserLiveness 获取当前用户活跃度响应
+func (s *FishPiSDK) GetUserLiveness() (*types.UserLivenessResponse, error) {
+	response := new(types.UserLivenessResponse)
+
+	_, err := s.client.R().
+		SetSuccessResult(response).
+		SetErrorResult(response).
+		Get("/user/liveness")
+	if err != nil {
+		return nil, err
+	}
+
+	return response, nil
+}
