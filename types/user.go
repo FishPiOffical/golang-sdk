@@ -78,13 +78,6 @@ type UserInfoResponse struct {
 	Data UserInfo `json:"data"`
 }
 
-// IsCollectedLivenessResponse 是否已领取昨日活跃奖励响应
-type IsCollectedLivenessResponse struct {
-	Code                               int    `json:"code"`
-	Msg                                string `json:"msg"`
-	IsCollectedYesterdayLivenessReward bool   `json:"isCollectedYesterdayLivenessReward"`
-}
-
 // PostRegisterRequest 用户注册请求
 type PostRegisterRequest struct {
 	UserName   string `json:"userName"`

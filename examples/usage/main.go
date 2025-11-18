@@ -58,6 +58,7 @@ func main() {
 	//getUserLiveness()
 	//getUserCheckedIn()
 	//getYesterdayLivenessReward()
+	//getIsCollectedLiveness()
 
 }
 
@@ -113,4 +114,13 @@ func getYesterdayLivenessReward() {
 		return
 	}
 	logger.Info("昨日活跃度奖励结果", slog.Any("resp", resp))
+}
+
+func getIsCollectedLiveness() {
+	resp, err := client.GetIsCollectedLiveness()
+	if err != nil {
+		logger.Error("检查是否已领取昨日活跃度奖励失败", slog.String("error", err.Error()))
+		return
+	}
+	logger.Info("是否已领取昨日活跃度奖励结果", slog.Any("resp", resp))
 }

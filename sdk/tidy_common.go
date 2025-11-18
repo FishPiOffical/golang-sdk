@@ -95,3 +95,18 @@ func (s *FishPiSDK) GetYesterdayLivenessReward() (*types.YesterdayLivenessReward
 
 	return response, nil
 }
+
+// GetIsCollectedLiveness 检查是否已领取昨日活跃奖励
+func (s *FishPiSDK) GetIsCollectedLiveness() (*types.IsCollectedLivenessResponse, error) {
+	response := new(types.IsCollectedLivenessResponse)
+
+	_, err := s.client.R().
+		SetSuccessResult(response).
+		SetErrorResult(response).
+		Get("/api/activity/is-collected-liveness")
+	if err != nil {
+		return nil, err
+	}
+
+	return response, nil
+}
