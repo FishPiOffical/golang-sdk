@@ -47,6 +47,7 @@ const (
 	username        = "8888"
 	associateName   = "888"
 	reportArticleId = "1702103071389" // https://fishpi.cn/article/1702103071389
+	followingId     = "1734578210153" // https://fishpi.cn/member/wordsKing
 )
 
 func main() {
@@ -64,6 +65,8 @@ func main() {
 	//postReport()
 	//getUserRecentReg()
 	//postPointTransfer()
+	//postFollowUser()
+	//postUnfollowUser()
 
 }
 
@@ -159,4 +162,22 @@ func postPointTransfer() {
 		return
 	}
 	logger.Info("用户积分转账结果", slog.Any("resp", resp))
+}
+
+func postFollowUser() {
+	resp, err := client.PostFollowUser(followingId)
+	if err != nil {
+		logger.Error("关注用户失败", slog.String("error", err.Error()))
+		return
+	}
+	logger.Info("关注用户结果", slog.Any("resp", resp))
+}
+
+func postUnfollowUser() {
+	resp, err := client.PostUnfollowUser(followingId)
+	if err != nil {
+		logger.Error("取消关注用户失败", slog.String("error", err.Error()))
+		return
+	}
+	logger.Info("取消关注用户结果", slog.Any("resp", resp))
 }

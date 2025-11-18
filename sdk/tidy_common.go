@@ -167,3 +167,43 @@ func (s *FishPiSDK) PostPointTransfer(req *types.PostPointTransferRequest) (*typ
 
 	return response, nil
 }
+
+// PostFollowUser 关注用户
+func (s *FishPiSDK) PostFollowUser(followingId string) (*types.SimpleResponse, error) {
+	response := new(types.SimpleResponse)
+
+	_, err := s.client.R().
+		SetBodyJsonMarshal(map[string]any{
+			"apiKey":      s.GetAPIKey(),
+			"followingId": followingId,
+		}).
+		SetSuccessResult(response).
+		SetErrorResult(response).
+		Post("/follow/user")
+
+	if err != nil {
+		return nil, err
+	}
+
+	return response, nil
+}
+
+// PostUnfollowUser 取消关注用户
+func (s *FishPiSDK) PostUnfollowUser(followingId string) (*types.SimpleResponse, error) {
+	response := new(types.SimpleResponse)
+
+	_, err := s.client.R().
+		SetBodyJsonMarshal(map[string]any{
+			"apiKey":      s.GetAPIKey(),
+			"followingId": followingId,
+		}).
+		SetSuccessResult(response).
+		SetErrorResult(response).
+		Post("/unfollow/user")
+
+	if err != nil {
+		return nil, err
+	}
+
+	return response, nil
+}

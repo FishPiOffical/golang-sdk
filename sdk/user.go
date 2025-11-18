@@ -101,31 +101,6 @@ func (s *FishPiSDK) GetUserByUsername(username string) (*types.UserInfo, error) 
 	return resp.Data, nil
 }
 
-// FollowUser 关注/取消关注用户
-func (s *FishPiSDK) FollowUser(followingId string) error {
-	if followingId == "" {
-		return fmt.Errorf("followingId is required")
-	}
-
-	var resp types.SimpleResponse
-	_, err := s.client.R().
-		SetBodyJsonMarshal(map[string]string{
-			"followingId": followingId,
-		}).
-		SetSuccessResult(&resp).
-		Post("/follow")
-
-	if err != nil {
-		return fmt.Errorf("failed to follow user: %w", err)
-	}
-
-	if resp.Code != 0 {
-		return fmt.Errorf("follow user failed: %s", resp.Msg)
-	}
-
-	return nil
-}
-
 // UploadFile 上传文件
 func (s *FishPiSDK) UploadFile(file []byte, fileName string) (*types.UploadFileResponse, error) {
 	if len(file) == 0 {
