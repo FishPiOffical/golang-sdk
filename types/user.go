@@ -78,13 +78,6 @@ type UserInfoResponse struct {
 	Data UserInfo `json:"data"`
 }
 
-// UserCheckedInResponse 用户签到状态响应
-type UserCheckedInResponse struct {
-	Code      int    `json:"code"`
-	Msg       string `json:"msg"`
-	CheckedIn bool   `json:"checkedIn"`
-}
-
 // IsCollectedLivenessResponse 是否已领取昨日活跃奖励响应
 type IsCollectedLivenessResponse struct {
 	Code                               int    `json:"code"`

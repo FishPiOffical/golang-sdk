@@ -65,3 +65,18 @@ func (s *FishPiSDK) GetUserLiveness() (*types.UserLivenessResponse, error) {
 
 	return response, nil
 }
+
+// GetUserCheckedIn 检查是否已签到
+func (s *FishPiSDK) GetUserCheckedIn() (*types.UserCheckedInResponse, error) {
+	response := new(types.UserCheckedInResponse)
+
+	_, err := s.client.R().
+		SetSuccessResult(response).
+		SetErrorResult(response).
+		Get("/user/checkedIn")
+	if err != nil {
+		return nil, err
+	}
+
+	return response, nil
+}

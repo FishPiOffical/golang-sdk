@@ -56,6 +56,7 @@ func main() {
 	//postUsersNames()
 	//getUsersEmotions()
 	//getUserLiveness()
+	//getUserCheckedIn()
 
 }
 
@@ -93,4 +94,13 @@ func getUserLiveness() {
 		return
 	}
 	logger.Info("用户活跃度结果", slog.Any("resp", resp))
+}
+
+func getUserCheckedIn() {
+	resp, err := client.GetUserCheckedIn()
+	if err != nil {
+		logger.Error("检查用户是否签到失败", slog.String("error", err.Error()))
+		return
+	}
+	logger.Info("用户签到结果", slog.Any("resp", resp))
 }

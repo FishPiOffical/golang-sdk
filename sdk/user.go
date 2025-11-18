@@ -21,21 +21,6 @@ func (s *FishPiSDK) GetUserInfo() (*types.UserInfoResponse, error) {
 	return &response, nil
 }
 
-// GetUserCheckedIn 检查是否已签到
-func (s *FishPiSDK) GetUserCheckedIn() (*types.UserCheckedInResponse, error) {
-	res, err := s.client.R().Get("/user/checkedIn")
-	if err != nil {
-		return nil, err
-	}
-
-	var response types.UserCheckedInResponse
-	if err = res.Unmarshal(&response); err != nil {
-		return nil, err
-	}
-
-	return &response, nil
-}
-
 // GetIsCollectedLiveness 检查是否已领取昨日活跃奖励
 func (s *FishPiSDK) GetIsCollectedLiveness() (*types.IsCollectedLivenessResponse, error) {
 	res, err := s.client.R().Get("/api/activity/is-collected-liveness")
@@ -120,10 +105,6 @@ func (s *FishPiSDK) IsCheckIn() (bool, error) {
 	resp, err := s.GetUserCheckedIn()
 	if err != nil {
 		return false, err
-	}
-
-	if resp.Code != 0 {
-		return false, fmt.Errorf("check signin failed: %s", resp.Msg)
 	}
 
 	return resp.CheckedIn, nil

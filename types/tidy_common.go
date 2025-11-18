@@ -50,3 +50,8 @@ type UserLivenessResponse struct {
 	Msg      string  `json:"msg"`
 	Liveness float64 `json:"liveness"`
 }
+
+// UserCheckedInResponse 用户签到状态响应
+type UserCheckedInResponse struct {
+	CheckedIn bool `json:"checkedIn"`
+}
