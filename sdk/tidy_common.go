@@ -135,3 +135,19 @@ func (s *FishPiSDK) PostReport(dataId string, dataType types.ReportDataType, rep
 
 	return response, nil
 }
+
+// GetUserRecentReg 举报用户
+func (s *FishPiSDK) GetUserRecentReg() (*types.ApiResponse[[]*types.RecentRegUser], error) {
+	response := new(types.ApiResponse[[]*types.RecentRegUser])
+
+	_, err := s.client.R().
+		SetSuccessResult(response).
+		SetErrorResult(response).
+		Get("/api/user/recentReg")
+
+	if err != nil {
+		return nil, err
+	}
+
+	return response, nil
+}

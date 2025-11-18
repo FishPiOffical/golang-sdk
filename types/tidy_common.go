@@ -52,8 +52,6 @@ type AssociateUser struct {
 
 // UserLivenessResponse 用户活跃度响应
 type UserLivenessResponse struct {
-	Code     int     `json:"code"`
-	Msg      string  `json:"msg"`
 	Liveness float64 `json:"liveness"`
 }
 
@@ -70,4 +68,9 @@ type YesterdayLivenessRewardResponse struct {
 // IsCollectedLivenessResponse 是否已领取昨日活跃奖励响应
 type IsCollectedLivenessResponse struct {
 	IsCollectedYesterdayLivenessReward bool `json:"isCollectedYesterdayLivenessReward"`
+}
+
+type RecentRegUser struct {
+	UserName     string `json:"userName"`
+	UserNickname string `json:"userNickname"`
 }

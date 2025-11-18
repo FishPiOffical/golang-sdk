@@ -62,6 +62,7 @@ func main() {
 	//getYesterdayLivenessReward()
 	//getIsCollectedLiveness()
 	//postReport()
+	//getUserRecentReg()
 
 }
 
@@ -135,4 +136,13 @@ func postReport() {
 		return
 	}
 	logger.Info("举报用户结果", slog.Any("resp", resp))
+}
+
+func getUserRecentReg() {
+	resp, err := client.GetUserRecentReg()
+	if err != nil {
+		logger.Error("获取用户最近注册信息失败", slog.String("error", err.Error()))
+		return
+	}
+	logger.Info("用户最近注册信息结果", slog.Any("resp", resp))
 }

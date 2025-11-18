@@ -93,10 +93,6 @@ func (s *FishPiSDK) GetLiveness() (float64, error) {
 		return 0, err
 	}
 
-	if resp.Code != 0 {
-		return 0, fmt.Errorf("get liveness failed: %s", resp.Msg)
-	}
-
 	return resp.Liveness, nil
 }
 
