@@ -43,7 +43,8 @@ const (
 	configPath = "../../_tmp/config.yaml"
 	logPath    = "../../_tmp/logs/"
 
-	username = "8888"
+	username      = "8888"
+	associateName = "888"
 )
 
 func main() {
@@ -51,7 +52,8 @@ func main() {
 	// 鉴权
 
 	// 通用
-	getUserInfoByUsername()
+	//getUserInfoByUsername()
+	postUsersNames()
 
 }
 
@@ -62,4 +64,13 @@ func getUserInfoByUsername() {
 		return
 	}
 	logger.Info("用户信息", slog.Any("user", user.UserNickname))
+}
+
+func postUsersNames() {
+	resp, err := client.PostUsersNames(associateName)
+	if err != nil {
+		logger.Error("用户名联想失败", slog.String("error", err.Error()))
+		return
+	}
+	logger.Info("用户名联想结果", slog.Any("resp", resp))
 }

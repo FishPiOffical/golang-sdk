@@ -1,5 +1,13 @@
 package types
 
+// ApiResponse 通用API响应结构(带Data字段)
+type ApiResponse[T any] struct {
+	Code int    `json:"code"`
+	Msg  string `json:"msg"`
+	Data T      `json:"data"`
+}
+
+// User 其他用户的信息
 type User struct {
 	OId                string      `json:"oId"`
 	UserNo             string      `json:"userNo"`
@@ -24,4 +32,14 @@ type User struct {
 	UserOnlineFlag     bool        `json:"userOnlineFlag"`
 	MBTI               string      `json:"mbti"`
 	AllMetalOwned      string      `json:"allMetalOwned"`
+}
+
+// AssociateUser 联想的用户信息
+type AssociateUser struct {
+	UserName          string `json:"userName"`
+	UserAvatarURL     string `json:"userAvatarURL"`
+	UserAvatarURL20   string `json:"userAvatarURL20"`
+	UserAvatarURL48   string `json:"userAvatarURL48"`
+	UserAvatarURL210  string `json:"userAvatarURL210"`
+	UserNameLowerCase string `json:"userNameLowerCase"`
 }
