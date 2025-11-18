@@ -151,3 +151,19 @@ func (s *FishPiSDK) GetUserRecentReg() (*types.ApiResponse[[]*types.RecentRegUse
 
 	return response, nil
 }
+
+// PostPointTransfer 转账
+func (s *FishPiSDK) PostPointTransfer(req *types.PostPointTransferRequest) (*types.SimpleResponse, error) {
+	response := new(types.SimpleResponse)
+
+	_, err := s.client.R().
+		SetBodyJsonMarshal(req).
+		SetSuccessResult(response).
+		SetErrorResult(response).
+		Post("/point/transfer")
+	if err != nil {
+		return nil, err
+	}
+
+	return response, nil
+}

@@ -21,23 +21,6 @@ func (s *FishPiSDK) GetUserInfo() (*types.UserInfoResponse, error) {
 	return &response, nil
 }
 
-// PostPointTransfer 转账
-func (s *FishPiSDK) PostPointTransfer(req *types.TransferRequest) (*types.SimpleResponse, error) {
-	res, err := s.client.R().
-		SetBodyJsonMarshal(req).
-		Post("/point/transfer")
-	if err != nil {
-		return nil, err
-	}
-
-	var response types.SimpleResponse
-	if err = res.Unmarshal(&response); err != nil {
-		return nil, err
-	}
-
-	return &response, nil
-}
-
 // PostUserCheckin 用户签到
 func (s *FishPiSDK) PostUserCheckin() (*types.CheckinResponse, error) {
 	var resp types.ApiResponse[*types.CheckinResponse]

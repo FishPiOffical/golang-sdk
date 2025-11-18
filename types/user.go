@@ -49,13 +49,6 @@ type UserInfo struct {
 	MBTI                 string      `json:"mbti"`
 }
 
-// TransferRequest 转账请求
-type TransferRequest struct {
-	UserName string `json:"userName"`
-	Amount   int    `json:"amount"`
-	Memo     string `json:"memo"`
-}
-
 // CheckinRequest 签到请求
 type CheckinRequest struct{}
 

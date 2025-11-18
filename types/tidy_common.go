@@ -74,3 +74,10 @@ type RecentRegUser struct {
 	UserName     string `json:"userName"`
 	UserNickname string `json:"userNickname"`
 }
+
+// PostPointTransferRequest 转账请求
+type PostPointTransferRequest struct {
+	UserName string `json:"userName"`
+	Amount   int    `json:"amount"`
+	Memo     string `json:"memo"`
+}

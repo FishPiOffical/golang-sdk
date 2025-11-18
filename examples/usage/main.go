@@ -63,6 +63,7 @@ func main() {
 	//getIsCollectedLiveness()
 	//postReport()
 	//getUserRecentReg()
+	//postPointTransfer()
 
 }
 
@@ -145,4 +146,17 @@ func getUserRecentReg() {
 		return
 	}
 	logger.Info("用户最近注册信息结果", slog.Any("resp", resp))
+}
+
+func postPointTransfer() {
+	resp, err := client.PostPointTransfer(&types.PostPointTransferRequest{
+		UserName: username,
+		Amount:   2,
+		Memo:     "接口测试转账",
+	})
+	if err != nil {
+		logger.Error("用户积分转账失败", slog.String("error", err.Error()))
+		return
+	}
+	logger.Info("用户积分转账结果", slog.Any("resp", resp))
 }
