@@ -94,3 +94,23 @@ func (s *FishPiSDK) PostChatroomSend(content string) (*types.SimpleResponse, err
 
 	return response, nil
 }
+
+// DeleteChatroomRevoke 撤回聊天室消息
+func (s *FishPiSDK) DeleteChatroomRevoke(oId string) (*types.SimpleResponse, error) {
+	response := new(types.SimpleResponse)
+
+	_, err := s.client.R().
+		SetBodyJsonMarshal(map[string]any{
+			"apiKey": s.GetAPIKey(),
+		}).
+		SetPathParam("oId", oId).
+		SetSuccessResult(response).
+		SetErrorResult(response).
+		Delete("/chat-room/revoke/{oId}")
+
+	if err != nil {
+		return nil, err
+	}
+
+	return response, nil
+}

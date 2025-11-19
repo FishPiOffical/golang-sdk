@@ -6,27 +6,6 @@ import (
 	"github.com/FishPiOffical/golang-sdk/types"
 )
 
-// RevokeChatroomMessage 撤回聊天室消息
-func (s *FishPiSDK) RevokeChatroomMessage(oId string) error {
-	var resp types.SimpleResponse
-	_, err := s.client.R().
-		SetBodyJsonMarshal(map[string]string{
-			"oId": oId,
-		}).
-		SetSuccessResult(&resp).
-		Delete("/chat-room/revoke/" + oId)
-
-	if err != nil {
-		return err
-	}
-
-	if resp.Code != 0 {
-		return fmt.Errorf(resp.Msg)
-	}
-
-	return nil
-}
-
 // OpenRedPacket 打开红包
 func (s *FishPiSDK) OpenRedPacket(oId string, gesture *types.GestureType) (*types.PostChatroomRedPacketOpenResponse, error) {
 	body := map[string]interface{}{
