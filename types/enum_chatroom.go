@@ -1,4 +1,4 @@
-//go:generate go-enum --marshal --names --values --ptr --mustparse
+//go:generate go-enum --names --values --ptr --mustparse
 package types
 
 // ChatroomMsgType 聊天室消息类型

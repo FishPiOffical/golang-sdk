@@ -80,21 +80,6 @@ func (x ChatContentType) Ptr() *ChatContentType {
 	return &x
 }
 
-// MarshalText implements the text marshaller method.
-func (x ChatContentType) MarshalText() ([]byte, error) {
-	return []byte(string(x)), nil
-}
-
-// UnmarshalText implements the text unmarshaller method.
-func (x *ChatContentType) UnmarshalText(text []byte) error {
-	tmp, err := ParseChatContentType(string(text))
-	if err != nil {
-		return err
-	}
-	*x = tmp
-	return nil
-}
-
 const (
 	// ChatMessageTypeContext is a ChatMessageType of type Context.
 	// 上下文
@@ -179,22 +164,6 @@ func MustParseChatMessageType(name string) ChatMessageType {
 
 func (x ChatMessageType) Ptr() *ChatMessageType {
 	return &x
-}
-
-// MarshalText implements the text marshaller method.
-func (x ChatMessageType) MarshalText() ([]byte, error) {
-	return []byte(x.String()), nil
-}
-
-// UnmarshalText implements the text unmarshaller method.
-func (x *ChatMessageType) UnmarshalText(text []byte) error {
-	name := string(text)
-	tmp, err := ParseChatMessageType(name)
-	if err != nil {
-		return err
-	}
-	*x = tmp
-	return nil
 }
 
 const (
@@ -302,21 +271,6 @@ func (x ChatroomMsgType) Ptr() *ChatroomMsgType {
 	return &x
 }
 
-// MarshalText implements the text marshaller method.
-func (x ChatroomMsgType) MarshalText() ([]byte, error) {
-	return []byte(string(x)), nil
-}
-
-// UnmarshalText implements the text unmarshaller method.
-func (x *ChatroomMsgType) UnmarshalText(text []byte) error {
-	tmp, err := ParseChatroomMsgType(string(text))
-	if err != nil {
-		return err
-	}
-	*x = tmp
-	return nil
-}
-
 const (
 	// ChatroomRedPacketTypeRandom is a ChatroomRedPacketType of type random.
 	// 拼手气红包
@@ -404,21 +358,6 @@ func (x ChatroomRedPacketType) Ptr() *ChatroomRedPacketType {
 	return &x
 }
 
-// MarshalText implements the text marshaller method.
-func (x ChatroomRedPacketType) MarshalText() ([]byte, error) {
-	return []byte(string(x)), nil
-}
-
-// UnmarshalText implements the text unmarshaller method.
-func (x *ChatroomRedPacketType) UnmarshalText(text []byte) error {
-	tmp, err := ParseChatroomRedPacketType(string(text))
-	if err != nil {
-		return err
-	}
-	*x = tmp
-	return nil
-}
-
 const (
 	// GestureTypeRock is a GestureType of type Rock.
 	// 石头
@@ -503,20 +442,4 @@ func MustParseGestureType(name string) GestureType {
 
 func (x GestureType) Ptr() *GestureType {
 	return &x
-}
-
-// MarshalText implements the text marshaller method.
-func (x GestureType) MarshalText() ([]byte, error) {
-	return []byte(x.String()), nil
-}
-
-// UnmarshalText implements the text unmarshaller method.
-func (x *GestureType) UnmarshalText(text []byte) error {
-	name := string(text)
-	tmp, err := ParseGestureType(name)
-	if err != nil {
-		return err
-	}
-	*x = tmp
-	return nil
 }

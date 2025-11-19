@@ -52,3 +52,24 @@ func (s *FishPiSDK) GetChatroomMore(page int) (*types.ApiResponse[[]*types.Chatr
 
 	return response, nil
 }
+
+// GetChatroomMessage 获取聊天室指定消息上下文
+func (s *FishPiSDK) GetChatroomMessage(oId string, size int, mode types.ChatMessageType) (*types.ApiResponse[[]*types.ChatroomMsgData], error) {
+	response := new(types.ApiResponse[[]*types.ChatroomMsgData])
+
+	_, err := s.client.R().
+		SetQueryParamsAnyType(map[string]any{
+			"oId":  oId,
+			"size": size,
+			"mode": int(mode),
+		}).
+		SetSuccessResult(response).
+		SetErrorResult(response).
+		Get("/chat-room/getMessage")
+
+	if err != nil {
+		return nil, err
+	}
+
+	return response, nil
+}

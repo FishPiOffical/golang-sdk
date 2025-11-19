@@ -48,6 +48,7 @@ const (
 	associateName   = "888"
 	reportArticleId = "1702103071389" // https://fishpi.cn/article/1702103071389
 	followingId     = "1734578210153" // https://fishpi.cn/member/wordsKing
+	messageOId      = "1763542689788"
 )
 
 func main() {
@@ -83,7 +84,8 @@ func main() {
 	// 聊天室
 	//getChatroomBarragePrice()
 	//getChatroomNode()
-	getChatroomMore()
+	//getChatroomMore()
+	getChatroomMessage()
 
 }
 
@@ -314,4 +316,13 @@ func getChatroomMore() {
 		return
 	}
 	logger.Info("聊天室历史消息结果", slog.Any("resp", resp.Msg))
+}
+
+func getChatroomMessage() {
+	resp, err := client.GetChatroomMessage(messageOId, 10, types.ChatMessageTypeContext)
+	if err != nil {
+		logger.Error("获取聊天室指定消息上下文失败", slog.String("error", err.Error()))
+		return
+	}
+	logger.Info("聊天室指定消息上下文结果", slog.Any("resp", resp.Msg))
 }
