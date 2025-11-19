@@ -143,31 +143,3 @@ func (s *FishPiSDK) GetBarrageCost() (int, error) {
 
 	return 0, nil
 }
-
-// GetMessageRaw 获取原始消息（HTML格式）
-func (s *FishPiSDK) GetMessageRaw(oId string) (string, error) {
-	if oId == "" {
-		return "", fmt.Errorf("oId is required")
-	}
-
-	var resp types.ApiResponse[map[string]string]
-	_, err := s.client.R().
-		SetSuccessResult(&resp).
-		Get("/cr/raw/" + oId)
-
-	if err != nil {
-		return "", fmt.Errorf("failed to get message raw: %w", err)
-	}
-
-	if resp.Code != 0 {
-		return "", fmt.Errorf("get message raw failed: %s", resp.Msg)
-	}
-
-	if resp.Data != nil {
-		if raw, ok := resp.Data["html"]; ok {
-			return raw, nil
-		}
-	}
-
-	return "", nil
-}

@@ -87,7 +87,8 @@ func main() {
 	//getChatroomMore()
 	//getChatroomMessage()
 	//postChatroomSend()
-	deleteChatroomRevoke()
+	//deleteChatroomRevoke()
+	getMessageRaw()
 
 }
 
@@ -345,4 +346,13 @@ func deleteChatroomRevoke() {
 		return
 	}
 	logger.Info("撤回聊天室消息结果", slog.Any("resp", resp))
+}
+
+func getMessageRaw() {
+	resp, err := client.GetMessageRaw(messageOId)
+	if err != nil {
+		logger.Error("获取消息原始数据失败", slog.String("error", err.Error()))
+		return
+	}
+	logger.Info("消息原始数据结果", slog.Any("resp", resp))
 }

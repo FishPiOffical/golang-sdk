@@ -114,3 +114,19 @@ func (s *FishPiSDK) DeleteChatroomRevoke(oId string) (*types.SimpleResponse, err
 
 	return response, nil
 }
+
+// GetMessageRaw 获取原始消息（HTML格式）
+func (s *FishPiSDK) GetMessageRaw(oId string) (*string, error) {
+
+	res, err := s.client.R().
+		SetPathParam("oId", oId).
+		Get("/cr/raw/{oId}")
+
+	if err != nil {
+		return nil, err
+	}
+
+	result := res.String()
+
+	return &result, nil
+}
