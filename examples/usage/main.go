@@ -80,6 +80,9 @@ func main() {
 	//getNotificationsMarkRead()
 	//getNotificationsAllRead()
 
+	// 聊天室
+	//getChatroomBarragePrice()
+
 }
 
 func getUserInfoByUsername() {
@@ -282,4 +285,13 @@ func getNotificationsAllRead() {
 		return
 	}
 	logger.Info("标记所有通知为已读结果", slog.Any("resp", resp))
+}
+
+func getChatroomBarragePrice() {
+	resp, err := client.GetChatroomBarragePrice()
+	if err != nil {
+		logger.Error("获取弹幕价格失败", slog.String("error", err.Error()))
+		return
+	}
+	logger.Info("弹幕价格结果", slog.Any("resp", resp))
 }
