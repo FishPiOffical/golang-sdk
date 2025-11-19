@@ -77,7 +77,8 @@ func main() {
 	//getNotificationsFollowing()
 	//getNotificationsBroadcast()
 	//getNotificationsSysAnnounce()
-	getNotificationsAllRead()
+	//getNotificationsMarkRead()
+	//getNotificationsAllRead()
 
 }
 
@@ -263,6 +264,15 @@ func getNotificationsSysAnnounce() {
 		return
 	}
 	logger.Info("公告通知列表结果", slog.Any("resp", resp))
+}
+
+func getNotificationsMarkRead() {
+	resp, err := client.GetNotificationsMarkRead(types.NotificationTypePoint)
+	if err != nil {
+		logger.Error("标记指定类型通知为已读失败", slog.String("error", err.Error()))
+		return
+	}
+	logger.Info("标记指定类型通知为已读结果", slog.Any("resp", resp))
 }
 
 func getNotificationsAllRead() {

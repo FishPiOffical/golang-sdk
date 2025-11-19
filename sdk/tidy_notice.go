@@ -42,6 +42,23 @@ func (s *FishPiSDK) GetNotifications(noticeType types.NotificationType, page int
 	return response, nil
 }
 
+// GetNotificationsMarkRead 标记指定类型通知为已读
+func (s *FishPiSDK) GetNotificationsMarkRead(noticeType types.NotificationType) (*types.SimpleResponse, error) {
+	response := new(types.SimpleResponse)
+
+	_, err := s.client.R().
+		SetPathParam("type", noticeType.String()).
+		SetSuccessResult(response).
+		SetErrorResult(response).
+		Get("/notifications/make-read/{type}")
+
+	if err != nil {
+		return nil, err
+	}
+
+	return response, nil
+}
+
 // GetNotificationsAllRead 标记所有通知为已读
 func (s *FishPiSDK) GetNotificationsAllRead() (*types.SimpleResponse, error) {
 	response := new(types.SimpleResponse)
