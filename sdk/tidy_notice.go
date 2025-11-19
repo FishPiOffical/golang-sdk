@@ -41,3 +41,18 @@ func (s *FishPiSDK) GetNotifications(noticeType types.NotificationType, page int
 
 	return response, nil
 }
+
+// GetNotificationsAllRead 标记所有通知为已读
+func (s *FishPiSDK) GetNotificationsAllRead() (*types.SimpleResponse, error) {
+	response := new(types.SimpleResponse)
+	_, err := s.client.R().
+		SetSuccessResult(response).
+		SetErrorResult(response).
+		Get("/notifications/all-read")
+
+	if err != nil {
+		return nil, err
+	}
+
+	return response, nil
+}

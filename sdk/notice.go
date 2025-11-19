@@ -24,21 +24,3 @@ func (s *FishPiSDK) MarkNotificationRead(noticeType types.NotificationType) erro
 
 	return nil
 }
-
-// MarkAllNotificationsRead 标记所有通知为已读
-func (s *FishPiSDK) MarkAllNotificationsRead() error {
-	var resp types.SimpleResponse
-	_, err := s.client.R().
-		SetSuccessResult(&resp).
-		Get("/notifications/all-read")
-
-	if err != nil {
-		return err
-	}
-
-	if resp.Code != 0 {
-		return fmt.Errorf(resp.Msg)
-	}
-
-	return nil
-}
