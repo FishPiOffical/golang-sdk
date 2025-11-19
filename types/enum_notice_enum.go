@@ -28,82 +28,94 @@ const (
 	// 关注用户
 	DataTypeFollowingUser
 	// DataTypePointCharge is a DataType of type PointCharge.
-	// 积分充值
+	// 积分 - 充值
 	DataTypePointCharge
 	// DataTypePointTransfer is a DataType of type PointTransfer.
-	// 积分转账
+	// 积分 - 转账
 	DataTypePointTransfer
 	// DataTypePointArticleReward is a DataType of type PointArticleReward.
-	// 文章打赏
+	// 积分 - 文章打赏
 	DataTypePointArticleReward
-	// DataTypePointArticleThank is a DataType of type PointArticleThank.
-	// 文章感谢
-	DataTypePointArticleThank
 	// DataTypePointCommentThank is a DataType of type PointCommentThank.
-	// 评论感谢
+	// 积分 - 评论感谢
 	DataTypePointCommentThank
-	// DataTypePointInviteRegister is a DataType of type PointInviteRegister.
-	// 邀请注册
-	DataTypePointInviteRegister
-	// DataTypePointInviteJoinActivation is a DataType of type PointInviteJoinActivation.
-	// 邀请加入激活
-	DataTypePointInviteJoinActivation
-	// DataTypePointPerfectArticle is a DataType of type PointPerfectArticle.
-	// 完美文章
-	DataTypePointPerfectArticle
-	// DataTypePointCommentAccept is a DataType of type PointCommentAccept.
-	// 评论采纳
-	DataTypePointCommentAccept
-	// DataTypePointFollowing is a DataType of type PointFollowing.
-	// 关注
-	DataTypePointFollowing
-	// DataTypePointFollower is a DataType of type PointFollower.
-	// 被关注
-	DataTypePointFollower
+	// DataTypeBroadcast is a DataType of type Broadcast.
+	// 同城广播
+	DataTypeBroadcast
 	// DataTypePointExchange is a DataType of type PointExchange.
-	// 积分兑换
+	// 积分 - 交易
 	DataTypePointExchange
-	// DataTypePointAbuseDeduct is a DataType of type PointAbuseDeduct.
-	// 滥用扣除
-	DataTypePointAbuseDeduct
-	// DataTypePointStickArticle is a DataType of type PointStickArticle.
-	// 置顶文章
-	DataTypePointStickArticle
-	// DataTypePointRedPacket is a DataType of type PointRedPacket.
-	// 红包
-	DataTypePointRedPacket
-	// DataTypePointTopArticle is a DataType of type PointTopArticle.
-	// 顶帖
-	DataTypePointTopArticle
-	// DataTypePointReport is a DataType of type PointReport.
-	// 举报
-	DataTypePointReport
-	// DataTypePointRepublishArticle is a DataType of type PointRepublishArticle.
-	// 重新发布文章
-	DataTypePointRepublishArticle
-	// DataTypePointSellerBuyerAdvance is a DataType of type PointSellerBuyerAdvance.
-	// 卖家买家预付
-	DataTypePointSellerBuyerAdvance
-	// DataTypePointCommentVote is a DataType of type PointCommentVote.
-	// 评论投票
-	DataTypePointCommentVote
-	// DataTypePointArticleVote is a DataType of type PointArticleVote.
-	// 文章投票
-	DataTypePointArticleVote
-	// DataTypePointAppeal is a DataType of type PointAppeal.
-	// 申诉
-	DataTypePointAppeal
-	// DataTypePointPurchaseInvitecode is a DataType of type PointPurchaseInvitecode.
-	// 购买邀请码
-	DataTypePointPurchaseInvitecode
-	// DataTypePointForward is a DataType of type PointForward.
-	// 转发
-	DataTypePointForward
+	// DataTypeAbusePointDeduct is a DataType of type AbusePointDeduct.
+	// 积分 - 违规扣除
+	DataTypeAbusePointDeduct
+	// DataTypePointArticleThank is a DataType of type PointArticleThank.
+	// 积分 - 文章被感谢
+	DataTypePointArticleThank
+	// DataTypeReply is a DataType of type Reply.
+	// 回复
+	DataTypeReply
+	// DataTypeInvitecodeUsed is a DataType of type InvitecodeUsed.
+	// 使用邀请码
+	DataTypeInvitecodeUsed
+	// DataTypeSysAnnounceArticle is a DataType of type SysAnnounceArticle.
+	// 系统公告 - 文章
+	DataTypeSysAnnounceArticle
+	// DataTypeSysAnnounceNewUser is a DataType of type SysAnnounceNewUser.
+	// 系统公告 - 新用户
+	DataTypeSysAnnounceNewUser
+	// DataTypeNewFollower is a DataType of type NewFollower.
+	// 新的关注者
+	DataTypeNewFollower
+	// DataTypeInvitationLinkUsed is a DataType of type InvitationLinkUsed.
+	// 邀请链接
+	DataTypeInvitationLinkUsed
+	// DataTypeSysAnnounceRoleChanged is a DataType of type SysAnnounceRoleChanged.
+	// 系统通知 - 角色变化
+	DataTypeSysAnnounceRoleChanged
+	// DataTypeFollowingArticleUpdate is a DataType of type FollowingArticleUpdate.
+	// 关注的文章更新
+	DataTypeFollowingArticleUpdate
+	// DataTypeFollowingArticleComment is a DataType of type FollowingArticleComment.
+	// 关注的文章评论
+	DataTypeFollowingArticleComment
+	// DataTypePointPerfectArticle is a DataType of type PointPerfectArticle.
+	// 积分 - 文章优选
+	DataTypePointPerfectArticle
+	// DataTypeArticleNewFollower is a DataType of type ArticleNewFollower.
+	// 文章新的被关注者
+	DataTypeArticleNewFollower
+	// DataTypeArticleNewWatcher is a DataType of type ArticleNewWatcher.
+	// 文章新的关注者
+	DataTypeArticleNewWatcher
+	// DataTypeCommentVoteUp is a DataType of type CommentVoteUp.
+	// 评论点赞
+	DataTypeCommentVoteUp
+	// DataTypeCommentVoteDown is a DataType of type CommentVoteDown.
+	// 评论点踩
+	DataTypeCommentVoteDown
+	// DataTypeArticleVoteUp is a DataType of type ArticleVoteUp.
+	// 文章被点赞
+	DataTypeArticleVoteUp
+	// DataTypeArticleVoteDown is a DataType of type ArticleVoteDown.
+	// 文章被点踩
+	DataTypeArticleVoteDown
+	// DataTypePointCommentAccept is a DataType of type PointCommentAccept.
+	// 积分 - 评论被接受
+	DataTypePointCommentAccept DataType = iota + 4
+	// DataTypePointReportHandled is a DataType of type PointReportHandled.
+	// 积分 - 举报处理
+	DataTypePointReportHandled DataType = iota + 6
+	// DataTypeChatRoomAt is a DataType of type ChatRoomAt.
+	// 聊天室 @
+	DataTypeChatRoomAt DataType = iota + 7
+	// DataTypeRedPacket is a DataType of type RedPacket.
+	// 专属红包提醒
+	DataTypeRedPacket
 )
 
 var ErrInvalidDataType = fmt.Errorf("not a valid DataType, try [%s]", strings.Join(_DataTypeNames, ", "))
 
-const _DataTypeName = "articlecommentatcommentedfollowingUserpointChargepointTransferpointArticleRewardpointArticleThankpointCommentThankpointInviteRegisterpointInviteJoinActivationpointPerfectArticlepointCommentAcceptpointFollowingpointFollowerpointExchangepointAbuseDeductpointStickArticlepointRedPacketpointTopArticlepointReportpointRepublishArticlepointSellerBuyerAdvancepointCommentVotepointArticleVotepointAppealpointPurchaseInvitecodepointForward"
+const _DataTypeName = "articlecommentatcommentedfollowingUserpointChargepointTransferpointArticleRewardpointCommentThankbroadcastpointExchangeabusePointDeductpointArticleThankreplyinvitecodeUsedsysAnnounceArticlesysAnnounceNewUsernewFollowerinvitationLinkUsedsysAnnounceRoleChangedfollowingArticleUpdatefollowingArticleCommentpointPerfectArticlearticleNewFollowerarticleNewWatchercommentVoteUpcommentVoteDownarticleVoteUparticleVoteDownpointCommentAcceptpointReportHandledchatRoomAtredPacket"
 
 var _DataTypeNames = []string{
 	_DataTypeName[0:7],
@@ -115,26 +127,30 @@ var _DataTypeNames = []string{
 	_DataTypeName[49:62],
 	_DataTypeName[62:80],
 	_DataTypeName[80:97],
-	_DataTypeName[97:114],
-	_DataTypeName[114:133],
-	_DataTypeName[133:158],
-	_DataTypeName[158:177],
-	_DataTypeName[177:195],
-	_DataTypeName[195:209],
-	_DataTypeName[209:222],
-	_DataTypeName[222:235],
-	_DataTypeName[235:251],
-	_DataTypeName[251:268],
-	_DataTypeName[268:282],
-	_DataTypeName[282:297],
-	_DataTypeName[297:308],
-	_DataTypeName[308:329],
-	_DataTypeName[329:352],
-	_DataTypeName[352:368],
-	_DataTypeName[368:384],
-	_DataTypeName[384:395],
-	_DataTypeName[395:418],
-	_DataTypeName[418:430],
+	_DataTypeName[97:106],
+	_DataTypeName[106:119],
+	_DataTypeName[119:135],
+	_DataTypeName[135:152],
+	_DataTypeName[152:157],
+	_DataTypeName[157:171],
+	_DataTypeName[171:189],
+	_DataTypeName[189:207],
+	_DataTypeName[207:218],
+	_DataTypeName[218:236],
+	_DataTypeName[236:258],
+	_DataTypeName[258:280],
+	_DataTypeName[280:303],
+	_DataTypeName[303:322],
+	_DataTypeName[322:340],
+	_DataTypeName[340:357],
+	_DataTypeName[357:370],
+	_DataTypeName[370:385],
+	_DataTypeName[385:398],
+	_DataTypeName[398:413],
+	_DataTypeName[413:431],
+	_DataTypeName[431:449],
+	_DataTypeName[449:459],
+	_DataTypeName[459:468],
 }
 
 // DataTypeNames returns a list of possible string values of DataType.
@@ -155,60 +171,68 @@ func DataTypeValues() []DataType {
 		DataTypePointCharge,
 		DataTypePointTransfer,
 		DataTypePointArticleReward,
-		DataTypePointArticleThank,
 		DataTypePointCommentThank,
-		DataTypePointInviteRegister,
-		DataTypePointInviteJoinActivation,
-		DataTypePointPerfectArticle,
-		DataTypePointCommentAccept,
-		DataTypePointFollowing,
-		DataTypePointFollower,
+		DataTypeBroadcast,
 		DataTypePointExchange,
-		DataTypePointAbuseDeduct,
-		DataTypePointStickArticle,
-		DataTypePointRedPacket,
-		DataTypePointTopArticle,
-		DataTypePointReport,
-		DataTypePointRepublishArticle,
-		DataTypePointSellerBuyerAdvance,
-		DataTypePointCommentVote,
-		DataTypePointArticleVote,
-		DataTypePointAppeal,
-		DataTypePointPurchaseInvitecode,
-		DataTypePointForward,
+		DataTypeAbusePointDeduct,
+		DataTypePointArticleThank,
+		DataTypeReply,
+		DataTypeInvitecodeUsed,
+		DataTypeSysAnnounceArticle,
+		DataTypeSysAnnounceNewUser,
+		DataTypeNewFollower,
+		DataTypeInvitationLinkUsed,
+		DataTypeSysAnnounceRoleChanged,
+		DataTypeFollowingArticleUpdate,
+		DataTypeFollowingArticleComment,
+		DataTypePointPerfectArticle,
+		DataTypeArticleNewFollower,
+		DataTypeArticleNewWatcher,
+		DataTypeCommentVoteUp,
+		DataTypeCommentVoteDown,
+		DataTypeArticleVoteUp,
+		DataTypeArticleVoteDown,
+		DataTypePointCommentAccept,
+		DataTypePointReportHandled,
+		DataTypeChatRoomAt,
+		DataTypeRedPacket,
 	}
 }
 
 var _DataTypeMap = map[DataType]string{
-	DataTypeArticle:                   _DataTypeName[0:7],
-	DataTypeComment:                   _DataTypeName[7:14],
-	DataTypeAt:                        _DataTypeName[14:16],
-	DataTypeCommented:                 _DataTypeName[16:25],
-	DataTypeFollowingUser:             _DataTypeName[25:38],
-	DataTypePointCharge:               _DataTypeName[38:49],
-	DataTypePointTransfer:             _DataTypeName[49:62],
-	DataTypePointArticleReward:        _DataTypeName[62:80],
-	DataTypePointArticleThank:         _DataTypeName[80:97],
-	DataTypePointCommentThank:         _DataTypeName[97:114],
-	DataTypePointInviteRegister:       _DataTypeName[114:133],
-	DataTypePointInviteJoinActivation: _DataTypeName[133:158],
-	DataTypePointPerfectArticle:       _DataTypeName[158:177],
-	DataTypePointCommentAccept:        _DataTypeName[177:195],
-	DataTypePointFollowing:            _DataTypeName[195:209],
-	DataTypePointFollower:             _DataTypeName[209:222],
-	DataTypePointExchange:             _DataTypeName[222:235],
-	DataTypePointAbuseDeduct:          _DataTypeName[235:251],
-	DataTypePointStickArticle:         _DataTypeName[251:268],
-	DataTypePointRedPacket:            _DataTypeName[268:282],
-	DataTypePointTopArticle:           _DataTypeName[282:297],
-	DataTypePointReport:               _DataTypeName[297:308],
-	DataTypePointRepublishArticle:     _DataTypeName[308:329],
-	DataTypePointSellerBuyerAdvance:   _DataTypeName[329:352],
-	DataTypePointCommentVote:          _DataTypeName[352:368],
-	DataTypePointArticleVote:          _DataTypeName[368:384],
-	DataTypePointAppeal:               _DataTypeName[384:395],
-	DataTypePointPurchaseInvitecode:   _DataTypeName[395:418],
-	DataTypePointForward:              _DataTypeName[418:430],
+	DataTypeArticle:                 _DataTypeName[0:7],
+	DataTypeComment:                 _DataTypeName[7:14],
+	DataTypeAt:                      _DataTypeName[14:16],
+	DataTypeCommented:               _DataTypeName[16:25],
+	DataTypeFollowingUser:           _DataTypeName[25:38],
+	DataTypePointCharge:             _DataTypeName[38:49],
+	DataTypePointTransfer:           _DataTypeName[49:62],
+	DataTypePointArticleReward:      _DataTypeName[62:80],
+	DataTypePointCommentThank:       _DataTypeName[80:97],
+	DataTypeBroadcast:               _DataTypeName[97:106],
+	DataTypePointExchange:           _DataTypeName[106:119],
+	DataTypeAbusePointDeduct:        _DataTypeName[119:135],
+	DataTypePointArticleThank:       _DataTypeName[135:152],
+	DataTypeReply:                   _DataTypeName[152:157],
+	DataTypeInvitecodeUsed:          _DataTypeName[157:171],
+	DataTypeSysAnnounceArticle:      _DataTypeName[171:189],
+	DataTypeSysAnnounceNewUser:      _DataTypeName[189:207],
+	DataTypeNewFollower:             _DataTypeName[207:218],
+	DataTypeInvitationLinkUsed:      _DataTypeName[218:236],
+	DataTypeSysAnnounceRoleChanged:  _DataTypeName[236:258],
+	DataTypeFollowingArticleUpdate:  _DataTypeName[258:280],
+	DataTypeFollowingArticleComment: _DataTypeName[280:303],
+	DataTypePointPerfectArticle:     _DataTypeName[303:322],
+	DataTypeArticleNewFollower:      _DataTypeName[322:340],
+	DataTypeArticleNewWatcher:       _DataTypeName[340:357],
+	DataTypeCommentVoteUp:           _DataTypeName[357:370],
+	DataTypeCommentVoteDown:         _DataTypeName[370:385],
+	DataTypeArticleVoteUp:           _DataTypeName[385:398],
+	DataTypeArticleVoteDown:         _DataTypeName[398:413],
+	DataTypePointCommentAccept:      _DataTypeName[413:431],
+	DataTypePointReportHandled:      _DataTypeName[431:449],
+	DataTypeChatRoomAt:              _DataTypeName[449:459],
+	DataTypeRedPacket:               _DataTypeName[459:468],
 }
 
 // String implements the Stringer interface.
@@ -235,27 +259,31 @@ var _DataTypeValue = map[string]DataType{
 	_DataTypeName[38:49]:   DataTypePointCharge,
 	_DataTypeName[49:62]:   DataTypePointTransfer,
 	_DataTypeName[62:80]:   DataTypePointArticleReward,
-	_DataTypeName[80:97]:   DataTypePointArticleThank,
-	_DataTypeName[97:114]:  DataTypePointCommentThank,
-	_DataTypeName[114:133]: DataTypePointInviteRegister,
-	_DataTypeName[133:158]: DataTypePointInviteJoinActivation,
-	_DataTypeName[158:177]: DataTypePointPerfectArticle,
-	_DataTypeName[177:195]: DataTypePointCommentAccept,
-	_DataTypeName[195:209]: DataTypePointFollowing,
-	_DataTypeName[209:222]: DataTypePointFollower,
-	_DataTypeName[222:235]: DataTypePointExchange,
-	_DataTypeName[235:251]: DataTypePointAbuseDeduct,
-	_DataTypeName[251:268]: DataTypePointStickArticle,
-	_DataTypeName[268:282]: DataTypePointRedPacket,
-	_DataTypeName[282:297]: DataTypePointTopArticle,
-	_DataTypeName[297:308]: DataTypePointReport,
-	_DataTypeName[308:329]: DataTypePointRepublishArticle,
-	_DataTypeName[329:352]: DataTypePointSellerBuyerAdvance,
-	_DataTypeName[352:368]: DataTypePointCommentVote,
-	_DataTypeName[368:384]: DataTypePointArticleVote,
-	_DataTypeName[384:395]: DataTypePointAppeal,
-	_DataTypeName[395:418]: DataTypePointPurchaseInvitecode,
-	_DataTypeName[418:430]: DataTypePointForward,
+	_DataTypeName[80:97]:   DataTypePointCommentThank,
+	_DataTypeName[97:106]:  DataTypeBroadcast,
+	_DataTypeName[106:119]: DataTypePointExchange,
+	_DataTypeName[119:135]: DataTypeAbusePointDeduct,
+	_DataTypeName[135:152]: DataTypePointArticleThank,
+	_DataTypeName[152:157]: DataTypeReply,
+	_DataTypeName[157:171]: DataTypeInvitecodeUsed,
+	_DataTypeName[171:189]: DataTypeSysAnnounceArticle,
+	_DataTypeName[189:207]: DataTypeSysAnnounceNewUser,
+	_DataTypeName[207:218]: DataTypeNewFollower,
+	_DataTypeName[218:236]: DataTypeInvitationLinkUsed,
+	_DataTypeName[236:258]: DataTypeSysAnnounceRoleChanged,
+	_DataTypeName[258:280]: DataTypeFollowingArticleUpdate,
+	_DataTypeName[280:303]: DataTypeFollowingArticleComment,
+	_DataTypeName[303:322]: DataTypePointPerfectArticle,
+	_DataTypeName[322:340]: DataTypeArticleNewFollower,
+	_DataTypeName[340:357]: DataTypeArticleNewWatcher,
+	_DataTypeName[357:370]: DataTypeCommentVoteUp,
+	_DataTypeName[370:385]: DataTypeCommentVoteDown,
+	_DataTypeName[385:398]: DataTypeArticleVoteUp,
+	_DataTypeName[398:413]: DataTypeArticleVoteDown,
+	_DataTypeName[413:431]: DataTypePointCommentAccept,
+	_DataTypeName[431:449]: DataTypePointReportHandled,
+	_DataTypeName[449:459]: DataTypeChatRoomAt,
+	_DataTypeName[459:468]: DataTypeRedPacket,
 }
 
 // ParseDataType attempts to convert a string to a DataType.
@@ -277,22 +305,6 @@ func MustParseDataType(name string) DataType {
 
 func (x DataType) Ptr() *DataType {
 	return &x
-}
-
-// MarshalText implements the text marshaller method.
-func (x DataType) MarshalText() ([]byte, error) {
-	return []byte(x.String()), nil
-}
-
-// UnmarshalText implements the text unmarshaller method.
-func (x *DataType) UnmarshalText(text []byte) error {
-	name := string(text)
-	tmp, err := ParseDataType(name)
-	if err != nil {
-		return err
-	}
-	*x = tmp
-	return nil
 }
 
 const (
@@ -392,19 +404,4 @@ func MustParseNotificationType(name string) NotificationType {
 
 func (x NotificationType) Ptr() *NotificationType {
 	return &x
-}
-
-// MarshalText implements the text marshaller method.
-func (x NotificationType) MarshalText() ([]byte, error) {
-	return []byte(string(x)), nil
-}
-
-// UnmarshalText implements the text unmarshaller method.
-func (x *NotificationType) UnmarshalText(text []byte) error {
-	tmp, err := ParseNotificationType(string(text))
-	if err != nil {
-		return err
-	}
-	*x = tmp
-	return nil
 }

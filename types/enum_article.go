@@ -23,3 +23,12 @@ qna=3 // 问答
 )
 */
 type ArticleType int
+
+// ArticlePerfect 是否精选文章
+/*
+ENUM(
+yes=1 // 是
+no=0 // 否
+)
+*/
+type ArticlePerfect int

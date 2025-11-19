@@ -70,6 +70,13 @@ func main() {
 
 	// 通知
 	//getNotificationCount()
+	//getNotificationsPoint()
+	//getNotificationsCommented()
+	//getNotificationsReply()
+	//getNotificationsAt()
+	//getNotificationsFollowing()
+	//getNotificationsBroadcast()
+	//getNotificationsSysAnnounce()
 
 }
 
@@ -192,4 +199,67 @@ func getNotificationCount() {
 		return
 	}
 	logger.Info("未读通知数量结果", slog.Any("resp", resp))
+}
+
+func getNotificationsPoint() {
+	resp, err := client.GetNotifications(types.NotificationTypePoint, 1)
+	if err != nil {
+		logger.Error("获取积分通知列表失败", slog.String("error", err.Error()))
+		return
+	}
+	logger.Info("积分通知列表结果", slog.Any("resp", resp))
+}
+
+func getNotificationsCommented() {
+	resp, err := client.GetNotifications(types.NotificationTypeCommented, 1)
+	if err != nil {
+		logger.Error("获取评论通知列表失败", slog.String("error", err.Error()))
+		return
+	}
+	logger.Info("评论通知列表结果", slog.Any("resp", resp))
+}
+
+func getNotificationsReply() {
+	resp, err := client.GetNotifications(types.NotificationTypeReply, 1)
+	if err != nil {
+		logger.Error("获取回复通知列表失败", slog.String("error", err.Error()))
+		return
+	}
+	logger.Info("回复通知列表结果", slog.Any("resp", resp))
+}
+
+func getNotificationsAt() {
+	resp, err := client.GetNotifications(types.NotificationTypeAt, 1)
+	if err != nil {
+		logger.Error("获取@通知列表失败", slog.String("error", err.Error()))
+		return
+	}
+	logger.Info("@通知列表结果", slog.Any("resp", resp))
+}
+
+func getNotificationsFollowing() {
+	resp, err := client.GetNotifications(types.NotificationTypeFollowing, 1)
+	if err != nil {
+		logger.Error("获取关注通知列表失败", slog.String("error", err.Error()))
+		return
+	}
+	logger.Info("关注通知列表结果", slog.Any("resp", resp))
+}
+
+func getNotificationsBroadcast() {
+	resp, err := client.GetNotifications(types.NotificationTypeBroadcast, 1)
+	if err != nil {
+		logger.Error("获取系统通知列表失败", slog.String("error", err.Error()))
+		return
+	}
+	logger.Info("系统通知列表结果", slog.Any("resp", resp))
+}
+
+func getNotificationsSysAnnounce() {
+	resp, err := client.GetNotifications(types.NotificationTypeSysAnnounce, 1)
+	if err != nil {
+		logger.Error("获取公告通知列表失败", slog.String("error", err.Error()))
+		return
+	}
+	logger.Info("公告通知列表结果", slog.Any("resp", resp))
 }

@@ -5,26 +5,6 @@ import (
 	"fmt"
 )
 
-// GetNotifications 获取通知列表
-func (s *FishPiSDK) GetNotifications(noticeType types.NotificationType) ([]*types.NotificationInfo, error) {
-	url := fmt.Sprintf("/api/getNotifications?type=%s", noticeType)
-
-	var resp types.ApiResponse[[]*types.NotificationInfo]
-	_, err := s.client.R().
-		SetSuccessResult(&resp).
-		Get(url)
-
-	if err != nil {
-		return nil, err
-	}
-
-	if resp.Code != 0 {
-		return nil, fmt.Errorf(resp.Msg)
-	}
-
-	return resp.Data, nil
-}
-
 // MarkNotificationRead 标记指定类型通知为已读
 func (s *FishPiSDK) MarkNotificationRead(noticeType types.NotificationType) error {
 	url := fmt.Sprintf("/notifications/make-read/%s", noticeType)

@@ -1,21 +1,5 @@
 package types
 
-// NotificationInfo 通知信息
-type NotificationInfo struct {
-	OId                string   `json:"oId"`
-	DataId             string   `json:"dataId"`
-	DataType           DataType `json:"dataType"`
-	Description        string   `json:"description"`
-	HasRead            bool     `json:"hasRead"`
-	CreateTime         int64    `json:"createTime"`
-	AuthorName         string   `json:"authorName"`
-	AuthorThumbnailURL string   `json:"authorThumbnailURL"`
-	ArticleTitle       string   `json:"articleTitle,omitempty"`
-	ArticleTags        string   `json:"articleTags,omitempty"`
-	ArticleType        int      `json:"articleType,omitempty"`
-	ArticlePermalink   string   `json:"articlePermalink,omitempty"`
-}
-
 // NotificationList 通知列表
 type NotificationList struct {
 	Notifications []NotificationInfo `json:"list"`

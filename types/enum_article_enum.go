@@ -108,6 +108,101 @@ func (x *ArticleListType) UnmarshalText(text []byte) error {
 }
 
 const (
+	// ArticlePerfectYes is a ArticlePerfect of type Yes.
+	// 是
+	ArticlePerfectYes ArticlePerfect = iota + 1
+	// ArticlePerfectNo is a ArticlePerfect of type No.
+	// 否
+	ArticlePerfectNo ArticlePerfect = iota + -1
+)
+
+var ErrInvalidArticlePerfect = fmt.Errorf("not a valid ArticlePerfect, try [%s]", strings.Join(_ArticlePerfectNames, ", "))
+
+const _ArticlePerfectName = "yesno"
+
+var _ArticlePerfectNames = []string{
+	_ArticlePerfectName[0:3],
+	_ArticlePerfectName[3:5],
+}
+
+// ArticlePerfectNames returns a list of possible string values of ArticlePerfect.
+func ArticlePerfectNames() []string {
+	tmp := make([]string, len(_ArticlePerfectNames))
+	copy(tmp, _ArticlePerfectNames)
+	return tmp
+}
+
+// ArticlePerfectValues returns a list of the values for ArticlePerfect
+func ArticlePerfectValues() []ArticlePerfect {
+	return []ArticlePerfect{
+		ArticlePerfectYes,
+		ArticlePerfectNo,
+	}
+}
+
+var _ArticlePerfectMap = map[ArticlePerfect]string{
+	ArticlePerfectYes: _ArticlePerfectName[0:3],
+	ArticlePerfectNo:  _ArticlePerfectName[3:5],
+}
+
+// String implements the Stringer interface.
+func (x ArticlePerfect) String() string {
+	if str, ok := _ArticlePerfectMap[x]; ok {
+		return str
+	}
+	return fmt.Sprintf("ArticlePerfect(%d)", x)
+}
+
+// IsValid provides a quick way to determine if the typed value is
+// part of the allowed enumerated values
+func (x ArticlePerfect) IsValid() bool {
+	_, ok := _ArticlePerfectMap[x]
+	return ok
+}
+
+var _ArticlePerfectValue = map[string]ArticlePerfect{
+	_ArticlePerfectName[0:3]: ArticlePerfectYes,
+	_ArticlePerfectName[3:5]: ArticlePerfectNo,
+}
+
+// ParseArticlePerfect attempts to convert a string to a ArticlePerfect.
+func ParseArticlePerfect(name string) (ArticlePerfect, error) {
+	if x, ok := _ArticlePerfectValue[name]; ok {
+		return x, nil
+	}
+	return ArticlePerfect(0), fmt.Errorf("%s is %w", name, ErrInvalidArticlePerfect)
+}
+
+// MustParseArticlePerfect converts a string to a ArticlePerfect, and panics if is not valid.
+func MustParseArticlePerfect(name string) ArticlePerfect {
+	val, err := ParseArticlePerfect(name)
+	if err != nil {
+		panic(err)
+	}
+	return val
+}
+
+func (x ArticlePerfect) Ptr() *ArticlePerfect {
+	return &x
+}
+
+// MarshalText implements the text marshaller method.
+func (x ArticlePerfect) MarshalText() ([]byte, error) {
+	return []byte(x.String()), nil
+}
+
+// UnmarshalText implements the text unmarshaller method.
+func (x *ArticlePerfect) UnmarshalText(text []byte) error {
+	name := string(text)
+	tmp, err := ParseArticlePerfect(name)
+	if err != nil {
+		return err
+	}
+	*x = tmp
+	return nil
+}
+
+const (
 	// ArticleTypeNormal is a ArticleType of type Normal.
 	// 普通帖子
 	ArticleTypeNormal ArticleType = iota
