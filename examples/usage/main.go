@@ -83,6 +83,7 @@ func main() {
 	// 聊天室
 	//getChatroomBarragePrice()
 	//getChatroomNode()
+	getChatroomMore()
 
 }
 
@@ -304,4 +305,13 @@ func getChatroomNode() {
 		return
 	}
 	logger.Info("聊天室节点信息结果", slog.Any("resp", resp))
+}
+
+func getChatroomMore() {
+	resp, err := client.GetChatroomMore(1)
+	if err != nil {
+		logger.Error("获取聊天室历史消息失败", slog.String("error", err.Error()))
+		return
+	}
+	logger.Info("聊天室历史消息结果", slog.Any("resp", resp.Msg))
 }

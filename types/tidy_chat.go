@@ -16,3 +16,22 @@ type ChatroomNodeInfo struct {
 	Online int    `json:"online"`
 	Weight int    `json:"weight"`
 }
+
+// ChatroomMsgData 聊天消息数据
+type ChatroomMsgData struct {
+	OId              string `json:"oId"`
+	UserName         string `json:"userName"`
+	UserNickname     string `json:"userNickname"`
+	UserAvatarURL    string `json:"userAvatarURL"`
+	Time             string `json:"time"`
+	Content          string `json:"content"`
+	Md               string `json:"md"`
+	UserHomeURL      string `json:"userHomeURL"`
+	SysMetal         string `json:"sysMetal"`
+	UserOId          int64  `json:"userOId"`
+	Type             string `json:"type"`
+	UserAvatarURL20  string `json:"userAvatarURL20"`
+	Client           string `json:"client"`
+	UserAvatarURL210 string `json:"userAvatarURL210"`
+	UserAvatarURL48  string `json:"userAvatarURL48"`
+}

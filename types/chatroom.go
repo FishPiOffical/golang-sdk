@@ -36,19 +36,6 @@ type ChatroomRevokeData struct {
 	OId string `json:"oId"`
 }
 
-// ChatroomMsgData 聊天消息数据
-type ChatroomMsgData struct {
-	OId           string `json:"oId"`
-	UserName      string `json:"userName"`
-	UserNickname  string `json:"userNickname"`
-	UserAvatarURL string `json:"userAvatarURL"`
-	Time          int64  `json:"time"`
-	Content       string `json:"content"`
-	Md            string `json:"md"`
-	UserHomeURL   string `json:"userHomeURL"`
-	SysMetal      string `json:"sysMetal"`
-}
-
 // RedPacketInfo 红包信息
 type RedPacketInfo struct {
 	OId     string                `json:"oId"`

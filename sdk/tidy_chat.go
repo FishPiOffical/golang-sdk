@@ -33,3 +33,22 @@ func (s *FishPiSDK) GetChatroomNode() (*types.GetChatroomNodeGetResponse, error)
 
 	return response, nil
 }
+
+// GetChatroomMore 获取聊天室历史消息
+func (s *FishPiSDK) GetChatroomMore(page int) (*types.ApiResponse[[]*types.ChatroomMsgData], error) {
+	response := new(types.ApiResponse[[]*types.ChatroomMsgData])
+
+	_, err := s.client.R().
+		SetQueryParamsAnyType(map[string]any{
+			"page": page,
+		}).
+		SetSuccessResult(response).
+		SetErrorResult(response).
+		Get("/chat-room/more")
+
+	if err != nil {
+		return nil, err
+	}
+
+	return response, nil
+}
