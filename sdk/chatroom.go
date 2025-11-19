@@ -1,8 +1,9 @@
 package sdk
 
 import (
-	"github.com/FishPiOffical/golang-sdk/types"
 	"fmt"
+
+	"github.com/FishPiOffical/golang-sdk/types"
 )
 
 // SendChatroomMessage 发送聊天室消息
@@ -111,20 +112,6 @@ func (s *FishPiSDK) OpenRedPacket(oId string, gesture *types.GestureType) (*type
 	}
 
 	return resp, nil
-}
-
-// GetChatroomNode 获取聊天室节点信息
-func (s *FishPiSDK) GetChatroomNode() (*types.GetChatroomNodeGetResponse, error) {
-	var resp types.GetChatroomNodeGetResponse
-	_, err := s.client.R().
-		SetSuccessResult(&resp).
-		Get("/chat-room/node/get")
-
-	if err != nil {
-		return nil, fmt.Errorf("failed to get chatroom node: %w", err)
-	}
-
-	return &resp, nil
 }
 
 // GetChatroomMutes 获取聊天室禁言列表

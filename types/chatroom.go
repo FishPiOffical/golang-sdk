@@ -6,20 +6,6 @@ type ChatRoomSource struct {
 	Version string     `json:"version"`
 }
 
-// ChatroomNodeInfo 聊天室节点信息
-type ChatroomNodeInfo struct {
-	Name   string `json:"name"`
-	Node   string `json:"node"`
-	Online int    `json:"online"`
-}
-
-// GetChatroomNodeGetResponse 获取聊天室节点响应
-type GetChatroomNodeGetResponse struct {
-	Code      int                 `json:"code"`
-	Msg       string              `json:"msg"`
-	Available []*ChatroomNodeInfo `json:"avaliable"`
-}
-
 // ChatroomMessage 聊天室消息
 type ChatroomMessage struct {
 	Type ChatroomMsgType `json:"type"`

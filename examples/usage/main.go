@@ -82,6 +82,7 @@ func main() {
 
 	// 聊天室
 	//getChatroomBarragePrice()
+	//getChatroomNode()
 
 }
 
@@ -294,4 +295,13 @@ func getChatroomBarragePrice() {
 		return
 	}
 	logger.Info("弹幕价格结果", slog.Any("resp", resp))
+}
+
+func getChatroomNode() {
+	resp, err := client.GetChatroomNode()
+	if err != nil {
+		logger.Error("获取聊天室节点信息失败", slog.String("error", err.Error()))
+		return
+	}
+	logger.Info("聊天室节点信息结果", slog.Any("resp", resp))
 }
