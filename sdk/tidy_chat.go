@@ -73,3 +73,24 @@ func (s *FishPiSDK) GetChatroomMessage(oId string, size int, mode types.ChatMess
 
 	return response, nil
 }
+
+// PostChatroomSend 发送聊天室消息
+func (s *FishPiSDK) PostChatroomSend(content string) (*types.SimpleResponse, error) {
+	response := new(types.SimpleResponse)
+
+	_, err := s.client.R().
+		SetBodyJsonMarshal(map[string]string{
+			"content": content,
+			"client":  VERSION,
+			"apiKey":  s.GetAPIKey(),
+		}).
+		SetSuccessResult(response).
+		SetErrorResult(response).
+		Post("/chat-room/send")
+
+	if err != nil {
+		return nil, err
+	}
+
+	return response, nil
+}

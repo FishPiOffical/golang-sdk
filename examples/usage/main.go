@@ -85,7 +85,8 @@ func main() {
 	//getChatroomBarragePrice()
 	//getChatroomNode()
 	//getChatroomMore()
-	getChatroomMessage()
+	//getChatroomMessage()
+	postChatroomSend()
 
 }
 
@@ -325,4 +326,13 @@ func getChatroomMessage() {
 		return
 	}
 	logger.Info("聊天室指定消息上下文结果", slog.Any("resp", resp.Msg))
+}
+
+func postChatroomSend() {
+	resp, err := client.PostChatroomSend("🎵 你在烦恼什么呢")
+	if err != nil {
+		logger.Error("发送聊天室消息失败", slog.String("error", err.Error()))
+		return
+	}
+	logger.Info("发送聊天室消息结果", slog.Any("resp", resp))
 }

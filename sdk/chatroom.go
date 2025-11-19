@@ -6,27 +6,6 @@ import (
 	"github.com/FishPiOffical/golang-sdk/types"
 )
 
-// SendChatroomMessage 发送聊天室消息
-func (s *FishPiSDK) SendChatroomMessage(content string) error {
-	var resp types.SimpleResponse
-	_, err := s.client.R().
-		SetBodyJsonMarshal(map[string]string{
-			"content": content,
-		}).
-		SetSuccessResult(&resp).
-		Post("/chat-room/send")
-
-	if err != nil {
-		return err
-	}
-
-	if resp.Code != 0 {
-		return fmt.Errorf(resp.Msg)
-	}
-
-	return nil
-}
-
 // RevokeChatroomMessage 撤回聊天室消息
 func (s *FishPiSDK) RevokeChatroomMessage(oId string) error {
 	var resp types.SimpleResponse
