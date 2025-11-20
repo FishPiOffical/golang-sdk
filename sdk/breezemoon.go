@@ -1,72 +1,10 @@
 package sdk
 
 import (
-	"github.com/FishPiOffical/golang-sdk/types"
 	"fmt"
+
+	"github.com/FishPiOffical/golang-sdk/types"
 )
-
-// GetBreezemoonList 获取清风明月列表
-func (s *FishPiSDK) GetBreezemoonList(page, size int) ([]*types.BreezemoonInfo, error) {
-	if page < 1 {
-		page = 1
-	}
-	if size < 1 || size > 100 {
-		size = 20
-	}
-
-	url := fmt.Sprintf("/api/breezemoons?p=%d&size=%d", page, size)
-
-	var resp types.ApiResponse[map[string][]*types.BreezemoonInfo]
-	_, err := s.client.R().
-		SetSuccessResult(&resp).
-		Get(url)
-
-	if err != nil {
-		return nil, fmt.Errorf("failed to get breezemoon list: %w", err)
-	}
-
-	if resp.Code != 0 {
-		return nil, fmt.Errorf("get breezemoon list failed: %s", resp.Msg)
-	}
-
-	if resp.Data != nil {
-		if list, ok := resp.Data["breezemoons"]; ok {
-			return list, nil
-		}
-	}
-
-	return nil, nil
-}
-
-// GetUserBreezemoons 获取用户清风明月列表
-func (s *FishPiSDK) GetUserBreezemoons(userName string, page, size int) (*types.BreezemoonList, error) {
-	if userName == "" {
-		return nil, fmt.Errorf("userName is required")
-	}
-	if page < 1 {
-		page = 1
-	}
-	if size < 1 || size > 100 {
-		size = 20
-	}
-
-	url := fmt.Sprintf("/api/user/%s/breezemoons?p=%d&size=%d", userName, page, size)
-
-	var resp types.ApiResponse[*types.BreezemoonList]
-	_, err := s.client.R().
-		SetSuccessResult(&resp).
-		Get(url)
-
-	if err != nil {
-		return nil, fmt.Errorf("failed to get user breezemoons: %w", err)
-	}
-
-	if resp.Code != 0 {
-		return nil, fmt.Errorf("get user breezemoons failed: %s", resp.Msg)
-	}
-
-	return resp.Data, nil
-}
 
 // PostBreezemoon 发送清风明月
 func (s *FishPiSDK) PostBreezemoon(content string) error {
