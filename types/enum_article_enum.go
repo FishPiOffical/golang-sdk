@@ -342,3 +342,159 @@ func MustParseArticleType(name string) ArticleType {
 func (x ArticleType) Ptr() *ArticleType {
 	return &x
 }
+
+const (
+	// GetArticleOrderHot is a GetArticleOrder of type hot.
+	// 热门
+	GetArticleOrderHot GetArticleOrder = "hot"
+	// GetArticleOrderGood is a GetArticleOrder of type good.
+	// 点赞
+	GetArticleOrderGood GetArticleOrder = "good"
+	// GetArticleOrderReply is a GetArticleOrder of type reply.
+	// 回复
+	GetArticleOrderReply GetArticleOrder = "reply"
+	// GetArticleOrderPerfect is a GetArticleOrder of type perfect.
+	// 精选
+	GetArticleOrderPerfect GetArticleOrder = "perfect"
+)
+
+var ErrInvalidGetArticleOrder = fmt.Errorf("not a valid GetArticleOrder, try [%s]", strings.Join(_GetArticleOrderNames, ", "))
+
+var _GetArticleOrderNames = []string{
+	string(GetArticleOrderHot),
+	string(GetArticleOrderGood),
+	string(GetArticleOrderReply),
+	string(GetArticleOrderPerfect),
+}
+
+// GetArticleOrderNames returns a list of possible string values of GetArticleOrder.
+func GetArticleOrderNames() []string {
+	tmp := make([]string, len(_GetArticleOrderNames))
+	copy(tmp, _GetArticleOrderNames)
+	return tmp
+}
+
+// GetArticleOrderValues returns a list of the values for GetArticleOrder
+func GetArticleOrderValues() []GetArticleOrder {
+	return []GetArticleOrder{
+		GetArticleOrderHot,
+		GetArticleOrderGood,
+		GetArticleOrderReply,
+		GetArticleOrderPerfect,
+	}
+}
+
+// String implements the Stringer interface.
+func (x GetArticleOrder) String() string {
+	return string(x)
+}
+
+// IsValid provides a quick way to determine if the typed value is
+// part of the allowed enumerated values
+func (x GetArticleOrder) IsValid() bool {
+	_, err := ParseGetArticleOrder(string(x))
+	return err == nil
+}
+
+var _GetArticleOrderValue = map[string]GetArticleOrder{
+	"hot":     GetArticleOrderHot,
+	"good":    GetArticleOrderGood,
+	"reply":   GetArticleOrderReply,
+	"perfect": GetArticleOrderPerfect,
+}
+
+// ParseGetArticleOrder attempts to convert a string to a GetArticleOrder.
+func ParseGetArticleOrder(name string) (GetArticleOrder, error) {
+	if x, ok := _GetArticleOrderValue[name]; ok {
+		return x, nil
+	}
+	return GetArticleOrder(""), fmt.Errorf("%s is %w", name, ErrInvalidGetArticleOrder)
+}
+
+// MustParseGetArticleOrder converts a string to a GetArticleOrder, and panics if is not valid.
+func MustParseGetArticleOrder(name string) GetArticleOrder {
+	val, err := ParseGetArticleOrder(name)
+	if err != nil {
+		panic(err)
+	}
+	return val
+}
+
+func (x GetArticleOrder) Ptr() *GetArticleOrder {
+	return &x
+}
+
+const (
+	// GetArticleTypeRecent is a GetArticleType of type recent.
+	// 最近
+	GetArticleTypeRecent GetArticleType = "recent"
+	// GetArticleTypeTag is a GetArticleType of type tag.
+	// 标签
+	GetArticleTypeTag GetArticleType = "tag"
+	// GetArticleTypeDomain is a GetArticleType of type domain.
+	// 领域
+	GetArticleTypeDomain GetArticleType = "domain"
+)
+
+var ErrInvalidGetArticleType = fmt.Errorf("not a valid GetArticleType, try [%s]", strings.Join(_GetArticleTypeNames, ", "))
+
+var _GetArticleTypeNames = []string{
+	string(GetArticleTypeRecent),
+	string(GetArticleTypeTag),
+	string(GetArticleTypeDomain),
+}
+
+// GetArticleTypeNames returns a list of possible string values of GetArticleType.
+func GetArticleTypeNames() []string {
+	tmp := make([]string, len(_GetArticleTypeNames))
+	copy(tmp, _GetArticleTypeNames)
+	return tmp
+}
+
+// GetArticleTypeValues returns a list of the values for GetArticleType
+func GetArticleTypeValues() []GetArticleType {
+	return []GetArticleType{
+		GetArticleTypeRecent,
+		GetArticleTypeTag,
+		GetArticleTypeDomain,
+	}
+}
+
+// String implements the Stringer interface.
+func (x GetArticleType) String() string {
+	return string(x)
+}
+
+// IsValid provides a quick way to determine if the typed value is
+// part of the allowed enumerated values
+func (x GetArticleType) IsValid() bool {
+	_, err := ParseGetArticleType(string(x))
+	return err == nil
+}
+
+var _GetArticleTypeValue = map[string]GetArticleType{
+	"recent": GetArticleTypeRecent,
+	"tag":    GetArticleTypeTag,
+	"domain": GetArticleTypeDomain,
+}
+
+// ParseGetArticleType attempts to convert a string to a GetArticleType.
+func ParseGetArticleType(name string) (GetArticleType, error) {
+	if x, ok := _GetArticleTypeValue[name]; ok {
+		return x, nil
+	}
+	return GetArticleType(""), fmt.Errorf("%s is %w", name, ErrInvalidGetArticleType)
+}
+
+// MustParseGetArticleType converts a string to a GetArticleType, and panics if is not valid.
+func MustParseGetArticleType(name string) GetArticleType {
+	val, err := ParseGetArticleType(name)
+	if err != nil {
+		panic(err)
+	}
+	return val
+}
+
+func (x GetArticleType) Ptr() *GetArticleType {
+	return &x
+}

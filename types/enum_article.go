@@ -41,3 +41,24 @@ no=0 // 否
 )
 */
 type ArticleShowInList int
+
+// GetArticleType 获取文章类型
+/*
+ENUM(
+recent // 最近
+tag // 标签
+domain // 领域
+)
+*/
+type GetArticleType string
+
+// GetArticleOrder 获取文章排序方式
+/*
+ENUM(
+hot // 热门
+good // 点赞
+reply // 回复
+perfect // 精选
+)
+*/
+type GetArticleOrder string

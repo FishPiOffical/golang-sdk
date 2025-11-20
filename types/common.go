@@ -7,19 +7,6 @@ type ResponseResult[T any] struct {
 	Data   T      `json:"data"`
 }
 
-// Pagination 分页信息
-type Pagination struct {
-	PageCount   int `json:"paginationPageCount"`
-	PageNum     int `json:"paginationPageNum"`
-	PageSize    int `json:"paginationPageSize"`
-	RecordCount int `json:"paginationRecordCount"`
-	WindowSize  int `json:"paginationWindowSize"`
-	FirstPage   int `json:"paginationFirstPage"`
-	LastPage    int `json:"paginationLastPage"`
-	NextPage    int `json:"paginationNextPage"`
-	PrevPage    int `json:"paginationPreviousPage"`
-}
-
 // Metal 勋章信息
 type Metal struct {
 	Name            string `json:"name"`

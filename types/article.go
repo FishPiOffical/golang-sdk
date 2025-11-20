@@ -1,36 +1,5 @@
 package types
 
-// ArticleInfo 文章信息
-type ArticleInfo struct {
-	OId                         string `json:"oId"`
-	ArticleTitle                string `json:"articleTitle"`
-	ArticleContent              string `json:"articleContent"`
-	ArticleContentHTML          string `json:"articleContentHTML"`
-	ArticleTags                 string `json:"articleTags"`
-	ArticleAuthorName           string `json:"articleAuthorName"`
-	ArticleAuthorThumbnailURL   string `json:"articleAuthorThumbnailURL"`
-	ArticleAuthorThumbnailURL48 string `json:"articleAuthorThumbnailURL48"`
-	ArticleCreateTime           int64  `json:"articleCreateTime"`
-	ArticleUpdateTime           int64  `json:"articleUpdateTime"`
-	ArticleViewCount            int    `json:"articleViewCnt"`
-	ArticleCommentCount         int    `json:"articleCommentCnt"`
-	ArticleThankCount           int    `json:"articleThankCnt"`
-	ArticleGoodCount            int    `json:"articleGoodCnt"`
-	ArticleBadCount             int    `json:"articleBadCnt"`
-	ArticleCollectCount         int    `json:"articleCollectCnt"`
-	ArticleWatchCount           int    `json:"articleWatchCnt"`
-	ArticlePermalink            string `json:"articlePermalink"`
-	ArticlePerfectCount         int    `json:"articlePerfectCnt"`
-	ArticleAnonymous            int    `json:"articleAnonymous"`
-	ArticleType                 int    `json:"articleType"`
-	ArticleStick                int64  `json:"articleStick"`
-	ArticleQnAOfferPoint        int    `json:"articleQnAOfferPoint"`
-	Offered                     bool   `json:"offered"`
-	ArticlePreviewContent       string `json:"articlePreviewContent"`
-	ArticleToC                  string `json:"articleToC"`
-	ArticleAudioURL             string `json:"articleAudioURL"`
-}
-
 // ArticleDetail 文章详情（包含评论等）
 type ArticleDetail struct {
 	ArticleInfo
@@ -39,10 +8,17 @@ type ArticleDetail struct {
 	Pagination          Pagination    `json:"pagination"`
 }
 
-// ArticleList 文章列表
-type ArticleList struct {
-	Articles   []ArticleInfo `json:"articles"`
-	Pagination Pagination    `json:"pagination"`
+// Pagination 分页信息
+type Pagination struct {
+	PageCount   int `json:"paginationPageCount"`
+	PageNum     int `json:"paginationPageNum"`
+	PageSize    int `json:"paginationPageSize"`
+	RecordCount int `json:"paginationRecordCount"`
+	WindowSize  int `json:"paginationWindowSize"`
+	FirstPage   int `json:"paginationFirstPage"`
+	LastPage    int `json:"paginationLastPage"`
+	NextPage    int `json:"paginationNextPage"`
+	PrevPage    int `json:"paginationPreviousPage"`
 }
 
 // ArticleReward 文章打赏

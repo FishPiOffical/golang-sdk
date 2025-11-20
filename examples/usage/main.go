@@ -102,7 +102,8 @@ func main() {
 	//postBreezemoon()
 	//getUserBreezemoons()
 	//postArticle()
-	putArticle()
+	//putArticle()
+	getArticles()
 }
 
 func getUserInfoByUsername() {
@@ -487,4 +488,19 @@ func putArticle() {
 		return
 	}
 	logger.Info("更新文章结果", slog.Any("resp", resp))
+}
+
+func getArticles() {
+	resp, err := client.GetArticles(&types.GetArticlesRequest{
+		Type:    types.GetArticleTypeRecent,
+		Keyword: "",
+		Order:   convertor.ToPointer(types.GetArticleOrderHot),
+		Page:    1,
+		Size:    10,
+	})
+	if err != nil {
+		logger.Error("获取文章列表失败", slog.String("error", err.Error()))
+		return
+	}
+	logger.Info("文章列表结果", slog.Any("resp", resp.Code))
 }
