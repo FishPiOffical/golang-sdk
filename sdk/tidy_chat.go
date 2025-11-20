@@ -130,3 +130,23 @@ func (s *FishPiSDK) GetMessageRaw(oId string) (*string, error) {
 
 	return &result, nil
 }
+
+// PostRedPacketOpen 打开红包
+func (s *FishPiSDK) PostRedPacketOpen(oId string, gesture types.GestureType) (*types.PostChatroomRedPacketOpenResponse, error) {
+	response := new(types.PostChatroomRedPacketOpenResponse)
+
+	_, err := s.client.R().
+		SetBodyJsonMarshal(map[string]any{
+			"oId":     oId,
+			"gesture": int(gesture),
+		}).
+		SetSuccessResult(response).
+		SetErrorResult(response).
+		Post("/chat-room/red-packet/open")
+
+	if err != nil {
+		return nil, err
+	}
+
+	return response, nil
+}

@@ -36,3 +36,32 @@ type ChatroomMsgData struct {
 	UserAvatarURL210 string `json:"userAvatarURL210,omitempty"`
 	UserAvatarURL48  string `json:"userAvatarURL48,omitempty"`
 }
+
+// PostChatroomRedPacketOpenResponse 打开聊天室红包响应
+type PostChatroomRedPacketOpenResponse struct {
+	Code int    `json:"code,omitempty"`
+	Msg  string `json:"msg,omitempty"`
+
+	Recivers []any           `json:"recivers,omitempty"`
+	Who      []*RedPacketWho `json:"who,omitempty"`
+	Info     *RedPacketInfo  `json:"info,omitempty"`
+}
+
+type RedPacketWho struct {
+	UserMoney int    `json:"userMoney"`
+	Time      string `json:"time"`
+	Avatar    string `json:"avatar"`
+	UserName  string `json:"userName"`
+	UserId    string `json:"userId"`
+}
+
+type RedPacketInfo struct {
+	Msg              string `json:"msg"`
+	UserAvatarURL    string `json:"userAvatarURL"`
+	UserAvatarURL20  string `json:"userAvatarURL20"`
+	Count            int    `json:"count"`
+	UserName         string `json:"userName"`
+	UserAvatarURL210 string `json:"userAvatarURL210"`
+	Got              int    `json:"got"`
+	UserAvatarURL48  string `json:"userAvatarURL48"`
+}

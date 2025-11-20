@@ -36,8 +36,8 @@ type ChatroomRevokeData struct {
 	OId string `json:"oId"`
 }
 
-// RedPacketInfo 红包信息
-type RedPacketInfo struct {
+// RedPacketInfo1 红包信息
+type RedPacketInfo1 struct {
 	OId     string                `json:"oId"`
 	Type    ChatroomRedPacketType `json:"type"`
 	Count   int                   `json:"count"`
@@ -52,7 +52,7 @@ type RedPacketInfo struct {
 // ChatroomRedPacketData 红包消息数据
 type ChatroomRedPacketData struct {
 	ChatroomMsgData
-	RedPacket RedPacketInfo `json:"redPacket"`
+	RedPacket RedPacketInfo1 `json:"redPacket"`
 }
 
 // ChatroomRedPacketStatusData 红包领取状态数据
@@ -109,15 +109,6 @@ type IWeatherMessage struct {
 type PostChatroomRedPacketOpenRequest struct {
 	OId     string      `json:"oId"`
 	Gesture GestureType `json:"gesture,omitempty"`
-}
-
-// PostChatroomRedPacketOpenResponse 打开聊天室红包响应
-type PostChatroomRedPacketOpenResponse struct {
-	Code int      `json:"code"`
-	Msg  string   `json:"msg"`
-	Who  []string `json:"who"`
-	Got  int      `json:"got"`
-	Type string   `json:"type"`
 }
 
 // PostChatroomSendRequest 发送聊天室消息请求

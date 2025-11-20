@@ -6,32 +6,6 @@ import (
 	"github.com/FishPiOffical/golang-sdk/types"
 )
 
-// OpenRedPacket 打开红包
-func (s *FishPiSDK) OpenRedPacket(oId string, gesture *types.GestureType) (*types.PostChatroomRedPacketOpenResponse, error) {
-	body := map[string]interface{}{
-		"oId": oId,
-	}
-	if gesture != nil {
-		body["gesture"] = *gesture
-	}
-
-	var resp *types.PostChatroomRedPacketOpenResponse
-	_, err := s.client.R().
-		SetBodyJsonMarshal(body).
-		SetSuccessResult(&resp).
-		Post("/chat-room/red-packet/open")
-
-	if err != nil {
-		return nil, err
-	}
-
-	if resp.Code != 0 {
-		return nil, fmt.Errorf(resp.Msg)
-	}
-
-	return resp, nil
-}
-
 // GetChatroomMutes 获取聊天室禁言列表
 func (s *FishPiSDK) GetChatroomMutes() ([]*types.MuteItem, error) {
 	var resp types.ApiResponse[[]*types.MuteItem]

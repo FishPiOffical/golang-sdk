@@ -88,7 +88,8 @@ func main() {
 	//getChatroomMessage()
 	//postChatroomSend()
 	//deleteChatroomRevoke()
-	getMessageRaw()
+	//getMessageRaw()
+	postRedPacketSend()
 
 }
 
@@ -355,4 +356,13 @@ func getMessageRaw() {
 		return
 	}
 	logger.Info("消息原始数据结果", slog.Any("resp", resp))
+}
+
+func postRedPacketSend() {
+	resp, err := client.PostRedPacketOpen("1763607318962", types.GestureTypePaper)
+	if err != nil {
+		logger.Error("打开红包失败", slog.String("error", err.Error()))
+		return
+	}
+	logger.Info("打开红包结果", slog.Any("resp", resp))
 }
