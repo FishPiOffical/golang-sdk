@@ -89,7 +89,8 @@ func main() {
 	//postChatroomSend()
 	//deleteChatroomRevoke()
 	//getMessageRaw()
-	postRedPacketSend()
+	//postRedPacketSend()
+	postCloudGet()
 
 }
 
@@ -365,4 +366,13 @@ func postRedPacketSend() {
 		return
 	}
 	logger.Info("打开红包结果", slog.Any("resp", resp))
+}
+
+func postCloudGet() {
+	resp, err := client.PostCloudGet(types.CloudGameIdEmojis)
+	if err != nil {
+		logger.Error("获取云游戏资源失败", slog.String("error", err.Error()))
+		return
+	}
+	logger.Info("云游戏资源结果", slog.Any("resp", resp))
 }

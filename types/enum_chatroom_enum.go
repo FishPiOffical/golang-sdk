@@ -359,6 +359,69 @@ func (x ChatroomRedPacketType) Ptr() *ChatroomRedPacketType {
 }
 
 const (
+	// CloudGameIdEmojis is a CloudGameId of type emojis.
+	// 表情包
+	CloudGameIdEmojis CloudGameId = "emojis"
+)
+
+var ErrInvalidCloudGameId = fmt.Errorf("not a valid CloudGameId, try [%s]", strings.Join(_CloudGameIdNames, ", "))
+
+var _CloudGameIdNames = []string{
+	string(CloudGameIdEmojis),
+}
+
+// CloudGameIdNames returns a list of possible string values of CloudGameId.
+func CloudGameIdNames() []string {
+	tmp := make([]string, len(_CloudGameIdNames))
+	copy(tmp, _CloudGameIdNames)
+	return tmp
+}
+
+// CloudGameIdValues returns a list of the values for CloudGameId
+func CloudGameIdValues() []CloudGameId {
+	return []CloudGameId{
+		CloudGameIdEmojis,
+	}
+}
+
+// String implements the Stringer interface.
+func (x CloudGameId) String() string {
+	return string(x)
+}
+
+// IsValid provides a quick way to determine if the typed value is
+// part of the allowed enumerated values
+func (x CloudGameId) IsValid() bool {
+	_, err := ParseCloudGameId(string(x))
+	return err == nil
+}
+
+var _CloudGameIdValue = map[string]CloudGameId{
+	"emojis": CloudGameIdEmojis,
+}
+
+// ParseCloudGameId attempts to convert a string to a CloudGameId.
+func ParseCloudGameId(name string) (CloudGameId, error) {
+	if x, ok := _CloudGameIdValue[name]; ok {
+		return x, nil
+	}
+	return CloudGameId(""), fmt.Errorf("%s is %w", name, ErrInvalidCloudGameId)
+}
+
+// MustParseCloudGameId converts a string to a CloudGameId, and panics if is not valid.
+func MustParseCloudGameId(name string) CloudGameId {
+	val, err := ParseCloudGameId(name)
+	if err != nil {
+		panic(err)
+	}
+	return val
+}
+
+func (x CloudGameId) Ptr() *CloudGameId {
+	return &x
+}
+
+const (
 	// GestureTypeRock is a GestureType of type Rock.
 	// 石头
 	GestureTypeRock GestureType = iota

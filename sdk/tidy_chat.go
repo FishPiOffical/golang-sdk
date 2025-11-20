@@ -150,3 +150,22 @@ func (s *FishPiSDK) PostRedPacketOpen(oId string, gesture types.GestureType) (*t
 
 	return response, nil
 }
+
+// PostCloudGet 从云获取指定Key内容
+func (s *FishPiSDK) PostCloudGet(gameId types.CloudGameId) (*types.ApiResponse[string], error) {
+	response := new(types.ApiResponse[string])
+
+	_, err := s.client.R().
+		SetBodyJsonMarshal(map[string]any{
+			"gameId": gameId,
+		}).
+		SetSuccessResult(response).
+		SetErrorResult(response).
+		Post("/api/cloud/get")
+
+	if err != nil {
+		return nil, err
+	}
+
+	return response, nil
+}

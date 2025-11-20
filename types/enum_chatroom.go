@@ -56,3 +56,11 @@ after=2 // 之后
 )
 */
 type ChatMessageType int
+
+// CloudGameId 云游戏ID
+/*
+ENUM(
+emojis // 表情包
+)
+*/
+type CloudGameId string
