@@ -52,6 +52,7 @@ const (
 	messageOId      = "1763542689788"
 	uploadFile1     = "../../_tmp/files/IMG_1045.jpg"
 	uploadFile2     = "../../_tmp/files/IMG_13069.jpeg"
+	editArticleId   = "1763623304114"
 )
 
 func main() {
@@ -468,7 +469,7 @@ func postArticle() {
 }
 
 func putArticle() {
-	resp, err := client.PutArticle("1763623304114", &types.PostArticleRequest{
+	resp, err := client.PutArticle(editArticleId, &types.PostArticleRequest{
 		ArticleTitle:           "【测试文章】AI带来的提升",
 		ArticleContent:         "AI已经发展了这么多年，那么AI对你的工作和生活带来了哪些提升呢？  \n> 请详细说明你的实际体验和感受。🍠水贴将会被删除哦！",
 		ArticleTags:            "测试,AI,生活",
