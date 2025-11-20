@@ -56,12 +56,13 @@ type RedPacketWho struct {
 }
 
 type RedPacketInfo struct {
-	Msg              string `json:"msg"`
-	UserAvatarURL    string `json:"userAvatarURL"`
-	UserAvatarURL20  string `json:"userAvatarURL20"`
-	Count            int    `json:"count"`
-	UserName         string `json:"userName"`
-	UserAvatarURL210 string `json:"userAvatarURL210"`
-	Got              int    `json:"got"`
-	UserAvatarURL48  string `json:"userAvatarURL48"`
+	Msg              string      `json:"msg"`
+	UserAvatarURL    string      `json:"userAvatarURL"`
+	UserAvatarURL20  string      `json:"userAvatarURL20"`
+	Count            int         `json:"count"`
+	UserName         string      `json:"userName"`
+	UserAvatarURL210 string      `json:"userAvatarURL210"`
+	Got              int         `json:"got"`
+	UserAvatarURL48  string      `json:"userAvatarURL48"`
+	Gesture          GestureType `json:"gesture,omitempty"`
 }
