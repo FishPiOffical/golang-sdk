@@ -100,7 +100,8 @@ func main() {
 	//getBreezemoons()
 	//postBreezemoon()
 	//getUserBreezemoons()
-	postArticle()
+	//postArticle()
+	putArticle()
 }
 
 func getUserInfoByUsername() {
@@ -464,4 +465,25 @@ func postArticle() {
 		return
 	}
 	logger.Info("发布文章结果", slog.Any("resp", resp))
+}
+
+func putArticle() {
+	resp, err := client.PutArticle("1763623304114", &types.PostArticleRequest{
+		ArticleTitle:           "【测试文章】AI带来的提升",
+		ArticleContent:         "AI已经发展了这么多年，那么AI对你的工作和生活带来了哪些提升呢？  \n> 请详细说明你的实际体验和感受。🍠水贴将会被删除哦！",
+		ArticleTags:            "测试,AI,生活",
+		ArticleCommentable:     true,
+		ArticleNotifyFollowers: false,
+		ArticleType:            types.ArticleTypeQna,
+		ArticleShowInList:      types.ArticleShowInListNo,
+		ArticleRewardContent:   convertor.ToPointer("感谢您的支持！"),
+		ArticleRewardPoint:     convertor.ToPointer(5),
+		ArticleAnonymous:       convertor.ToPointer(false),
+		ArticleQnAOfferPoint:   convertor.ToPointer(5),
+	})
+	if err != nil {
+		logger.Error("更新文章失败", slog.String("error", err.Error()))
+		return
+	}
+	logger.Info("更新文章结果", slog.Any("resp", resp))
 }

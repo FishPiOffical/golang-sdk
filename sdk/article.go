@@ -6,29 +6,6 @@ import (
 	"github.com/FishPiOffical/golang-sdk/types"
 )
 
-// UpdateArticle 更新文章
-func (s *FishPiSDK) UpdateArticle(articleId string, req *types.UpdateArticleRequest) error {
-	if articleId == "" {
-		return fmt.Errorf("articleId is required")
-	}
-
-	var resp types.SimpleResponse
-	_, err := s.client.R().
-		SetBodyJsonMarshal(req).
-		SetSuccessResult(&resp).
-		Put("/article/" + articleId)
-
-	if err != nil {
-		return fmt.Errorf("failed to update article: %w", err)
-	}
-
-	if resp.Code != 0 {
-		return fmt.Errorf("update article failed: %s", resp.Msg)
-	}
-
-	return nil
-}
-
 // GetArticleList 获取文章列表
 func (s *FishPiSDK) GetArticleList(listType types.ArticleListType, tag string, page, size int) (*types.ArticleList, error) {
 	if page < 1 {

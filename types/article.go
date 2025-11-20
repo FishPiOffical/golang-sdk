@@ -1,16 +1,5 @@
 package types
 
-// UpdateArticleRequest 更新文章请求
-type UpdateArticleRequest struct {
-	ArticleTitle         string      `json:"articleTitle"`
-	ArticleContent       string      `json:"articleContent"`
-	ArticleTags          string      `json:"articleTags"`
-	ArticleCommentable   bool        `json:"articleCommentable"`
-	ArticleType          ArticleType `json:"articleType"`
-	ArticleRewardContent string      `json:"articleRewardContent,omitempty"`
-	ArticleRewardPoint   int         `json:"articleRewardPoint,omitempty"`
-}
-
 // ArticleInfo 文章信息
 type ArticleInfo struct {
 	OId                         string `json:"oId"`
