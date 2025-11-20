@@ -20,3 +20,14 @@ type GetBreezemoonsResponse struct {
 	Msg         string           `json:"msg,omitempty"`
 	Breezemoons []BreezemoonInfo `json:"breezemoons,omitempty"`
 }
+
+type BreezemoonPagination struct {
+	PaginationPageCount   int   `json:"paginationPageCount"`
+	PaginationPageNums    []int `json:"paginationPageNums"`
+	PaginationRecordCount int   `json:"paginationRecordCount"`
+}
+
+type GetUserBreezemoonsData struct {
+	Pagination  BreezemoonPagination `json:"pagination"`
+	Breezemoons []*BreezemoonInfo    `json:"breezemoons"`
+}

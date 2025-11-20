@@ -97,8 +97,8 @@ func main() {
 	//getSiGuoYa()
 	//postUploadFile()
 	//getBreezemoons()
-	postBreezemoon()
-
+	//postBreezemoon()
+	getUserBreezemoons()
 }
 
 func getUserInfoByUsername() {
@@ -432,4 +432,13 @@ func postBreezemoon() {
 		return
 	}
 	logger.Info("发送清风明月结果", slog.Any("resp", resp))
+}
+
+func getUserBreezemoons() {
+	resp, err := client.GetUserBreezemoons(username, 1, 20)
+	if err != nil {
+		logger.Error("获取指定用户的清风明月列表失败", slog.String("error", err.Error()))
+		return
+	}
+	logger.Info("指定用户的清风明月列表结果", slog.Any("resp", resp))
 }
