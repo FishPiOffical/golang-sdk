@@ -66,3 +66,11 @@ type RedPacketInfo struct {
 	UserAvatarURL48  string      `json:"userAvatarURL48"`
 	Gesture          GestureType `json:"gesture,omitempty"`
 }
+
+// MuteUser 禁言用户
+type MuteUser struct {
+	UserAvatarURL string `json:"userAvatarURL"`
+	UserNickname  string `json:"userNickname"`
+	Time          int64  `json:"time"`
+	UserName      string `json:"userName"`
+}

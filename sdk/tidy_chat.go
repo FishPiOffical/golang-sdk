@@ -189,3 +189,19 @@ func (s *FishPiSDK) PostCloudSync(gameId types.CloudGameId, data string) (*types
 
 	return response, nil
 }
+
+// GetSiGuoYa 获取思过崖用户
+func (s *FishPiSDK) GetSiGuoYa() (*types.ApiResponse[[]*types.MuteUser], error) {
+	response := new(types.ApiResponse[[]*types.MuteUser])
+
+	_, err := s.client.R().
+		SetSuccessResult(response).
+		SetErrorResult(response).
+		Get("/chat-room/si-guo-list")
+
+	if err != nil {
+		return nil, err
+	}
+
+	return response, nil
+}

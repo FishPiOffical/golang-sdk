@@ -91,7 +91,8 @@ func main() {
 	//getMessageRaw()
 	//postRedPacketSend()
 	//postCloudGet()
-	postCloudSync()
+	//postCloudSync()
+	getSiGuoYa()
 
 }
 
@@ -386,4 +387,13 @@ func postCloudSync() {
 		return
 	}
 	logger.Info("同步云游戏资源结果", slog.Any("resp", resp))
+}
+
+func getSiGuoYa() {
+	resp, err := client.GetSiGuoYa()
+	if err != nil {
+		logger.Error("获取思过崖失败", slog.String("error", err.Error()))
+		return
+	}
+	logger.Info("思过崖结果", slog.Any("resp", resp))
 }
