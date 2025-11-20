@@ -96,7 +96,8 @@ func main() {
 	//postCloudSync()
 	//getSiGuoYa()
 	//postUploadFile()
-	getBreezemoons()
+	//getBreezemoons()
+	postBreezemoon()
 
 }
 
@@ -422,4 +423,13 @@ func getBreezemoons() {
 		return
 	}
 	logger.Info("清风明月列表结果", slog.Any("resp", resp))
+}
+
+func postBreezemoon() {
+	resp, err := client.PostBreezemoon("怎么还没到下班点")
+	if err != nil {
+		logger.Error("发送清风明月失败", slog.String("error", err.Error()))
+		return
+	}
+	logger.Info("发送清风明月结果", slog.Any("resp", resp))
 }

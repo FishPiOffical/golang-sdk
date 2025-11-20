@@ -6,31 +6,6 @@ import (
 	"github.com/FishPiOffical/golang-sdk/types"
 )
 
-// PostBreezemoon 发送清风明月
-func (s *FishPiSDK) PostBreezemoon(content string) error {
-	if content == "" {
-		return fmt.Errorf("content is required")
-	}
-
-	var resp types.SimpleResponse
-	_, err := s.client.R().
-		SetBodyJsonMarshal(map[string]string{
-			"breezemoonContent": content,
-		}).
-		SetSuccessResult(&resp).
-		Post("/breezemoon")
-
-	if err != nil {
-		return fmt.Errorf("failed to send breezemoon: %w", err)
-	}
-
-	if resp.Code != 0 {
-		return fmt.Errorf("send breezemoon failed: %s", resp.Msg)
-	}
-
-	return nil
-}
-
 // UpdateBreezemoon 更新清风明月
 func (s *FishPiSDK) UpdateBreezemoon(id, content string) error {
 	if id == "" {

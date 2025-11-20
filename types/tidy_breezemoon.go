@@ -6,11 +6,12 @@ type BreezemoonInfo struct {
 	BreezemoonContent              string `json:"breezemoonContent"`
 	BreezemoonAuthorName           string `json:"breezemoonAuthorName"`
 	BreezemoonAuthorThumbnailURL48 string `json:"breezemoonAuthorThumbnailURL48"`
-	BreezemoonCreateTime           string `json:"breezemoonCreateTime"`
-	BreezemoonCreated              int64  `json:"breezemoonCreated"`
-	BreezemoonUpdated              int64  `json:"breezemoonUpdated"`
-	BreezemoonCity                 string `json:"breezemoonCity"`
-	TimeAgo                        string `json:"timeAgo"`
+
+	BreezemoonCreateTime string `json:"breezemoonCreateTime,omitempty"`
+	BreezemoonCreated    int64  `json:"breezemoonCreated,omitempty"`
+	BreezemoonUpdated    int64  `json:"breezemoonUpdated,omitempty"`
+	BreezemoonCity       string `json:"breezemoonCity,omitempty"`
+	TimeAgo              string `json:"timeAgo,omitempty"`
 }
 
 // GetBreezemoonsResponse 获取清风明月响应

@@ -30,3 +30,22 @@ func (s *FishPiSDK) GetBreezemoons(page, size int) (*types.GetBreezemoonsRespons
 
 	return response, nil
 }
+
+// PostBreezemoon 发送清风明月
+func (s *FishPiSDK) PostBreezemoon(content string) (*types.ApiResponse[*types.BreezemoonInfo], error) {
+	response := new(types.ApiResponse[*types.BreezemoonInfo])
+
+	_, err := s.client.R().
+		SetBodyJsonMarshal(map[string]string{
+			"breezemoonContent": content,
+		}).
+		SetSuccessResult(response).
+		SetErrorResult(response).
+		Post("/breezemoon")
+
+	if err != nil {
+		return nil, err
+	}
+
+	return response, nil
+}
