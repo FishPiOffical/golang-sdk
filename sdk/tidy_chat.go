@@ -169,3 +169,23 @@ func (s *FishPiSDK) PostCloudGet(gameId types.CloudGameId) (*types.ApiResponse[s
 
 	return response, nil
 }
+
+// PostCloudSync 同步指定key数据到云
+func (s *FishPiSDK) PostCloudSync(gameId types.CloudGameId, data string) (*types.SimpleResponse, error) {
+	response := new(types.SimpleResponse)
+
+	_, err := s.client.R().
+		SetBodyJsonMarshal(map[string]any{
+			"gameId": gameId,
+			"data":   data,
+		}).
+		SetSuccessResult(response).
+		SetErrorResult(response).
+		Post("/api/cloud/sync")
+
+	if err != nil {
+		return nil, err
+	}
+
+	return response, nil
+}
