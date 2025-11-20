@@ -1,4 +1,4 @@
-//go:generate go-enum --marshal --names --values --ptr --mustparse
+//go:generate go-enum --names --values --ptr --mustparse
 package types
 
 // ArticleListType 文章列表类型
@@ -32,3 +32,12 @@ no=0 // 否
 )
 */
 type ArticlePerfect int
+
+// ArticleShowInList 文章是否在列表展示
+/*
+ENUM(
+yes=1 // 是
+no=0 // 否
+)
+*/
+type ArticleShowInList int

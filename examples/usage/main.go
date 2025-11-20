@@ -4,6 +4,7 @@ import (
 	"github.com/FishPiOffical/golang-sdk/config"
 	"github.com/FishPiOffical/golang-sdk/sdk"
 	"github.com/FishPiOffical/golang-sdk/types"
+	"github.com/duke-git/lancet/v2/convertor"
 	"github.com/golang-cz/devslog"
 
 	"log/slog"
@@ -98,7 +99,8 @@ func main() {
 	//postUploadFile()
 	//getBreezemoons()
 	//postBreezemoon()
-	getUserBreezemoons()
+	//getUserBreezemoons()
+	postArticle()
 }
 
 func getUserInfoByUsername() {
@@ -441,4 +443,25 @@ func getUserBreezemoons() {
 		return
 	}
 	logger.Info("指定用户的清风明月列表结果", slog.Any("resp", resp))
+}
+
+func postArticle() {
+	resp, err := client.PostArticle(&types.PostArticleRequest{
+		ArticleTitle:           "AI带来的提升",
+		ArticleContent:         "AI已经发展了这么多年，那么AI对你的工作和生活带来了哪些提升呢？  \n> 请详细说明你的实际体验和感受。🍠水贴将会被删除哦！",
+		ArticleTags:            "测试,AI,生活",
+		ArticleCommentable:     true,
+		ArticleNotifyFollowers: false,
+		ArticleType:            types.ArticleTypeQna,
+		ArticleShowInList:      types.ArticleShowInListNo,
+		ArticleRewardContent:   convertor.ToPointer("感谢您的支持！"),
+		ArticleRewardPoint:     convertor.ToPointer(5),
+		ArticleAnonymous:       convertor.ToPointer(false),
+		ArticleQnAOfferPoint:   convertor.ToPointer(5),
+	})
+	if err != nil {
+		logger.Error("发布文章失败", slog.String("error", err.Error()))
+		return
+	}
+	logger.Info("发布文章结果", slog.Any("resp", resp))
 }

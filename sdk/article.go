@@ -1,33 +1,10 @@
 package sdk
 
 import (
-	"github.com/FishPiOffical/golang-sdk/types"
 	"fmt"
+
+	"github.com/FishPiOffical/golang-sdk/types"
 )
-
-// PostArticle 发布文章
-func (s *FishPiSDK) PostArticle(req *types.PostArticleRequest) (string, error) {
-	var resp types.ApiResponse[map[string]string]
-	_, err := s.client.R().
-		SetBodyJsonMarshal(req).
-		SetSuccessResult(&resp).
-		Post("/article")
-
-	if err != nil {
-		return "", fmt.Errorf("failed to post article: %w", err)
-	}
-
-	if resp.Code != 0 {
-		return "", fmt.Errorf("post article failed: %s", resp.Msg)
-	}
-
-	articleId, ok := resp.Data["articleId"]
-	if !ok {
-		return "", fmt.Errorf("articleId not found in response")
-	}
-
-	return articleId, nil
-}
 
 // UpdateArticle 更新文章
 func (s *FishPiSDK) UpdateArticle(articleId string, req *types.UpdateArticleRequest) error {

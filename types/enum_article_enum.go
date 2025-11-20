@@ -92,21 +92,6 @@ func (x ArticleListType) Ptr() *ArticleListType {
 	return &x
 }
 
-// MarshalText implements the text marshaller method.
-func (x ArticleListType) MarshalText() ([]byte, error) {
-	return []byte(string(x)), nil
-}
-
-// UnmarshalText implements the text unmarshaller method.
-func (x *ArticleListType) UnmarshalText(text []byte) error {
-	tmp, err := ParseArticleListType(string(text))
-	if err != nil {
-		return err
-	}
-	*x = tmp
-	return nil
-}
-
 const (
 	// ArticlePerfectYes is a ArticlePerfect of type Yes.
 	// 是
@@ -186,20 +171,83 @@ func (x ArticlePerfect) Ptr() *ArticlePerfect {
 	return &x
 }
 
-// MarshalText implements the text marshaller method.
-func (x ArticlePerfect) MarshalText() ([]byte, error) {
-	return []byte(x.String()), nil
+const (
+	// ArticleShowInListYes is a ArticleShowInList of type Yes.
+	// 是
+	ArticleShowInListYes ArticleShowInList = iota + 1
+	// ArticleShowInListNo is a ArticleShowInList of type No.
+	// 否
+	ArticleShowInListNo ArticleShowInList = iota + -1
+)
+
+var ErrInvalidArticleShowInList = fmt.Errorf("not a valid ArticleShowInList, try [%s]", strings.Join(_ArticleShowInListNames, ", "))
+
+const _ArticleShowInListName = "yesno"
+
+var _ArticleShowInListNames = []string{
+	_ArticleShowInListName[0:3],
+	_ArticleShowInListName[3:5],
 }
 
-// UnmarshalText implements the text unmarshaller method.
-func (x *ArticlePerfect) UnmarshalText(text []byte) error {
-	name := string(text)
-	tmp, err := ParseArticlePerfect(name)
-	if err != nil {
-		return err
+// ArticleShowInListNames returns a list of possible string values of ArticleShowInList.
+func ArticleShowInListNames() []string {
+	tmp := make([]string, len(_ArticleShowInListNames))
+	copy(tmp, _ArticleShowInListNames)
+	return tmp
+}
+
+// ArticleShowInListValues returns a list of the values for ArticleShowInList
+func ArticleShowInListValues() []ArticleShowInList {
+	return []ArticleShowInList{
+		ArticleShowInListYes,
+		ArticleShowInListNo,
 	}
-	*x = tmp
-	return nil
+}
+
+var _ArticleShowInListMap = map[ArticleShowInList]string{
+	ArticleShowInListYes: _ArticleShowInListName[0:3],
+	ArticleShowInListNo:  _ArticleShowInListName[3:5],
+}
+
+// String implements the Stringer interface.
+func (x ArticleShowInList) String() string {
+	if str, ok := _ArticleShowInListMap[x]; ok {
+		return str
+	}
+	return fmt.Sprintf("ArticleShowInList(%d)", x)
+}
+
+// IsValid provides a quick way to determine if the typed value is
+// part of the allowed enumerated values
+func (x ArticleShowInList) IsValid() bool {
+	_, ok := _ArticleShowInListMap[x]
+	return ok
+}
+
+var _ArticleShowInListValue = map[string]ArticleShowInList{
+	_ArticleShowInListName[0:3]: ArticleShowInListYes,
+	_ArticleShowInListName[3:5]: ArticleShowInListNo,
+}
+
+// ParseArticleShowInList attempts to convert a string to a ArticleShowInList.
+func ParseArticleShowInList(name string) (ArticleShowInList, error) {
+	if x, ok := _ArticleShowInListValue[name]; ok {
+		return x, nil
+	}
+	return ArticleShowInList(0), fmt.Errorf("%s is %w", name, ErrInvalidArticleShowInList)
+}
+
+// MustParseArticleShowInList converts a string to a ArticleShowInList, and panics if is not valid.
+func MustParseArticleShowInList(name string) ArticleShowInList {
+	val, err := ParseArticleShowInList(name)
+	if err != nil {
+		panic(err)
+	}
+	return val
+}
+
+func (x ArticleShowInList) Ptr() *ArticleShowInList {
+	return &x
 }
 
 const (
@@ -293,20 +341,4 @@ func MustParseArticleType(name string) ArticleType {
 
 func (x ArticleType) Ptr() *ArticleType {
 	return &x
-}
-
-// MarshalText implements the text marshaller method.
-func (x ArticleType) MarshalText() ([]byte, error) {
-	return []byte(x.String()), nil
-}
-
-// UnmarshalText implements the text unmarshaller method.
-func (x *ArticleType) UnmarshalText(text []byte) error {
-	name := string(text)
-	tmp, err := ParseArticleType(name)
-	if err != nil {
-		return err
-	}
-	*x = tmp
-	return nil
 }

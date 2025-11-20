@@ -1,20 +1,5 @@
 package types
 
-// PostArticleRequest 发布文章请求
-type PostArticleRequest struct {
-	ArticleTitle           string      `json:"articleTitle"`
-	ArticleContent         string      `json:"articleContent"`
-	ArticleTags            string      `json:"articleTags"`
-	ArticleCommentable     bool        `json:"articleCommentable"`
-	ArticleType            ArticleType `json:"articleType"`
-	ArticleRewardContent   string      `json:"articleRewardContent,omitempty"`
-	ArticleRewardPoint     int         `json:"articleRewardPoint,omitempty"`
-	ArticleQnAOfferPoint   int         `json:"articleQnAOfferPoint,omitempty"`
-	ArticleNotifyFollowers bool        `json:"articleNotifyFollowers,omitempty"`
-	ArticleShowInList      int         `json:"articleShowInList,omitempty"` // 0 or 1
-	ArticleAnonymous       bool        `json:"articleAnonymous,omitempty"`
-}
-
 // UpdateArticleRequest 更新文章请求
 type UpdateArticleRequest struct {
 	ArticleTitle         string      `json:"articleTitle"`
