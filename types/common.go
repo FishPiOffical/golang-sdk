@@ -30,11 +30,6 @@ type Metal struct {
 	Enabled         bool   `json:"enabled"`
 }
 
-// UploadFileResponse 上传文件响应
-type UploadFileResponse struct {
-	SuccMap map[string]string `json:"succMap"` // 成功上传的文件URL映射
-}
-
 // SendRedPacketRequest 发送红包请求
 type SendRedPacketRequest struct {
 	Type     string `json:"type"`               // average, random, specify, heartbeat, rockPaperScissors

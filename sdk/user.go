@@ -101,32 +101,6 @@ func (s *FishPiSDK) GetUserByUsername(username string) (*types.UserInfo, error) 
 	return resp.Data, nil
 }
 
-// UploadFile 上传文件
-func (s *FishPiSDK) UploadFile(file []byte, fileName string) (*types.UploadFileResponse, error) {
-	if len(file) == 0 {
-		return nil, fmt.Errorf("file is required")
-	}
-	if fileName == "" {
-		return nil, fmt.Errorf("fileName is required")
-	}
-
-	var resp types.ApiResponse[*types.UploadFileResponse]
-	_, err := s.client.R().
-		SetFileBytes("file[]", fileName, file).
-		SetSuccessResult(&resp).
-		Post("/upload")
-
-	if err != nil {
-		return nil, fmt.Errorf("failed to upload file: %w", err)
-	}
-
-	if resp.Code != 0 {
-		return nil, fmt.Errorf("upload file failed: %s", resp.Msg)
-	}
-
-	return resp.Data, nil
-}
-
 // GetUserNames 获取用户名列表（管理员功能）
 func (s *FishPiSDK) GetUserNames() ([]string, error) {
 	var resp types.ApiResponse[[]string]

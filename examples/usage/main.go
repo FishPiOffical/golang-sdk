@@ -49,6 +49,8 @@ const (
 	reportArticleId = "1702103071389" // https://fishpi.cn/article/1702103071389
 	followingId     = "1734578210153" // https://fishpi.cn/member/wordsKing
 	messageOId      = "1763542689788"
+	uploadFile1     = "../../_tmp/files/IMG_1045.jpg"
+	uploadFile2     = "../../_tmp/files/IMG_13069.jpeg"
 )
 
 func main() {
@@ -92,7 +94,8 @@ func main() {
 	//postRedPacketSend()
 	//postCloudGet()
 	//postCloudSync()
-	getSiGuoYa()
+	//getSiGuoYa()
+	postUploadFile()
 
 }
 
@@ -396,4 +399,18 @@ func getSiGuoYa() {
 		return
 	}
 	logger.Info("思过崖结果", slog.Any("resp", resp))
+}
+
+func postUploadFile() {
+	resp, err := client.PostUploadFile(
+		[]string{
+			uploadFile1,
+			uploadFile2,
+		})
+	if err != nil {
+		logger.Error("上传文件失败", slog.String("error", err.Error()))
+		return
+	}
+	logger.Info("上传文件结果", slog.Any("resp", resp))
+
 }
