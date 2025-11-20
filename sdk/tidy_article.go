@@ -41,7 +41,7 @@ func (s *FishPiSDK) PutArticle(articleId string, req *types.PostArticleRequest) 
 	return response, nil
 }
 
-// GetArticles 更新文章
+// GetArticles 获取文章列表
 func (s *FishPiSDK) GetArticles(req *types.GetArticlesRequest) (*types.ApiResponse[*types.ArticleList], error) {
 	response := new(types.ApiResponse[*types.ArticleList])
 
@@ -49,6 +49,10 @@ func (s *FishPiSDK) GetArticles(req *types.GetArticlesRequest) (*types.ApiRespon
 
 	_, err := s.client.R().
 		SetBodyJsonMarshal(req).
+		SetQueryParamsAnyType(map[string]any{
+			"p":    req.Page,
+			"size": req.Size,
+		}).
 		SetSuccessResult(response).
 		SetErrorResult(response).
 		Get(url)
