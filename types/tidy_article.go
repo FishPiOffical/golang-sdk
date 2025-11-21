@@ -45,108 +45,6 @@ func (request *GetArticlesRequest) ToPath() string {
 	return path
 }
 
-type T struct {
-	Msg  string `json:"msg"`
-	Code int    `json:"code"`
-	Data struct {
-		Articles []struct {
-			ArticleCreateTime            string  `json:"articleCreateTime"`
-			ArticleRewardPoint           int     `json:"articleRewardPoint"`
-			ArticleLatestCmtTime         string  `json:"articleLatestCmtTime"`
-			ArticleThumbnailURL          string  `json:"articleThumbnailURL"`
-			ArticleStatement             int     `json:"articleStatement"`
-			ArticleAuthorName            string  `json:"articleAuthorName"`
-			ArticleType                  int     `json:"articleType"`
-			ArticleCreateTimeStr         string  `json:"articleCreateTimeStr"`
-			ArticleViewCount             int     `json:"articleViewCount"`
-			ArticleCommentable           bool    `json:"articleCommentable"`
-			ArticleAuthorThumbnailURL20  string  `json:"articleAuthorThumbnailURL20"`
-			ArticlePreviewContent        string  `json:"articlePreviewContent"`
-			ArticleCommentCount          int     `json:"articleCommentCount"`
-			ArticleLatestCmterName       string  `json:"articleLatestCmterName"`
-			ArticleAnonymousView         int     `json:"articleAnonymousView"`
-			CmtTimeAgo                   string  `json:"cmtTimeAgo"`
-			ArticleLatestCmtTimeStr      string  `json:"articleLatestCmtTimeStr"`
-			ArticleViewCntDisplayFormat  string  `json:"articleViewCntDisplayFormat"`
-			ArticleHeat                  int     `json:"articleHeat"`
-			ArticlePerfect               int     `json:"articlePerfect"`
-			ArticleAuthorThumbnailURL210 string  `json:"articleAuthorThumbnailURL210"`
-			ArticlePermalink             string  `json:"articlePermalink"`
-			ArticleCity                  string  `json:"articleCity"`
-			ArticleShowInList            int     `json:"articleShowInList"`
-			ArticleEditorType            int     `json:"articleEditorType"`
-			ArticleRandomDouble          float64 `json:"articleRandomDouble"`
-			ArticleAuthorId              string  `json:"articleAuthorId"`
-			ArticleBadCnt                int     `json:"articleBadCnt"`
-			ArticleGoodCnt               int     `json:"articleGoodCnt"`
-			ArticleQnAOfferPoint         int     `json:"articleQnAOfferPoint"`
-			ArticleStickRemains          int     `json:"articleStickRemains"`
-			TimeAgo                      string  `json:"timeAgo"`
-			ArticleUpdateTimeStr         string  `json:"articleUpdateTimeStr"`
-			Offered                      bool    `json:"offered"`
-			ArticleWatchCnt              int     `json:"articleWatchCnt"`
-			ArticleTitleEmoj             string  `json:"articleTitleEmoj"`
-			ArticleTitleEmojUnicode      string  `json:"articleTitleEmojUnicode"`
-			ArticleAudioURL              string  `json:"articleAudioURL"`
-			ArticleAuthorThumbnailURL48  string  `json:"articleAuthorThumbnailURL48"`
-			ArticleImg1URL               string  `json:"articleImg1URL"`
-			ArticlePushOrder             int     `json:"articlePushOrder"`
-			ArticleCollectCnt            int     `json:"articleCollectCnt"`
-			ArticleTitle                 string  `json:"articleTitle"`
-			ArticleTags                  string  `json:"articleTags"`
-			OId                          string  `json:"oId"`
-			ArticleStick                 int     `json:"articleStick"`
-			ArticleAnonymous             int     `json:"articleAnonymous"`
-			ArticleThankCnt              int     `json:"articleThankCnt"`
-			ArticleRewardContent         string  `json:"articleRewardContent"`
-			RedditScore                  float64 `json:"redditScore"`
-			ArticleUpdateTime            string  `json:"articleUpdateTime"`
-			ArticleStatus                int     `json:"articleStatus"`
-		} `json:"articles"`
-		Pagination struct {
-			PaginationPageCount int   `json:"paginationPageCount"`
-			PaginationPageNums  []int `json:"paginationPageNums"`
-		} `json:"pagination"`
-		Domain struct {
-			DomainTitle    string `json:"domainTitle"`
-			DomainIconPath string `json:"domainIconPath"`
-			DomainType     string `json:"domainType"`
-			DomainTags     []struct {
-				TagShowSideAd     int     `json:"tagShowSideAd"`
-				TagIconPath       string  `json:"tagIconPath"`
-				TagStatus         int     `json:"tagStatus"`
-				TagBadCnt         int     `json:"tagBadCnt"`
-				TagRandomDouble   float64 `json:"tagRandomDouble"`
-				TagTitle          string  `json:"tagTitle"`
-				OId               string  `json:"oId"`
-				TagURI            string  `json:"tagURI"`
-				TagAd             string  `json:"tagAd"`
-				TagGoodCnt        int     `json:"tagGoodCnt"`
-				TagCSS            string  `json:"tagCSS"`
-				TagCommentCount   int     `json:"tagCommentCount"`
-				TagFollowerCount  int     `json:"tagFollowerCount"`
-				TagSeoTitle       string  `json:"tagSeoTitle"`
-				TagLinkCount      int     `json:"tagLinkCount"`
-				TagSeoDesc        string  `json:"tagSeoDesc"`
-				TagReferenceCount int     `json:"tagReferenceCount"`
-				TagSeoKeywords    string  `json:"tagSeoKeywords"`
-				TagDescription    string  `json:"tagDescription"`
-			} `json:"domainTags"`
-			DomainSeoTitle    string `json:"domainSeoTitle"`
-			DomainStatus      int    `json:"domainStatus"`
-			OId               string `json:"oId"`
-			DomainURI         string `json:"domainURI"`
-			DomainSeoKeywords string `json:"domainSeoKeywords"`
-			DomainDescription string `json:"domainDescription"`
-			DomainSort        int    `json:"domainSort"`
-			DomainNav         int    `json:"domainNav"`
-			DomainCSS         string `json:"domainCSS"`
-			DomainTagCnt      int    `json:"domainTagCnt"`
-			DomainSeoDesc     string `json:"domainSeoDesc"`
-		} `json:"domain"`
-	} `json:"data"`
-}
-
 type ArticleParticipant struct {
 	ArticleParticipantURL          string `json:"articleParticipantURL"`
 	CommentId                      string `json:"commentId"`
@@ -161,7 +59,7 @@ type Metal struct {
 	Description     string `json:"description"`
 	Data            string `json:"data"`
 	Attr            string `json:"attr"`
-	BackgroundImage string `json:"backgroundImage"`
+	BackgroundImage string `json:"backgroundImage,omitempty"`
 	ExpireDate      string `json:"expireDate,omitempty"`
 	Enabled         bool   `json:"enabled"`
 }
@@ -407,14 +305,14 @@ type ArticleCommenter struct {
 }
 
 type ArticleComment struct {
-	CommentNice               bool              `json:"commentNice"`
+	CommentNice               bool              `json:"commentNice,omitempty"`
 	CommentCreateTimeStr      string            `json:"commentCreateTimeStr"`
 	CommentAuthorId           string            `json:"commentAuthorId"`
-	CommentScore              int               `json:"commentScore"`
+	CommentScore              float64           `json:"commentScore"`
 	CommentCreateTime         string            `json:"commentCreateTime"`
 	CommentAuthorURL          string            `json:"commentAuthorURL"`
 	CommentVote               int               `json:"commentVote"`
-	CommentRevisionCount      int               `json:"commentRevisionCount"`
+	CommentRevisionCount      int               `json:"commentRevisionCount,omitempty"`
 	TimeAgo                   string            `json:"timeAgo"`
 	CommentOriginalCommentId  string            `json:"commentOriginalCommentId"`
 	SysMetal                  []*Metal          `json:"sysMetal"`
@@ -437,6 +335,10 @@ type ArticleComment struct {
 	CommentAudioURL           string            `json:"commentAudioURL"`
 	CommentQnAOffered         int               `json:"commentQnAOffered"`
 	CommentAuthorNickName     string            `json:"commentAuthorNickName"`
+
+	CommentOriginalAuthorThumbnailURL string `json:"commentOriginalAuthorThumbnailURL,omitempty"`
+	PaginationCurrentPageNum          int    `json:"paginationCurrentPageNum,omitempty"`
+	CommentThankLabel                 string `json:"commentThankLabel,omitempty"`
 }
 
 type ArticleDetail struct {
@@ -523,4 +425,9 @@ type PostVoteUpArticleResponse struct {
 	Code int         `json:"code"`
 	Msg  string      `json:"msg,omitempty"`
 	Type *VoteResult `json:"type,omitempty"`
+}
+
+type GetArticleCommentsData struct {
+	ArticleNiceComments []*ArticleComment `json:"articleNiceComments"`
+	ArticleComments     []*ArticleComment `json:"articleComments"`
 }

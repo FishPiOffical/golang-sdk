@@ -137,3 +137,24 @@ func (s *FishPiSDK) PostArticleThank(articleId string) (*types.SimpleResponse, e
 
 	return response, nil
 }
+
+// GetArticleComments 获取帖子的评论列表
+func (s *FishPiSDK) GetArticleComments(articleId string, page, size int) (*types.ApiResponse[*types.GetArticleCommentsData], error) {
+	response := new(types.ApiResponse[*types.GetArticleCommentsData])
+
+	_, err := s.client.R().
+		SetQueryParamsAnyType(map[string]any{
+			"p":    page,
+			"size": size,
+		}).
+		SetPathParam("articleId", articleId).
+		SetSuccessResult(response).
+		SetErrorResult(response).
+		Get("/api/comment/{articleId}")
+
+	if err != nil {
+		return nil, err
+	}
+
+	return response, nil
+}
