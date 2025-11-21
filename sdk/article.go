@@ -40,40 +40,6 @@ func (s *FishPiSDK) GetArticleList(listType types.ArticleListType, tag string, p
 	return resp.Data, nil
 }
 
-// GetUserArticles 获取用户文章列表
-func (s *FishPiSDK) GetUserArticles(userName string, page, size int) (*types.ArticleList, error) {
-	if userName == "" {
-		return nil, fmt.Errorf("userName is required")
-	}
-	if page < 1 {
-		page = 1
-	}
-	if size < 1 || size > 100 {
-		size = 20
-	}
-
-	url := fmt.Sprintf("/api/user/%s/articles?p=%d&size=%d", userName, page, size)
-
-	var resp types.ApiResponse[*types.ArticleList]
-	_, err := s.client.R().
-		SetSuccessResult(&resp).
-		Get(url)
-
-	if err != nil {
-		return nil, fmt.Errorf("failed to get user articles: %w", err)
-	}
-
-	if resp.Code != 0 {
-		return nil, fmt.Errorf("get user articles failed: %s", resp.Msg)
-	}
-
-	if resp.Data == nil {
-		return nil, fmt.Errorf("user articles data is nil")
-	}
-
-	return resp.Data, nil
-}
-
 // VoteArticle 文章投票（点赞/点踩）
 func (s *FishPiSDK) VoteArticle(articleId string, voteType string) (types.VoteType, error) {
 	if articleId == "" {

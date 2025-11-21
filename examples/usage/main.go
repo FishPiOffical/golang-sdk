@@ -105,7 +105,8 @@ func main() {
 	//postArticle()
 	//putArticle()
 	//getArticles()
-	getArticleDetail()
+	//getArticleDetail()
+	getUserArticles()
 
 	// 清风明月
 	//getBreezemoons()
@@ -520,4 +521,13 @@ func getArticleDetail() {
 		return
 	}
 	logger.Info("文章详情结果", slog.Any("resp", resp.Msg))
+}
+
+func getUserArticles() {
+	resp, err := client.GetUserArticles(username, 1, 10)
+	if err != nil {
+		logger.Error("获取用户文章列表失败", slog.String("error", err.Error()))
+		return
+	}
+	logger.Info("用户文章列表结果", slog.Any("resp", resp.Msg))
 }

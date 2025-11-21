@@ -80,3 +80,24 @@ func (s *FishPiSDK) GetArticleDetail(articleId string) (*types.ApiResponse[*type
 
 	return response, nil
 }
+
+// GetUserArticles 获取用户文章列表
+func (s *FishPiSDK) GetUserArticles(userName string, page, size int) (*types.ApiResponse[*types.ArticleList], error) {
+	response := new(types.ApiResponse[*types.ArticleList])
+
+	_, err := s.client.R().
+		SetQueryParamsAnyType(map[string]any{
+			"p":    page,
+			"size": size,
+		}).
+		SetPathParam("userName", userName).
+		SetSuccessResult(response).
+		SetErrorResult(response).
+		Get("/api/user/{userName}/articles")
+
+	if err != nil {
+		return nil, err
+	}
+
+	return response, nil
+}

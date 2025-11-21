@@ -283,8 +283,9 @@ type ArticleInfo struct {
 
 // ArticlePagination 分页信息
 type ArticlePagination struct {
-	PaginationPageCount int   `json:"paginationPageCount"`
-	PaginationPageNums  []int `json:"paginationPageNums"`
+	PaginationPageCount   int   `json:"paginationPageCount"`
+	PaginationPageNums    []int `json:"paginationPageNums"`
+	PaginationRecordCount int   `json:"paginationRecordCount,omitempty"`
 }
 
 type ArticleTag struct {
