@@ -79,31 +79,6 @@ func (s *FishPiSDK) VoteArticle(articleId string, voteType string) (types.VoteTy
 	return voteResult, nil
 }
 
-// ThankArticle 感谢文章
-func (s *FishPiSDK) ThankArticle(articleId string) error {
-	if articleId == "" {
-		return fmt.Errorf("articleId is required")
-	}
-
-	var resp types.SimpleResponse
-	_, err := s.client.R().
-		SetBodyJsonMarshal(map[string]string{
-			"articleId": articleId,
-		}).
-		SetSuccessResult(&resp).
-		Post("/article/thank")
-
-	if err != nil {
-		return fmt.Errorf("failed to thank article: %w", err)
-	}
-
-	if resp.Code != 0 {
-		return fmt.Errorf("thank article failed: %s", resp.Msg)
-	}
-
-	return nil
-}
-
 // WatchArticle 关注文章
 func (s *FishPiSDK) WatchArticle(articleId string, watch bool) error {
 	if articleId == "" {

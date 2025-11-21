@@ -108,7 +108,8 @@ func main() {
 	//getArticles()
 	//getArticleDetail()
 	//getUserArticles()
-	postVoteUpArticle()
+	//postVoteUpArticle()
+	postArticleThank()
 
 	// 清风明月
 	//getBreezemoons()
@@ -541,4 +542,13 @@ func postVoteUpArticle() {
 		return
 	}
 	logger.Info("点赞文章结果", slog.Any("resp", resp))
+}
+
+func postArticleThank() {
+	resp, err := client.PostArticleThank(otherArticleId)
+	if err != nil {
+		logger.Error("感谢文章失败", slog.String("error", err.Error()))
+		return
+	}
+	logger.Info("感谢文章结果", slog.Any("resp", resp))
 }

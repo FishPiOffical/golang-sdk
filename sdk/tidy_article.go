@@ -120,3 +120,20 @@ func (s *FishPiSDK) PostVoteUpArticle(articleId string) (*types.PostVoteUpArticl
 
 	return response, nil
 }
+
+// PostArticleThank 感谢文章
+func (s *FishPiSDK) PostArticleThank(articleId string) (*types.SimpleResponse, error) {
+	response := new(types.SimpleResponse)
+
+	_, err := s.client.R().
+		SetQueryParam("articleId", articleId).
+		SetSuccessResult(response).
+		SetErrorResult(response).
+		Post("/article/thank")
+
+	if err != nil {
+		return nil, err
+	}
+
+	return response, nil
+}
