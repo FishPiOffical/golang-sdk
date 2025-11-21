@@ -7,16 +7,6 @@ type ResponseResult[T any] struct {
 	Data   T      `json:"data"`
 }
 
-// Metal 勋章信息
-type Metal struct {
-	Name            string `json:"name"`
-	Attr            string `json:"attr"`
-	Description     string `json:"description"`
-	Data            string `json:"data"`
-	BackgroundImage string `json:"backgroundImage"`
-	Enabled         bool   `json:"enabled"`
-}
-
 // SendRedPacketRequest 发送红包请求
 type SendRedPacketRequest struct {
 	Type     string `json:"type"`               // average, random, specify, heartbeat, rockPaperScissors

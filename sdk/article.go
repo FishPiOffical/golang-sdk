@@ -74,42 +74,6 @@ func (s *FishPiSDK) GetUserArticles(userName string, page, size int) (*types.Art
 	return resp.Data, nil
 }
 
-// GetArticleDetail 获取文章详情
-func (s *FishPiSDK) GetArticleDetail(articleId string, page int) (*types.ArticleDetail, error) {
-	if articleId == "" {
-		return nil, fmt.Errorf("articleId is required")
-	}
-	if page < 1 {
-		page = 1
-	}
-
-	url := fmt.Sprintf("/api/article/%s?p=%d", articleId, page)
-
-	var resp types.ApiResponse[map[string]*types.ArticleDetail]
-	_, err := s.client.R().
-		SetSuccessResult(&resp).
-		Get(url)
-
-	if err != nil {
-		return nil, fmt.Errorf("failed to get article detail: %w", err)
-	}
-
-	if resp.Code != 0 {
-		return nil, fmt.Errorf("get article detail failed: %s", resp.Msg)
-	}
-
-	if resp.Data == nil {
-		return nil, fmt.Errorf("article detail data is nil")
-	}
-
-	article, ok := resp.Data["article"]
-	if !ok || article == nil {
-		return nil, fmt.Errorf("article not found in response")
-	}
-
-	return article, nil
-}
-
 // VoteArticle 文章投票（点赞/点踩）
 func (s *FishPiSDK) VoteArticle(articleId string, voteType string) (types.VoteType, error) {
 	if articleId == "" {

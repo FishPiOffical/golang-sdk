@@ -97,13 +97,21 @@ func main() {
 	//postCloudGet()
 	//postCloudSync()
 	//getSiGuoYa()
+
+	// 图床
 	//postUploadFile()
+
+	// 帖子
+	//postArticle()
+	//putArticle()
+	//getArticles()
+	getArticleDetail()
+
+	// 清风明月
 	//getBreezemoons()
 	//postBreezemoon()
 	//getUserBreezemoons()
-	//postArticle()
-	//putArticle()
-	getArticles()
+
 }
 
 func getUserInfoByUsername() {
@@ -503,4 +511,13 @@ func getArticles() {
 		return
 	}
 	logger.Info("文章列表结果", slog.Any("resp", resp.Code))
+}
+
+func getArticleDetail() {
+	resp, err := client.GetArticleDetail(editArticleId)
+	if err != nil {
+		logger.Error("获取文章详情失败", slog.String("error", err.Error()))
+		return
+	}
+	logger.Info("文章详情结果", slog.Any("resp", resp.Msg))
 }

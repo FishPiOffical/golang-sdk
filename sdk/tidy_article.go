@@ -63,3 +63,20 @@ func (s *FishPiSDK) GetArticles(req *types.GetArticlesRequest) (*types.ApiRespon
 
 	return response, nil
 }
+
+// GetArticleDetail 获取文章详情
+func (s *FishPiSDK) GetArticleDetail(articleId string) (*types.ApiResponse[*types.GetArticleData], error) {
+	response := new(types.ApiResponse[*types.GetArticleData])
+
+	_, err := s.client.R().
+		SetPathParam("articleId", articleId).
+		SetSuccessResult(response).
+		SetErrorResult(response).
+		Get("/api/article/{articleId}")
+
+	if err != nil {
+		return nil, err
+	}
+
+	return response, nil
+}

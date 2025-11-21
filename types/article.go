@@ -1,13 +1,5 @@
 package types
 
-// ArticleDetail 文章详情（包含评论等）
-type ArticleDetail struct {
-	ArticleInfo
-	ArticleComments     []CommentInfo `json:"articleComments"`
-	ArticleNiceComments []CommentInfo `json:"articleNiceComments"`
-	Pagination          Pagination    `json:"pagination"`
-}
-
 // Pagination 分页信息
 type Pagination struct {
 	PageCount   int `json:"paginationPageCount"`
