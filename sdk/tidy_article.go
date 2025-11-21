@@ -101,3 +101,22 @@ func (s *FishPiSDK) GetUserArticles(userName string, page, size int) (*types.Api
 
 	return response, nil
 }
+
+// PostVoteUpArticle 给文章点赞
+func (s *FishPiSDK) PostVoteUpArticle(articleId string) (*types.PostVoteUpArticleResponse, error) {
+	response := new(types.PostVoteUpArticleResponse)
+
+	_, err := s.client.R().
+		SetBodyJsonMarshal(map[string]any{
+			"dataId": articleId,
+		}).
+		SetSuccessResult(response).
+		SetErrorResult(response).
+		Post("/vote/up/article")
+
+	if err != nil {
+		return nil, err
+	}
+
+	return response, nil
+}

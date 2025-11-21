@@ -498,3 +498,82 @@ func MustParseGetArticleType(name string) GetArticleType {
 func (x GetArticleType) Ptr() *GetArticleType {
 	return &x
 }
+
+const (
+	// VoteResultCancel is a VoteResult of type Cancel.
+	// 取消投票
+	VoteResultCancel VoteResult = iota
+	// VoteResultSuccess is a VoteResult of type Success.
+	// 投票成功
+	VoteResultSuccess VoteResult = iota + -2
+)
+
+var ErrInvalidVoteResult = fmt.Errorf("not a valid VoteResult, try [%s]", strings.Join(_VoteResultNames, ", "))
+
+const _VoteResultName = "cancelsuccess"
+
+var _VoteResultNames = []string{
+	_VoteResultName[0:6],
+	_VoteResultName[6:13],
+}
+
+// VoteResultNames returns a list of possible string values of VoteResult.
+func VoteResultNames() []string {
+	tmp := make([]string, len(_VoteResultNames))
+	copy(tmp, _VoteResultNames)
+	return tmp
+}
+
+// VoteResultValues returns a list of the values for VoteResult
+func VoteResultValues() []VoteResult {
+	return []VoteResult{
+		VoteResultCancel,
+		VoteResultSuccess,
+	}
+}
+
+var _VoteResultMap = map[VoteResult]string{
+	VoteResultCancel:  _VoteResultName[0:6],
+	VoteResultSuccess: _VoteResultName[6:13],
+}
+
+// String implements the Stringer interface.
+func (x VoteResult) String() string {
+	if str, ok := _VoteResultMap[x]; ok {
+		return str
+	}
+	return fmt.Sprintf("VoteResult(%d)", x)
+}
+
+// IsValid provides a quick way to determine if the typed value is
+// part of the allowed enumerated values
+func (x VoteResult) IsValid() bool {
+	_, ok := _VoteResultMap[x]
+	return ok
+}
+
+var _VoteResultValue = map[string]VoteResult{
+	_VoteResultName[0:6]:  VoteResultCancel,
+	_VoteResultName[6:13]: VoteResultSuccess,
+}
+
+// ParseVoteResult attempts to convert a string to a VoteResult.
+func ParseVoteResult(name string) (VoteResult, error) {
+	if x, ok := _VoteResultValue[name]; ok {
+		return x, nil
+	}
+	return VoteResult(0), fmt.Errorf("%s is %w", name, ErrInvalidVoteResult)
+}
+
+// MustParseVoteResult converts a string to a VoteResult, and panics if is not valid.
+func MustParseVoteResult(name string) VoteResult {
+	val, err := ParseVoteResult(name)
+	if err != nil {
+		panic(err)
+	}
+	return val
+}
+
+func (x VoteResult) Ptr() *VoteResult {
+	return &x
+}

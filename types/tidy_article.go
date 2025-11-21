@@ -518,3 +518,9 @@ type GetArticleData struct {
 	Article    ArticleDetail     `json:"article"`
 	Pagination ArticlePagination `json:"pagination"`
 }
+
+type PostVoteUpArticleResponse struct {
+	Code int         `json:"code"`
+	Msg  string      `json:"msg,omitempty"`
+	Type *VoteResult `json:"type,omitempty"`
+}

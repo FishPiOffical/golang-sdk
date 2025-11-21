@@ -53,6 +53,7 @@ const (
 	uploadFile1     = "../../_tmp/files/IMG_1045.jpg"
 	uploadFile2     = "../../_tmp/files/IMG_13069.jpeg"
 	editArticleId   = "1763623304114"
+	otherArticleId  = "1630569106133"
 )
 
 func main() {
@@ -106,7 +107,8 @@ func main() {
 	//putArticle()
 	//getArticles()
 	//getArticleDetail()
-	getUserArticles()
+	//getUserArticles()
+	postVoteUpArticle()
 
 	// 清风明月
 	//getBreezemoons()
@@ -530,4 +532,13 @@ func getUserArticles() {
 		return
 	}
 	logger.Info("用户文章列表结果", slog.Any("resp", resp.Msg))
+}
+
+func postVoteUpArticle() {
+	resp, err := client.PostVoteUpArticle(otherArticleId)
+	if err != nil {
+		logger.Error("点赞文章失败", slog.String("error", err.Error()))
+		return
+	}
+	logger.Info("点赞文章结果", slog.Any("resp", resp))
 }

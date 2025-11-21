@@ -62,3 +62,12 @@ perfect // 精选
 )
 */
 type GetArticleOrder string
+
+// VoteResult 文章投票结果
+/*
+ENUM(
+cancel=0 // 取消投票
+success=-1 // 投票成功
+)
+*/
+type VoteResult int
