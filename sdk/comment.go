@@ -5,32 +5,6 @@ import (
 	"fmt"
 )
 
-// UpdateComment 更新评论
-func (s *FishPiSDK) UpdateComment(commentId string, req *types.UpdateCommentRequest) error {
-	if commentId == "" {
-		return fmt.Errorf("commentId is required")
-	}
-	if req.CommentContent == "" {
-		return fmt.Errorf("comment content is required")
-	}
-
-	var resp types.SimpleResponse
-	_, err := s.client.R().
-		SetBodyJsonMarshal(req).
-		SetSuccessResult(&resp).
-		Put("/comment/" + commentId)
-
-	if err != nil {
-		return fmt.Errorf("failed to update comment: %w", err)
-	}
-
-	if resp.Code != 0 {
-		return fmt.Errorf("update comment failed: %s", resp.Msg)
-	}
-
-	return nil
-}
-
 // VoteComment 评论投票
 func (s *FishPiSDK) VoteComment(commentId string, voteType string) (types.VoteType, error) {
 	if commentId == "" {

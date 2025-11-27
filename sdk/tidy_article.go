@@ -175,3 +175,21 @@ func (s *FishPiSDK) PostComment(req *types.PostCommentRequest) (*types.SimpleRes
 
 	return response, nil
 }
+
+// PutComment 更新评论
+func (s *FishPiSDK) PutComment(commentId string, req *types.PutCommentRequest) (*types.PutCommentResponse, error) {
+	response := new(types.PutCommentResponse)
+
+	_, err := s.client.R().
+		SetBodyJsonMarshal(req).
+		SetPathParam("commentId", commentId).
+		SetSuccessResult(response).
+		SetErrorResult(response).
+		Put("/comment/{commentId}")
+
+	if err != nil {
+		return nil, err
+	}
+
+	return response, nil
+}

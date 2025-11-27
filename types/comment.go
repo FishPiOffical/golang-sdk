@@ -1,10 +1,5 @@
 package types
 
-// UpdateCommentRequest 更新评论请求
-type UpdateCommentRequest struct {
-	CommentContent string `json:"commentContent"`
-}
-
 // CommentInfo 评论信息
 type CommentInfo struct {
 	OId                         string `json:"oId"`

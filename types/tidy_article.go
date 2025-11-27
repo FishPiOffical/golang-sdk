@@ -440,3 +440,17 @@ type PostCommentRequest struct {
 	CommentVisible    *bool   `json:"commentVisible,omitempty"`
 	CommentOriginalId *string `json:"commentOriginalCommentId,omitempty"`
 }
+
+// PutCommentRequest 更新评论请求
+type PutCommentRequest struct {
+	ArticleId        string `json:"articleId"`
+	CommentContent   string `json:"commentContent"`
+	CommentAnonymous bool   `json:"commentAnonymous,omitempty"`
+	CommentVisible   bool   `json:"commentVisible,omitempty"`
+}
+
+type PutCommentResponse struct {
+	Code           int    `json:"code"`
+	Msg            string `json:"msg,omitempty"`
+	CommentContent string `json:"commentContent,omitempty"`
+}
