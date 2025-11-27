@@ -5,32 +5,6 @@ import (
 	"fmt"
 )
 
-// PostComment 发布评论
-func (s *FishPiSDK) PostComment(req *types.PostCommentRequest) error {
-	if req.ArticleId == "" {
-		return fmt.Errorf("articleId is required")
-	}
-	if req.CommentContent == "" {
-		return fmt.Errorf("comment content is required")
-	}
-
-	var resp types.SimpleResponse
-	_, err := s.client.R().
-		SetBodyJsonMarshal(req).
-		SetSuccessResult(&resp).
-		Post("/comment")
-
-	if err != nil {
-		return fmt.Errorf("failed to post comment: %w", err)
-	}
-
-	if resp.Code != 0 {
-		return fmt.Errorf("post comment failed: %s", resp.Msg)
-	}
-
-	return nil
-}
-
 // UpdateComment 更新评论
 func (s *FishPiSDK) UpdateComment(commentId string, req *types.UpdateCommentRequest) error {
 	if commentId == "" {

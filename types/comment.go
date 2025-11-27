@@ -1,14 +1,5 @@
 package types
 
-// PostCommentRequest 发布评论请求
-type PostCommentRequest struct {
-	ArticleId         string `json:"articleId"`
-	CommentContent    string `json:"commentContent"`
-	CommentAnonymous  bool   `json:"commentAnonymous,omitempty"`
-	CommentVisible    int    `json:"commentVisible,omitempty"` // 0 or 1
-	CommentOriginalId string `json:"commentOriginalCommentId,omitempty"`
-}
-
 // UpdateCommentRequest 更新评论请求
 type UpdateCommentRequest struct {
 	CommentContent string `json:"commentContent"`

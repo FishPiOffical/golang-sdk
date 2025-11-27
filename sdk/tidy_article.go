@@ -158,3 +158,20 @@ func (s *FishPiSDK) GetArticleComments(articleId string, page, size int) (*types
 
 	return response, nil
 }
+
+// PostComment 评论/回复
+func (s *FishPiSDK) PostComment(req *types.PostCommentRequest) (*types.SimpleResponse, error) {
+	response := new(types.SimpleResponse)
+
+	_, err := s.client.R().
+		SetBodyJsonMarshal(req).
+		SetSuccessResult(response).
+		SetErrorResult(response).
+		Post("/comment")
+
+	if err != nil {
+		return nil, err
+	}
+
+	return response, nil
+}

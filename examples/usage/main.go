@@ -45,15 +45,16 @@ const (
 	configPath = "../../_tmp/config.yaml"
 	logPath    = "../../_tmp/logs/"
 
-	username        = "8888"
-	associateName   = "888"
-	reportArticleId = "1702103071389" // https://fishpi.cn/article/1702103071389
-	followingId     = "1734578210153" // https://fishpi.cn/member/wordsKing
-	messageOId      = "1763542689788"
-	uploadFile1     = "../../_tmp/files/IMG_1045.jpg"
-	uploadFile2     = "../../_tmp/files/IMG_13069.jpeg"
-	editArticleId   = "1763623304114"
-	otherArticleId  = "1630569106133"
+	username             = "8888"
+	associateName        = "888"
+	reportArticleId      = "1702103071389" // https://fishpi.cn/article/1702103071389
+	followingId          = "1734578210153" // https://fishpi.cn/member/wordsKing
+	messageOId           = "1763542689788"
+	uploadFile1          = "../../_tmp/files/IMG_1045.jpg"
+	uploadFile2          = "../../_tmp/files/IMG_13069.jpeg"
+	editArticleId        = "1763623304114" // https://fishpi.cn/article/1763623304114
+	editArticleCommentId = "1763629146604"
+	otherArticleId       = "1630569106133"
 )
 
 func main() {
@@ -110,7 +111,8 @@ func main() {
 	//getUserArticles()
 	//postVoteUpArticle()
 	//postArticleThank()
-	getArticleComments()
+	//getArticleComments()
+	postComment()
 
 	// 清风明月
 	//getBreezemoons()
@@ -561,4 +563,19 @@ func getArticleComments() {
 		return
 	}
 	logger.Info("文章评论列表结果", slog.Any("resp", resp.Msg))
+}
+
+func postComment() {
+	resp, err := client.PostComment(&types.PostCommentRequest{
+		ArticleId:         editArticleId,
+		CommentContent:    "在做测试，没点到隐藏文章",
+		CommentVisible:    convertor.ToPointer(true),
+		CommentAnonymous:  convertor.ToPointer(false),
+		CommentOriginalId: convertor.ToPointer(editArticleCommentId),
+	})
+	if err != nil {
+		logger.Error("发布评论失败", slog.String("error", err.Error()))
+		return
+	}
+	logger.Info("发布评论结果", slog.Any("resp", resp))
 }

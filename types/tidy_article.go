@@ -431,3 +431,12 @@ type GetArticleCommentsData struct {
 	ArticleNiceComments []*ArticleComment `json:"articleNiceComments"`
 	ArticleComments     []*ArticleComment `json:"articleComments"`
 }
+
+// PostCommentRequest 发布评论请求
+type PostCommentRequest struct {
+	ArticleId         string  `json:"articleId"`
+	CommentContent    string  `json:"commentContent"`
+	CommentAnonymous  *bool   `json:"commentAnonymous,omitempty"`
+	CommentVisible    *bool   `json:"commentVisible,omitempty"`
+	CommentOriginalId *string `json:"commentOriginalCommentId,omitempty"`
+}
