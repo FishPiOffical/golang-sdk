@@ -193,3 +193,21 @@ func (s *FishPiSDK) PutComment(commentId string, req *types.PutCommentRequest) (
 
 	return response, nil
 }
+
+// PostVoteUpComment 评论点赞
+func (s *FishPiSDK) PostVoteUpComment(commentId string) (*types.PostVoteUpCommentResponse, error) {
+	response := new(types.PostVoteUpCommentResponse)
+
+	_, err := s.client.R().
+		SetBodyJsonMarshal(map[string]string{
+			"dataId": commentId,
+		}).
+		SetSuccessResult(response).
+		SetErrorResult(response).
+		Post("/vote/up/comment")
+	if err != nil {
+		return nil, err
+	}
+
+	return response, nil
+}

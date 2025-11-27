@@ -114,7 +114,8 @@ func main() {
 	//postArticleThank()
 	//getArticleComments()
 	//postComment()
-	putComment()
+	//putComment()
+	postVoteUpComment()
 
 	// 清风明月
 	//getBreezemoons()
@@ -594,4 +595,13 @@ func putComment() {
 		return
 	}
 	logger.Info("更新评论结果", slog.Any("resp", resp))
+}
+
+func postVoteUpComment() {
+	resp, err := client.PostVoteUpComment(editArticleCommentId)
+	if err != nil {
+		logger.Error("点赞评论失败", slog.String("error", err.Error()))
+		return
+	}
+	logger.Info("点赞评论结果", slog.Any("resp", resp))
 }

@@ -454,3 +454,9 @@ type PutCommentResponse struct {
 	Msg            string `json:"msg,omitempty"`
 	CommentContent string `json:"commentContent,omitempty"`
 }
+
+type PostVoteUpCommentResponse struct {
+	Code int         `json:"code"`
+	Msg  string      `json:"msg,omitempty"`
+	Type *VoteResult `json:"type,omitempty"`
+}
