@@ -460,3 +460,9 @@ type PostVoteUpCommentResponse struct {
 	Msg  string      `json:"msg,omitempty"`
 	Type *VoteResult `json:"type,omitempty"`
 }
+
+type PostCommentRemoveResponse struct {
+	Code      int    `json:"code"`
+	Msg       string `json:"msg,omitempty"`
+	CommentId string `json:"commentId,omitempty"`
+}

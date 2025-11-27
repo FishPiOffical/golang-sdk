@@ -230,3 +230,20 @@ func (s *FishPiSDK) PostCommentThank(commentId string) (*types.SimpleResponse, e
 
 	return response, nil
 }
+
+// PostCommentRemove 删除评论
+func (s *FishPiSDK) PostCommentRemove(commentId string) (*types.PostCommentRemoveResponse, error) {
+	response := new(types.PostCommentRemoveResponse)
+
+	_, err := s.client.R().
+		SetPathParam("commentId", commentId).
+		SetSuccessResult(response).
+		SetErrorResult(response).
+		Post("/comment/{commentId}/remove")
+
+	if err != nil {
+		return nil, err
+	}
+
+	return response, nil
+}
