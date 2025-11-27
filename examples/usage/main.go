@@ -53,8 +53,9 @@ const (
 	uploadFile1               = "../../_tmp/files/IMG_1045.jpg"
 	uploadFile2               = "../../_tmp/files/IMG_13069.jpeg"
 	editArticleId             = "1763623304114" // https://fishpi.cn/article/1763623304114
-	editArticleCommentId      = "1763629146604"
-	editArticleReplyCommentId = "1764215313804"
+	editArticleCommentId      = "1763629146604" // 念
+	editArticleFirstCommentId = "1763624701751" // 厌子
+	editArticleReplyCommentId = "1764215313804" // 回复念
 	otherArticleId            = "1630569106133"
 )
 
@@ -115,7 +116,8 @@ func main() {
 	//getArticleComments()
 	//postComment()
 	//putComment()
-	postVoteUpComment()
+	//postVoteUpComment()
+	postCommentThank()
 
 	// 清风明月
 	//getBreezemoons()
@@ -604,4 +606,13 @@ func postVoteUpComment() {
 		return
 	}
 	logger.Info("点赞评论结果", slog.Any("resp", resp))
+}
+
+func postCommentThank() {
+	resp, err := client.PostCommentThank(editArticleFirstCommentId)
+	if err != nil {
+		logger.Error("感谢评论失败", slog.String("error", err.Error()))
+		return
+	}
+	logger.Info("感谢评论结果", slog.Any("resp", resp))
 }

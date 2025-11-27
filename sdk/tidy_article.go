@@ -211,3 +211,22 @@ func (s *FishPiSDK) PostVoteUpComment(commentId string) (*types.PostVoteUpCommen
 
 	return response, nil
 }
+
+// PostCommentThank 感谢评论
+func (s *FishPiSDK) PostCommentThank(commentId string) (*types.SimpleResponse, error) {
+	response := new(types.SimpleResponse)
+
+	_, err := s.client.R().
+		SetBodyJsonMarshal(map[string]string{
+			"commentId": commentId,
+		}).
+		SetSuccessResult(response).
+		SetErrorResult(response).
+		Post("/comment/thank")
+
+	if err != nil {
+		return nil, err
+	}
+
+	return response, nil
+}
