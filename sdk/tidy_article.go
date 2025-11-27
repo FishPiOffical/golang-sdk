@@ -247,3 +247,20 @@ func (s *FishPiSDK) PostCommentRemove(commentId string) (*types.PostCommentRemov
 
 	return response, nil
 }
+
+// PostArticleHeat 获取帖子当前正在阅读的人数
+func (s *FishPiSDK) PostArticleHeat(articleId string) (*types.PostArticleHeatResponse, error) {
+	response := new(types.PostArticleHeatResponse)
+
+	_, err := s.client.R().
+		SetPathParam("articleId", articleId).
+		SetSuccessResult(response).
+		SetErrorResult(response).
+		Get("/api/article/heat/{articleId}")
+
+	if err != nil {
+		return nil, err
+	}
+
+	return response, nil
+}

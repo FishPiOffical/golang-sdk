@@ -466,3 +466,9 @@ type PostCommentRemoveResponse struct {
 	Msg       string `json:"msg,omitempty"`
 	CommentId string `json:"commentId,omitempty"`
 }
+
+type PostArticleHeatResponse struct {
+	Code        int    `json:"code"`
+	Msg         string `json:"msg,omitempty"`
+	ArticleHeat int    `json:"articleHeat,omitempty"`
+}

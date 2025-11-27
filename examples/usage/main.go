@@ -118,7 +118,8 @@ func main() {
 	//putComment()
 	//postVoteUpComment()
 	//postCommentThank()
-	postCommentRemove()
+	//postCommentRemove()
+	postArticleHeat()
 
 	// 清风明月
 	//getBreezemoons()
@@ -625,4 +626,13 @@ func postCommentRemove() {
 		return
 	}
 	logger.Info("删除评论结果", slog.Any("resp", resp))
+}
+
+func postArticleHeat() {
+	resp, err := client.PostArticleHeat(editArticleId)
+	if err != nil {
+		logger.Error("文章升温失败", slog.String("error", err.Error()))
+		return
+	}
+	logger.Info("文章升温结果", slog.Any("resp", resp))
 }
