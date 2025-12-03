@@ -1,5 +1,19 @@
 package types
 
+// PostApiGetKeyRequest 获取ApiKey请求
+type PostApiGetKeyRequest struct {
+	NameOrEmail  string `json:"nameOrEmail"`
+	UserPassword string `json:"userPassword"`
+	MfaCode      string `json:"mfaCode,omitempty"`
+}
+
+// PostApiGetKeyResponse 获取ApiKey响应
+type PostApiGetKeyResponse struct {
+	Code int    `json:"code"`
+	Msg  string `json:"msg"`
+	Key  string `json:"Key"`
+}
+
 // UserInfo 用户信息
 type UserInfo struct {
 	UserCity           string      `json:"userCity"`
