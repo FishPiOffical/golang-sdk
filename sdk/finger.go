@@ -1,8 +1,9 @@
 package sdk
 
 import (
-	"github.com/FishPiOffical/golang-sdk/types"
 	"fmt"
+
+	"github.com/FishPiOffical/golang-sdk/types"
 )
 
 // Finger 金手指API（需要金手指密钥）
@@ -63,56 +64,6 @@ func (f *Finger) QueryLatestLoginIP(userName string) (*types.UserIP, error) {
 	}
 
 	return resp.Data, nil
-}
-
-// AddMetal 添加勋章
-func (f *Finger) AddMetal(userName string, metal *types.MetalBase) error {
-	var resp types.SimpleResponse
-	_, err := f.sdk.client.R().
-		SetBodyJsonMarshal(map[string]interface{}{
-			"goldFingerKey":   f.goldFingerKey,
-			"userName":        userName,
-			"name":            metal.Name,
-			"attr":            metal.Attr,
-			"description":     metal.Description,
-			"data":            metal.Data,
-			"backgroundImage": metal.BackgroundImage,
-		}).
-		SetSuccessResult(&resp).
-		Post("/user/edit/give-metal")
-
-	if err != nil {
-		return err
-	}
-
-	if resp.Code != 0 {
-		return fmt.Errorf(resp.Msg)
-	}
-
-	return nil
-}
-
-// RemoveMetal 移除勋章
-func (f *Finger) RemoveMetal(userName, metalName string) error {
-	var resp types.SimpleResponse
-	_, err := f.sdk.client.R().
-		SetBodyJsonMarshal(map[string]string{
-			"goldFingerKey": f.goldFingerKey,
-			"userName":      userName,
-			"name":          metalName,
-		}).
-		SetSuccessResult(&resp).
-		Post("/user/edit/remove-metal")
-
-	if err != nil {
-		return err
-	}
-
-	if resp.Code != 0 {
-		return fmt.Errorf(resp.Msg)
-	}
-
-	return nil
 }
 
 // RemoveMetalByUserId 通过用户ID移除勋章

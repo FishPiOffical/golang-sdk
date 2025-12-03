@@ -119,7 +119,9 @@ func main() {
 	//postVoteUpComment()
 	//postCommentThank()
 	//postCommentRemove()
-	postArticleHeat()
+	//postArticleHeat()
+	//postGiveMetal()
+	postRemoveMetal()
 
 	// 清风明月
 	//getBreezemoons()
@@ -635,4 +637,27 @@ func postArticleHeat() {
 		return
 	}
 	logger.Info("文章升温结果", slog.Any("resp", resp))
+}
+
+func postGiveMetal() {
+	resp, err := client.PostGiveMetal("AziAzi", &types.Metal{
+		Name:        "最受欢迎设计师S1",
+		Description: "摸鱼派五周年徽章共创计划 N0.1",
+		Attr:        "url=https://file.fishpi.cn/2025/12/7cab0213437e841e8680120e612a9ea3-331d0a76.png&txt=最受欢迎设计师S1&scale=0.79&backcolor=cccccc,7d7b7b&way=top-left",
+		Data:        "",
+	})
+	if err != nil {
+		logger.Error("赠送徽章失败", slog.String("error", err.Error()))
+		return
+	}
+	logger.Info("赠送徽章结果", slog.Any("resp", resp))
+}
+
+func postRemoveMetal() {
+	resp, err := client.PostRemoveMetal(username, "最受欢迎设计师S1测试徽章")
+	if err != nil {
+		logger.Error("移除徽章失败", slog.String("error", err.Error()))
+		return
+	}
+	logger.Info("移除徽章结果", slog.Any("resp", resp))
 }
