@@ -70,3 +70,18 @@ func (s *FishPiSDK) PostApiGetKey() error {
 
 	return nil
 }
+
+// GetApiUser 获取自己的信息
+func (s *FishPiSDK) GetApiUser() (*types.ApiResponse[*types.UserInfo], error) {
+	response := new(types.ApiResponse[*types.UserInfo])
+
+	_, err := s.client.R().
+		SetSuccessResult(response).
+		SetErrorResult(response).
+		Get("/api/user")
+	if err != nil {
+		return nil, nil
+	}
+
+	return response, nil
+}

@@ -94,21 +94,6 @@ func (s *FishPiSDK) GetAPIKey() string {
 	return s.configProvider.Get().ApiKey
 }
 
-// GetApiUser 获取自己的信息
-func (s *FishPiSDK) GetApiUser() (*types.ApiResponse[*types.UserInfo], error) {
-	res, err := s.client.R().Get("/api/user")
-	if err != nil {
-		return nil, fmt.Errorf("failed to get user info: %w", err)
-	}
-
-	response := new(types.ApiResponse[*types.UserInfo])
-	if err = res.Unmarshal(&response); err != nil {
-		return nil, fmt.Errorf("failed to unmarshal response: %w", err)
-	}
-
-	return response, nil
-}
-
 // GetCaptcha 获取验证码
 func (s *FishPiSDK) GetCaptcha() (http.Header, *bytes.Buffer, error) {
 	body := new(bytes.Buffer)

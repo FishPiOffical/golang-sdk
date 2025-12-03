@@ -1,7 +1,5 @@
 package types
 
-import "time"
-
 // PostApiGetKeyRequest 获取ApiKey请求
 type PostApiGetKeyRequest struct {
 	NameOrEmail  string `json:"nameOrEmail"`
@@ -14,39 +12,6 @@ type PostApiGetKeyResponse struct {
 	Code int    `json:"code"`
 	Msg  string `json:"msg"`
 	Key  string `json:"Key"`
-}
-
-// UserInfo 用户信息
-type UserInfo struct {
-	OId                  string      `json:"oId"`
-	UserNo               string      `json:"userNo"`
-	UserName             string      `json:"userName"`
-	UserNickname         string      `json:"userNickname"`
-	UserAvatarURL        string      `json:"userAvatarURL"`
-	UserAvatarURL210     string      `json:"userAvatarURL210"`
-	UserAvatarURL48      string      `json:"userAvatarURL48"`
-	UserURL              string      `json:"userURL"`
-	UserIntro            string      `json:"userIntro"`
-	UserPoint            int         `json:"userPoint"`
-	UserAppRole          UserAppRole `json:"userAppRole"`
-	UserRole             string      `json:"userRole"`
-	OnlineMinute         int         `json:"onlineMinute"`
-	UserCity             string      `json:"userCity"`
-	SysMetal             string      `json:"sysMetal"`
-	CardBg               string      `json:"cardBg"`
-	FollowingUserCount   int         `json:"followingUserCount"`
-	FollowerCount        int         `json:"followerCount"`
-	CanFollow            CanFollow   `json:"canFollow"`
-	UserOnlineFlag       bool        `json:"userOnlineFlag"`
-	UserCreateTime       time.Time   `json:"userCreateTime"`
-	UserCreateTimeStr    string      `json:"userCreateTimeStr"`
-	UserUpdateTime       time.Time   `json:"userUpdateTime"`
-	UserUpdateTimeStr    string      `json:"userUpdateTimeStr"`
-	UserCheckedIn        bool        `json:"checkedIn"`
-	CheckedInToday       bool        `json:"checkedInToday"`
-	CurrentCheckedInDays int         `json:"currentCheckedInDays"`
-	LongestCheckedInDays int         `json:"longestCheckedInDays"`
-	MBTI                 string      `json:"mbti"`
 }
 
 // CheckinRequest 签到请求

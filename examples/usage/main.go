@@ -62,7 +62,8 @@ const (
 func main() {
 
 	// 鉴权
-	postApiGetKey()
+	//postApiGetKey()
+	getApiUser()
 
 	// 通用
 	//getUserInfoByUsername()
@@ -671,4 +672,13 @@ func postApiGetKey() {
 		return
 	}
 	logger.Info("获取API密钥成功")
+}
+
+func getApiUser() {
+	resp, err := client.GetApiUser()
+	if err != nil {
+		logger.Error("获取API用户信息失败", slog.String("error", err.Error()))
+		return
+	}
+	logger.Info("API用户信息", slog.Any("resp", resp))
 }
