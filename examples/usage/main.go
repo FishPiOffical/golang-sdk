@@ -119,14 +119,16 @@ func main() {
 	//postVoteUpComment()
 	//postCommentThank()
 	//postCommentRemove()
-	//postArticleHeat()
-	//postGiveMetal()
-	postRemoveMetal()
 
 	// 清风明月
 	//getBreezemoons()
 	//postBreezemoon()
 	//getUserBreezemoons()
+
+	// 金手指
+	//postArticleHeat()
+	//postGiveMetal()
+	postRemoveMetal()
 
 }
 
