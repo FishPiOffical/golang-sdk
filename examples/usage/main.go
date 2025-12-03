@@ -62,6 +62,7 @@ const (
 func main() {
 
 	// 鉴权
+	postApiGetKey()
 
 	// 通用
 	//getUserInfoByUsername()
@@ -128,7 +129,7 @@ func main() {
 	// 金手指
 	//postArticleHeat()
 	//postGiveMetal()
-	postRemoveMetal()
+	//postRemoveMetal()
 
 }
 
@@ -662,4 +663,12 @@ func postRemoveMetal() {
 		return
 	}
 	logger.Info("移除徽章结果", slog.Any("resp", resp))
+}
+
+func postApiGetKey() {
+	if err := client.PostApiGetKey(); err != nil {
+		logger.Error("获取API密钥失败", slog.String("error", err.Error()))
+		return
+	}
+	logger.Info("获取API密钥成功")
 }

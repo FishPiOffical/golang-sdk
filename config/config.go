@@ -8,7 +8,7 @@ type Config struct {
 	Username    string `json:"username,omitempty" yaml:"username,omitempty"`
 	Password    string `json:"password,omitempty" yaml:"password,omitempty"`
 	PasswordMd5 string `json:"password_md5,omitempty" yaml:"passwordMd5,omitempty"`
-	MfaCode     string `json:"mfa_code,omitempty" json:"mfaCode,omitempty"`
+	MfaCode     string `json:"mfa_code,omitempty" yaml:"mfaCode,omitempty"`
 	Totp        string `json:"totp,omitempty" yaml:"totp,omitempty"`
 
 	PointGoldFingerKey    string `json:"point_gold_finger_key,omitempty" yaml:"pointGoldFingerKey,omitempty"`
