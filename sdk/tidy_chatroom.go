@@ -1,6 +1,7 @@
 package sdk
 
 import (
+	"encoding/json"
 	"fmt"
 	"net/url"
 
@@ -96,6 +97,35 @@ func (s *FishPiSDK) PostChatroomSend(content string) (*types.SimpleResponse, err
 	}
 
 	return response, nil
+}
+
+// SendRedPacket 发送红包消息
+func (s *FishPiSDK) SendRedPacket(data *types.RedPacket) (*types.SimpleResponse, error) {
+
+	body, err := json.Marshal(data)
+	if err != nil {
+		return nil, err
+	}
+
+	content := fmt.Sprintf(`[redpacket]%s[/redpacket]`, string(body))
+
+	return s.PostChatroomSend(content)
+}
+
+// SendBarrage 发送弹幕消息
+func (s *FishPiSDK) SendBarrage(content, color string) (*types.SimpleResponse, error) {
+
+	body, err := json.Marshal(map[string]any{
+		"color":   color,
+		"content": content,
+	})
+	if err != nil {
+		return nil, err
+	}
+
+	content = fmt.Sprintf(`[barrager]%s[/barrager]`, string(body))
+
+	return s.PostChatroomSend(content)
 }
 
 // DeleteChatroomRevoke 撤回聊天室消息

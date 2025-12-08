@@ -74,3 +74,12 @@ type MuteUser struct {
 	Time          int64  `json:"time"`
 	UserName      string `json:"userName"`
 }
+
+type RedPacket struct {
+	Type     ChatroomRedPacketType `json:"type"`
+	Money    int64                 `json:"money"`
+	Count    int64                 `json:"count"`
+	Msg      string                `json:"msg"`
+	Recivers []string              `json:"recivers,omitempty"`
+	Gesture  GestureType           `json:"gesture,omitempty"`
+}

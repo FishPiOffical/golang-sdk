@@ -108,6 +108,8 @@ func main() {
 	//getChatroomMore()
 	//getChatroomMessage()
 	//postChatroomSend()
+	//sendBarrage()
+	//sendRedPacket()
 	//deleteChatroomRevoke()
 	//getMessageRaw()
 	//postRedPacketSend()
@@ -436,6 +438,29 @@ func postChatroomSend() {
 		return
 	}
 	logger.Info("发送聊天室消息结果", slog.Any("resp", resp))
+}
+
+func sendBarrage() {
+	resp, err := client.SendBarrage("还有人吗", "#66ccff")
+	if err != nil {
+		logger.Error("发送弹幕消息失败", slog.String("error", err.Error()))
+		return
+	}
+	logger.Info("发送弹幕消息结果", slog.Any("resp", resp))
+}
+
+func sendRedPacket() {
+	resp, err := client.SendRedPacket(&types.RedPacket{
+		Type:  types.ChatroomRedPacketTypeRandom,
+		Money: 32,
+		Count: 32,
+		Msg:   "让我看看谁还在啊",
+	})
+	if err != nil {
+		logger.Error("发送红包消息失败", slog.String("error", err.Error()))
+		return
+	}
+	logger.Info("发送红包消息结果", slog.Any("resp", resp))
 }
 
 func deleteChatroomRevoke() {
