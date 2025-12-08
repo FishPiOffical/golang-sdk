@@ -81,6 +81,92 @@ func (x ChatContentType) Ptr() *ChatContentType {
 }
 
 const (
+	// ChatMessageTypeContext is a ChatMessageType of type Context.
+	// 上下文
+	ChatMessageTypeContext ChatMessageType = iota
+	// ChatMessageTypeBefore is a ChatMessageType of type Before.
+	// 之前
+	ChatMessageTypeBefore
+	// ChatMessageTypeAfter is a ChatMessageType of type After.
+	// 之后
+	ChatMessageTypeAfter
+)
+
+var ErrInvalidChatMessageType = fmt.Errorf("not a valid ChatMessageType, try [%s]", strings.Join(_ChatMessageTypeNames, ", "))
+
+const _ChatMessageTypeName = "contextbeforeafter"
+
+var _ChatMessageTypeNames = []string{
+	_ChatMessageTypeName[0:7],
+	_ChatMessageTypeName[7:13],
+	_ChatMessageTypeName[13:18],
+}
+
+// ChatMessageTypeNames returns a list of possible string values of ChatMessageType.
+func ChatMessageTypeNames() []string {
+	tmp := make([]string, len(_ChatMessageTypeNames))
+	copy(tmp, _ChatMessageTypeNames)
+	return tmp
+}
+
+// ChatMessageTypeValues returns a list of the values for ChatMessageType
+func ChatMessageTypeValues() []ChatMessageType {
+	return []ChatMessageType{
+		ChatMessageTypeContext,
+		ChatMessageTypeBefore,
+		ChatMessageTypeAfter,
+	}
+}
+
+var _ChatMessageTypeMap = map[ChatMessageType]string{
+	ChatMessageTypeContext: _ChatMessageTypeName[0:7],
+	ChatMessageTypeBefore:  _ChatMessageTypeName[7:13],
+	ChatMessageTypeAfter:   _ChatMessageTypeName[13:18],
+}
+
+// String implements the Stringer interface.
+func (x ChatMessageType) String() string {
+	if str, ok := _ChatMessageTypeMap[x]; ok {
+		return str
+	}
+	return fmt.Sprintf("ChatMessageType(%d)", x)
+}
+
+// IsValid provides a quick way to determine if the typed value is
+// part of the allowed enumerated values
+func (x ChatMessageType) IsValid() bool {
+	_, ok := _ChatMessageTypeMap[x]
+	return ok
+}
+
+var _ChatMessageTypeValue = map[string]ChatMessageType{
+	_ChatMessageTypeName[0:7]:   ChatMessageTypeContext,
+	_ChatMessageTypeName[7:13]:  ChatMessageTypeBefore,
+	_ChatMessageTypeName[13:18]: ChatMessageTypeAfter,
+}
+
+// ParseChatMessageType attempts to convert a string to a ChatMessageType.
+func ParseChatMessageType(name string) (ChatMessageType, error) {
+	if x, ok := _ChatMessageTypeValue[name]; ok {
+		return x, nil
+	}
+	return ChatMessageType(0), fmt.Errorf("%s is %w", name, ErrInvalidChatMessageType)
+}
+
+// MustParseChatMessageType converts a string to a ChatMessageType, and panics if is not valid.
+func MustParseChatMessageType(name string) ChatMessageType {
+	val, err := ParseChatMessageType(name)
+	if err != nil {
+		panic(err)
+	}
+	return val
+}
+
+func (x ChatMessageType) Ptr() *ChatMessageType {
+	return &x
+}
+
+const (
 	// ChatroomRedPacketTypeRandom is a ChatroomRedPacketType of type random.
 	// 拼手气红包
 	ChatroomRedPacketTypeRandom ChatroomRedPacketType = "random"
@@ -164,5 +250,154 @@ func MustParseChatroomRedPacketType(name string) ChatroomRedPacketType {
 }
 
 func (x ChatroomRedPacketType) Ptr() *ChatroomRedPacketType {
+	return &x
+}
+
+const (
+	// CloudGameIdEmojis is a CloudGameId of type emojis.
+	// 表情包
+	CloudGameIdEmojis CloudGameId = "emojis"
+)
+
+var ErrInvalidCloudGameId = fmt.Errorf("not a valid CloudGameId, try [%s]", strings.Join(_CloudGameIdNames, ", "))
+
+var _CloudGameIdNames = []string{
+	string(CloudGameIdEmojis),
+}
+
+// CloudGameIdNames returns a list of possible string values of CloudGameId.
+func CloudGameIdNames() []string {
+	tmp := make([]string, len(_CloudGameIdNames))
+	copy(tmp, _CloudGameIdNames)
+	return tmp
+}
+
+// CloudGameIdValues returns a list of the values for CloudGameId
+func CloudGameIdValues() []CloudGameId {
+	return []CloudGameId{
+		CloudGameIdEmojis,
+	}
+}
+
+// String implements the Stringer interface.
+func (x CloudGameId) String() string {
+	return string(x)
+}
+
+// IsValid provides a quick way to determine if the typed value is
+// part of the allowed enumerated values
+func (x CloudGameId) IsValid() bool {
+	_, err := ParseCloudGameId(string(x))
+	return err == nil
+}
+
+var _CloudGameIdValue = map[string]CloudGameId{
+	"emojis": CloudGameIdEmojis,
+}
+
+// ParseCloudGameId attempts to convert a string to a CloudGameId.
+func ParseCloudGameId(name string) (CloudGameId, error) {
+	if x, ok := _CloudGameIdValue[name]; ok {
+		return x, nil
+	}
+	return CloudGameId(""), fmt.Errorf("%s is %w", name, ErrInvalidCloudGameId)
+}
+
+// MustParseCloudGameId converts a string to a CloudGameId, and panics if is not valid.
+func MustParseCloudGameId(name string) CloudGameId {
+	val, err := ParseCloudGameId(name)
+	if err != nil {
+		panic(err)
+	}
+	return val
+}
+
+func (x CloudGameId) Ptr() *CloudGameId {
+	return &x
+}
+
+const (
+	// GestureTypeRock is a GestureType of type Rock.
+	// 石头
+	GestureTypeRock GestureType = iota
+	// GestureTypeScissors is a GestureType of type Scissors.
+	// 剪刀
+	GestureTypeScissors
+	// GestureTypePaper is a GestureType of type Paper.
+	// 布
+	GestureTypePaper
+)
+
+var ErrInvalidGestureType = fmt.Errorf("not a valid GestureType, try [%s]", strings.Join(_GestureTypeNames, ", "))
+
+const _GestureTypeName = "rockscissorspaper"
+
+var _GestureTypeNames = []string{
+	_GestureTypeName[0:4],
+	_GestureTypeName[4:12],
+	_GestureTypeName[12:17],
+}
+
+// GestureTypeNames returns a list of possible string values of GestureType.
+func GestureTypeNames() []string {
+	tmp := make([]string, len(_GestureTypeNames))
+	copy(tmp, _GestureTypeNames)
+	return tmp
+}
+
+// GestureTypeValues returns a list of the values for GestureType
+func GestureTypeValues() []GestureType {
+	return []GestureType{
+		GestureTypeRock,
+		GestureTypeScissors,
+		GestureTypePaper,
+	}
+}
+
+var _GestureTypeMap = map[GestureType]string{
+	GestureTypeRock:     _GestureTypeName[0:4],
+	GestureTypeScissors: _GestureTypeName[4:12],
+	GestureTypePaper:    _GestureTypeName[12:17],
+}
+
+// String implements the Stringer interface.
+func (x GestureType) String() string {
+	if str, ok := _GestureTypeMap[x]; ok {
+		return str
+	}
+	return fmt.Sprintf("GestureType(%d)", x)
+}
+
+// IsValid provides a quick way to determine if the typed value is
+// part of the allowed enumerated values
+func (x GestureType) IsValid() bool {
+	_, ok := _GestureTypeMap[x]
+	return ok
+}
+
+var _GestureTypeValue = map[string]GestureType{
+	_GestureTypeName[0:4]:   GestureTypeRock,
+	_GestureTypeName[4:12]:  GestureTypeScissors,
+	_GestureTypeName[12:17]: GestureTypePaper,
+}
+
+// ParseGestureType attempts to convert a string to a GestureType.
+func ParseGestureType(name string) (GestureType, error) {
+	if x, ok := _GestureTypeValue[name]; ok {
+		return x, nil
+	}
+	return GestureType(0), fmt.Errorf("%s is %w", name, ErrInvalidGestureType)
+}
+
+// MustParseGestureType converts a string to a GestureType, and panics if is not valid.
+func MustParseGestureType(name string) GestureType {
+	val, err := ParseGestureType(name)
+	if err != nil {
+		panic(err)
+	}
+	return val
+}
+
+func (x GestureType) Ptr() *GestureType {
 	return &x
 }
