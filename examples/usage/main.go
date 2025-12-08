@@ -128,6 +128,10 @@ func main() {
 	//postCommentThank()
 	//postCommentRemove()
 	//postArticleHeat()
+	//postFollowArticle()
+	//postUnfollowArticle()
+	//postFollowArticleWatch()
+	postUnfollowArticleWatch()
 
 	// 清风明月
 	//getBreezemoons()
@@ -150,7 +154,7 @@ func main() {
 	//userChannelWebsocket() // 通知
 	//chatChannelWebsocket() // 私聊
 	//chatroomWebsocket() // 聊天室
-	articleChannelWebsocket() // 文章热度通知
+	//articleChannelWebsocket() // 文章热度通知
 
 }
 
@@ -661,6 +665,42 @@ func postArticleHeat() {
 		return
 	}
 	logger.Info("文章升温结果", slog.Any("resp", resp))
+}
+
+func postFollowArticle() {
+	resp, err := client.PostFollowArticle(otherArticleId)
+	if err != nil {
+		logger.Error("收藏文章失败", slog.String("error", err.Error()))
+		return
+	}
+	logger.Info("收藏文章结果", slog.Any("resp", resp))
+}
+
+func postUnfollowArticle() {
+	resp, err := client.PostUnfollowArticle(otherArticleId)
+	if err != nil {
+		logger.Error("收藏文章失败", slog.String("error", err.Error()))
+		return
+	}
+	logger.Info("取消收藏文章结果", slog.Any("resp", resp))
+}
+
+func postFollowArticleWatch() {
+	resp, err := client.PostFollowArticleWatch(otherArticleId)
+	if err != nil {
+		logger.Error("关注文章失败", slog.String("error", err.Error()))
+		return
+	}
+	logger.Info("关注文章结果", slog.Any("resp", resp))
+}
+
+func postUnfollowArticleWatch() {
+	resp, err := client.PostUnfollowArticleWatch(otherArticleId)
+	if err != nil {
+		logger.Error("关注文章失败", slog.String("error", err.Error()))
+		return
+	}
+	logger.Info("关注文章结果", slog.Any("resp", resp))
 }
 
 func postMofishScore() {

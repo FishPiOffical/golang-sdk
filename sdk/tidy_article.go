@@ -264,3 +264,79 @@ func (s *FishPiSDK) PostArticleHeat(articleId string) (*types.PostArticleHeatRes
 
 	return response, nil
 }
+
+// PostFollowArticle 收藏文章
+func (s *FishPiSDK) PostFollowArticle(articleId string) (*types.SimpleResponse, error) {
+	response := new(types.SimpleResponse)
+
+	_, err := s.client.R().
+		SetBodyJsonMarshal(map[string]any{
+			"followingId": articleId,
+		}).
+		SetSuccessResult(response).
+		SetErrorResult(response).
+		Post("/follow/article")
+
+	if err != nil {
+		return nil, err
+	}
+
+	return response, nil
+}
+
+// PostUnfollowArticle 取消收藏文章
+func (s *FishPiSDK) PostUnfollowArticle(articleId string) (*types.SimpleResponse, error) {
+	response := new(types.SimpleResponse)
+
+	_, err := s.client.R().
+		SetBodyJsonMarshal(map[string]any{
+			"followingId": articleId,
+		}).
+		SetSuccessResult(response).
+		SetErrorResult(response).
+		Post("/unfollow/article")
+
+	if err != nil {
+		return nil, err
+	}
+
+	return response, nil
+}
+
+// PostFollowArticleWatch 关注文章
+func (s *FishPiSDK) PostFollowArticleWatch(articleId string) (*types.SimpleResponse, error) {
+	response := new(types.SimpleResponse)
+
+	_, err := s.client.R().
+		SetBodyJsonMarshal(map[string]any{
+			"followingId": articleId,
+		}).
+		SetSuccessResult(response).
+		SetErrorResult(response).
+		Post("/follow/article-watch")
+
+	if err != nil {
+		return nil, err
+	}
+
+	return response, nil
+}
+
+// PostUnfollowArticleWatch 取消关注文章
+func (s *FishPiSDK) PostUnfollowArticleWatch(articleId string) (*types.SimpleResponse, error) {
+	response := new(types.SimpleResponse)
+
+	_, err := s.client.R().
+		SetBodyJsonMarshal(map[string]any{
+			"followingId": articleId,
+		}).
+		SetSuccessResult(response).
+		SetErrorResult(response).
+		Post("/unfollow/article-watch")
+
+	if err != nil {
+		return nil, err
+	}
+
+	return response, nil
+}
