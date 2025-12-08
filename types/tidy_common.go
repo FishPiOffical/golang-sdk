@@ -1,5 +1,7 @@
 package types
 
+import "encoding/json"
+
 // SimpleResponse 简单响应结构(无Data字段)
 type SimpleResponse struct {
 	Code int    `json:"code"`
@@ -88,4 +90,44 @@ type PostPointTransferRequest struct {
 	UserName string `json:"userName"`
 	Amount   int    `json:"amount"`
 	Memo     string `json:"memo"`
+}
+
+type LogInfo struct {
+	Key1   string      `json:"key1"`   // 2025-12-08 17:57:15
+	Key2   string      `json:"key2"`   // 49.232.59.*
+	Data   string      `json:"data"`   // 用户: aaa12123, 积分: 128, 备注: 你被烟花烫伤(4 次)!
+	Public bool        `json:"public"` // true
+	Key3   string      `json:"key3"`   // 扣除积分
+	OId    string      `json:"oId"`    // 1765187835408
+	Type   LogInfoType `json:"type"`   // simple
+}
+
+type MemberShip struct {
+	ConfigJson string `json:"configJson"`
+	CreatedAt  int64  `json:"createdAt"`
+	OId        string `json:"oId"`
+	State      int    `json:"state"`
+	UserId     string `json:"userId"`
+	LvCode     string `json:"lvCode"`
+	ExpiresAt  int64  `json:"expiresAt"`
+	UpdatedAt  int64  `json:"updatedAt"`
+}
+
+func (membership *MemberShip) GetConfig() (*MemberShipConfig, error) {
+	config := &MemberShipConfig{}
+
+	if err := json.Unmarshal([]byte(membership.ConfigJson), config); err != nil {
+		return nil, err
+	}
+
+	return config, nil
+}
+
+type MemberShipConfig struct {
+	JointVip    bool   `json:"jointVip"`
+	Color       string `json:"color"`
+	Underline   bool   `json:"underline"`
+	Metal       bool   `json:"metal"`
+	AutoCheckin int    `json:"autoCheckin"`
+	Bold        bool   `json:"bold"`
 }

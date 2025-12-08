@@ -207,3 +207,40 @@ func (s *FishPiSDK) PostUnfollowUser(followingId string) (*types.SimpleResponse,
 
 	return response, nil
 }
+
+// GetMembership 获取用户VIP信息
+func (s *FishPiSDK) GetMembership(userId string) (*types.ApiResponse[*types.MemberShip], error) {
+	response := new(types.ApiResponse[*types.MemberShip])
+
+	_, err := s.client.R().
+		SetPathParam("userId", userId).
+		SetSuccessResult(response).
+		SetErrorResult(response).
+		Get("/api/membership/{userId}")
+
+	if err != nil {
+		return nil, err
+	}
+
+	return response, nil
+}
+
+// GetLogsMore 获取操作日志
+func (s *FishPiSDK) GetLogsMore(page, pageSize int) (*types.ApiResponse[[]*types.LogInfo], error) {
+	response := new(types.ApiResponse[[]*types.LogInfo])
+
+	_, err := s.client.R().
+		SetQueryParamsAnyType(map[string]any{
+			"page":     page,
+			"pageSize": pageSize,
+		}).
+		SetSuccessResult(response).
+		SetErrorResult(response).
+		Get("/logs/more")
+
+	if err != nil {
+		return nil, err
+	}
+
+	return response, nil
+}

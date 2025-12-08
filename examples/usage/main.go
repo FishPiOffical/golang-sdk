@@ -64,6 +64,8 @@ const (
 	otherArticleId            = "1630569106133"
 	botUserName               = "its21f"
 	chatMessageOId            = "1765184305408"
+	userIdYui                 = "1630488635229"
+	userIdIWPZ                = "1637917131504" // 和平鸽
 )
 
 func main() {
@@ -85,6 +87,8 @@ func main() {
 	//postPointTransfer()
 	//postFollowUser()
 	//postUnfollowUser()
+	getMembership()
+	//getLogsMore()
 
 	// 通知
 	//getNotificationCount()
@@ -145,7 +149,7 @@ func main() {
 	//getChatMarkAsRead()
 	//getChatGetList()
 	//getChatHasUnread()
-	getChatRevoke()
+	//getChatRevoke()
 
 	// 金手指
 	//postMofishScore()
@@ -277,6 +281,25 @@ func postUnfollowUser() {
 		return
 	}
 	logger.Info("取消关注用户结果", slog.Any("resp", resp))
+}
+
+func getMembership() {
+	resp, err := client.GetMembership(userIdIWPZ)
+	if err != nil {
+		logger.Error("获取用户VIP信息失败", slog.String("error", err.Error()))
+		return
+	}
+	conf, e := resp.Data.GetConfig()
+	logger.Info("用户VIP信息结果", slog.Any("resp", resp), slog.Any("config", conf), slog.Any("config err", e))
+}
+
+func getLogsMore() {
+	resp, err := client.GetLogsMore(1, 1)
+	if err != nil {
+		logger.Error("获取操作日志失败", slog.String("error", err.Error()))
+		return
+	}
+	logger.Info("操作日志结果", slog.Any("resp", resp))
 }
 
 func getNotificationCount() {

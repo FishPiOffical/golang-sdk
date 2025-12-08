@@ -27,3 +27,11 @@ other = 49 		// 其它
 )
 */
 type ReportType int
+
+// LogInfoType 日志信息类型
+/*
+ENUM(
+simple // 基础日志
+)
+*/
+type LogInfoType string
