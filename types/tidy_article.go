@@ -55,10 +55,10 @@ type ArticleParticipant struct {
 
 // Metal 勋章信息
 type Metal struct {
-	Name            string `json:"name"`
-	Description     string `json:"description"`
-	Data            string `json:"data"`
-	Attr            string `json:"attr"`
+	Name            string `json:"name"`        // 徽章名称
+	Description     string `json:"description"` // 徽章描述
+	Data            string `json:"data"`        // 徽章数据
+	Attr            string `json:"attr"`        // 徽章数据，包含徽章图地址url, 背景色 backcolor, 前景色 fontcolor
 	BackgroundImage string `json:"backgroundImage,omitempty"`
 	ExpireDate      string `json:"expireDate,omitempty"`
 	Enabled         bool   `json:"enabled"`

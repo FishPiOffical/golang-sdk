@@ -1,6 +1,11 @@
 package main
 
 import (
+	"encoding/json"
+	"os/signal"
+	"syscall"
+	"time"
+
 	"github.com/FishPiOffical/golang-sdk/config"
 	"github.com/FishPiOffical/golang-sdk/sdk"
 	"github.com/FishPiOffical/golang-sdk/types"
@@ -57,13 +62,14 @@ const (
 	editArticleFirstCommentId = "1763624701751" // 厌子
 	editArticleReplyCommentId = "1764215313804" // 回复念
 	otherArticleId            = "1630569106133"
+	botUserName               = "its21f"
 )
 
 func main() {
 
 	// 鉴权
 	//postApiGetKey()
-	getApiUser()
+	//getApiUser()
 
 	// 通用
 	//getUserInfoByUsername()
@@ -131,6 +137,11 @@ func main() {
 	//postArticleHeat()
 	//postGiveMetal()
 	//postRemoveMetal()
+
+	// websocket
+	//userChannelWebsocket() // 通知
+	//chatChannelWebsocket() // 私聊
+	chatroomWebsocket() // 聊天室
 
 }
 
@@ -681,4 +692,222 @@ func getApiUser() {
 		return
 	}
 	logger.Info("API用户信息", slog.Any("resp", resp))
+}
+
+func userChannelWebsocket() {
+	ws := client.NewUserNotificationWebSocket(
+		sdk.WithHeartbeat[types.UserChannelMsg](30*time.Second, func() []byte {
+			// 可以返回自定义心跳消息
+			// 这里返回一个简单的ping消息
+			msg, _ := json.Marshal(map[string]string{"type": "ping"})
+			slog.Info("发送心跳消息", slog.String("message", string(msg)))
+			return msg
+		}),
+	)
+
+	// 设置连接成功回调
+	ws.OnOpen(func(c *sdk.Client[types.UserChannelMsg]) {
+		slog.Debug("[系统] WebSocket连接已打开")
+	})
+
+	// 设置消息回调
+	ws.OnMessage(func(msg *types.UserChannelMsg) {
+		switch msg.Command {
+		case types.UserChannelCommandBzUpdate:
+			slog.Info("[通知] 收到业务数据更新通知", slog.Any("msg", msg))
+		case types.UserChannelCommandChatUnreadCountRefresh:
+			slog.Info("[通知] 收到聊天未读消息数刷新通知", slog.Any("msg", msg))
+		case types.UserChannelCommandRefreshNotification:
+			slog.Info("[通知] 收到通知刷新请求", slog.Any("msg", msg))
+		case types.UserChannelCommandNewIdleChatMessage:
+			slog.Info("[通知] 收到新的闲聊消息通知", slog.Any("msg", msg))
+		case types.UserChannelCommandWarnBroadcast:
+			slog.Info("[通知] 收到系统广播通知", slog.Any("msg", msg))
+		default:
+			slog.Warn("[通知] 收到未知类型的消息", slog.Any("msg", msg))
+		}
+	})
+
+	// 设置错误回调
+	ws.OnError(func(err error) {
+		slog.Error("[系统] WebSocket连接发生错误", slog.Any("error", err))
+	})
+
+	// 设置关闭回调
+	ws.OnClose(func() {
+		slog.Warn("[系统] WebSocket连接已关闭")
+	})
+
+	// 连接
+	slog.Debug("正在连接到用户通知服务...")
+	if err := ws.Connect(); err != nil {
+		slog.Error("连接失败", slog.Any("error", err))
+	}
+	slog.Debug("已连接到用户通知服务！")
+
+	// 设置信号处理，优雅退出
+	sigChan := make(chan os.Signal, 1)
+	signal.Notify(sigChan, syscall.SIGINT, syscall.SIGTERM)
+
+	// 保持程序运行
+	slog.Debug("用户通知服务已就绪，按 Ctrl+C 退出...")
+	<-sigChan
+
+	// 关闭连接
+	slog.Debug("正在断开连接...")
+	if err := ws.Close(); err != nil {
+		slog.Error("关闭连接失败", slog.Any("error", err))
+	}
+	slog.Debug("已断开连接")
+}
+
+func chatChannelWebsocket() {
+
+	ws := client.NewPrivateChatWebSocket(
+		botUserName,
+		// 可选：禁用自动重连
+		// sdk.WithAutoReconnect[types.ChatMessage](false),
+	)
+
+	// 设置开始回调
+	ws.OnOpen(func(client *sdk.Client[types.ChatChannelMsg]) {
+		slog.Info("[系统] WebSocket连接已启动")
+	})
+
+	// 设置消息回调
+	ws.OnMessage(func(msg *types.ChatChannelMsg) {
+		slog.Info("[私聊消息] 来自用户 %s 的消息: %s", msg.SenderUserName, msg.Content)
+	})
+
+	// 设置错误回调
+	ws.OnError(func(err error) {
+		slog.Error("[错误] WebSocket错误", slog.Any("error", err))
+	})
+
+	// 设置关闭回调
+	ws.OnClose(func() {
+		slog.Warn("[系统] WebSocket连接已关闭")
+	})
+
+	// 连接
+	slog.Info("正在连接到私聊服务...")
+	if err := ws.Connect(); err != nil {
+		slog.Error("连接失败", slog.Any("error", err))
+		os.Exit(1)
+	}
+	slog.Info("已连接到私聊服务！")
+
+	//示例：发送私聊消息
+	if err := ws.SendMessage("帮助"); err != nil {
+		slog.Error("发送消息失败", slog.Any("error", err))
+	} else {
+		slog.Info("已发送私聊消息：帮助")
+	}
+
+	// 设置信号处理，优雅退出
+	sigChan := make(chan os.Signal, 1)
+	signal.Notify(sigChan, syscall.SIGINT, syscall.SIGTERM)
+
+	// 保持程序运行
+	slog.Info("私聊服务已就绪，按 Ctrl+C 退出...")
+	<-sigChan
+
+	// 关闭连接
+	slog.Info("正在断开连接...")
+	if err := ws.Close(); err != nil {
+		slog.Error("关闭连接失败", slog.Any("error", err))
+	}
+	slog.Info("已断开连接")
+}
+
+func chatroomWebsocket() {
+
+	resp, err := client.GetChatroomNode()
+	if err != nil {
+		slog.Error("获取聊天室节点信息失败", slog.Any("error", err))
+		return
+	}
+	if resp.Code != 0 {
+		slog.Error("获取聊天室节点信息失败", slog.Any("resp", resp))
+		return
+	}
+	slog.Info("聊天室节点信息结果", slog.Any("resp", resp))
+
+	wsEndpoint := resp.Data
+
+	// 使用函数式选项配置WebSocket客户端
+	ws := client.NewChatroomWebSocket(
+		wsEndpoint,
+		// 可选：配置日志级别
+		sdk.WithLogger[types.ChatroomMsg](slog.Default()),
+		// 可选：配置重连策略（默认已启用指数退避）
+		// sdk.WithReconnectStrategy[types.ChatroomMessage](&sdk.ExponentialBackoffStrategy{
+		// 	BaseDelay:  2 * time.Second,
+		// 	MaxDelay:   30 * time.Second,
+		// 	Multiplier: 1.5,
+		// }),
+		// 可选：配置最大重连次数（0表示无限重连）
+		// sdk.WithMaxReconnectAttempts[types.ChatroomMessage](10),
+		// 可选：配置重连失败回调
+		sdk.WithReconnectFailedCallback[types.ChatroomMsg](func(attempts int, err error) {
+			slog.Error("重连失败", slog.Int("失败次数", attempts), slog.Any("错误", err))
+		}),
+	)
+
+	// 设置消息回调
+	ws.OnMessage(func(msg *types.ChatroomMsg) {
+		metals, metalErr := msg.GetMetalList()
+		slog.Info("[聊天室消息] 来自用户的消息",
+			slog.Any("type", msg.Type),
+			slog.String("name", msg.UserName),
+			slog.String("nickname", msg.UserNickname),
+			slog.Any("metals", metals),
+			slog.Any("metalErr", metalErr),
+			slog.Any("content", msg.Md),
+			slog.Any("jsonInfo", msg.GetJsonInfo()),
+			slog.Bool("jsonInfoNil", msg.GetJsonInfo() == nil),
+		)
+	})
+
+	// 设置错误回调
+	ws.OnError(func(err error) {
+		slog.Error("[错误] WebSocket错误", slog.Any("error", err))
+	})
+
+	// 设置关闭回调
+	ws.OnClose(func() {
+		slog.Debug("[系统] WebSocket连接已关闭")
+	})
+
+	// 连接到聊天室
+	slog.Debug("正在连接到聊天室...")
+	if err = ws.Connect(); err != nil {
+		slog.Error("连接失败", slog.Any("error", err))
+		return
+	}
+	slog.Debug("已连接到聊天室！")
+
+	// 等待一下确保连接建立
+	time.Sleep(2 * time.Second)
+
+	//// 发送一条消息
+	//fmt.Println("\n发送消息: 大家好，我是Golang SDK！")
+	//if err := ws.SendMessage("大家好，我是Golang SDK！"); err != nil {
+	//	log.Printf("发送消息失败: %v", err)
+	//}
+
+	// 设置信号处理，优雅退出
+	sigChan := make(chan os.Signal, 1)
+	signal.Notify(sigChan, syscall.SIGINT, syscall.SIGTERM)
+
+	// 保持程序运行
+	slog.Debug("聊天室已就绪，按 Ctrl+C 退出...")
+	<-sigChan
+
+	// 关闭连接
+	slog.Debug("正在断开连接...")
+	if err = ws.Close(); err != nil {
+		slog.Error("关闭连接失败", slog.Any("error", err))
+	}
+	slog.Debug("已断开连接")
 }

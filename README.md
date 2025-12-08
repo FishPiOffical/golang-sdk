@@ -7,9 +7,12 @@
 - ✅ **完整的API支持** - 实现OpenAPI定义的76个接口中的70个（92.1%完成度）
 - ✅ **类型安全** - 使用go-enum自动生成枚举类型
 - ✅ **灵活配置** - 支持多种ConfigProvider（内存/文件）
-- ✅ **WebSocket支持** - 聊天室、私聊、用户通知三种WebSocket
+- ✅ **WebSocket支持** - 泛型架构，支持聊天室、私聊、用户通知
+- ✅ **自动重连** - 可配置重连策略（固定延迟/指数退避）
+- ✅ **心跳机制** - 可选的自定义心跳配置
 - ✅ **消息解析** - 完整的WebSocket消息解析器
-- ✅ **并发安全** - 线程安全的实现
+- ✅ **并发安全** - 细粒度锁优化，线程安全的实现
+- ✅ **结构化日志** - 使用slog.Logger，支持自定义日志级别
 - ✅ **错误处理** - 完整的错误处理和包装
 
 ## 安装
@@ -387,70 +390,94 @@ liveness, err := finger.GetUserLiveness("username")
 
 ### WebSocket功能
 
-#### 聊天室WebSocket
+WebSocket 客户端基于泛型实现，支持自动重连、心跳、自定义日志等高级功能。
+
+**核心特性**：
+- ✅ **泛型架构** - 类型安全的消息处理
+- ✅ **自动重连** - 默认启用，支持指数退避和固定延迟策略
+- ✅ **心跳机制** - 可配置心跳间隔和自定义心跳消息
+- ✅ **细粒度锁** - 优化并发性能
+- ✅ **函数式选项** - 灵活的配置方式
+- ✅ **结构化日志** - 使用 slog.Logger
+
+#### 快速开始
 
 ```go
-// 创建聊天室WebSocket
+// 创建聊天室 WebSocket（使用默认配置）
 ws := fishpi.NewChatroomWebSocket("wss://fishpi.cn/chat-room-channel")
 
 // 设置消息回调
 ws.OnMessage(func(msg *types.ChatroomMessage) {
-    switch msg.Type {
-    case types.ChatroomMsgTypeMsg:
-        data := msg.Data.(types.ChatroomMsgData)
-        fmt.Printf("[聊天] %s: %s\n", data.UserName, data.Content)
-    case types.ChatroomMsgTypeRedPacket:
-        data := msg.Data.(types.ChatroomRedPacketData)
-        fmt.Println("[红包]", data.RedPacket.Msg)
-    }
+    fmt.Printf("收到消息: %s\n", msg.Type)
 })
 
-// 设置错误回调
-ws.OnError(func(err error) {
-    log.Println("WebSocket错误:", err)
-})
-
-// 连接
-if err := ws.Connect(); err != nil {
-    log.Fatal(err)
-}
+// 连接（失败会自动重连）
+ws.Connect()
 
 // 发送消息
 ws.SendMessage("Hello!")
 
-// 使用消息解析器
-parser := ws.GetParser()
-msg, err := parser.ParseChatroomMessage(data)
+// 关闭连接
+defer ws.Close()
 ```
 
-#### 私聊WebSocket
+#### 高级配置
+
+```go
+// 使用函数式选项配置 WebSocket 客户端
+ws := fishpi.NewChatroomWebSocket(
+    "wss://fishpi.cn/chat-room-channel",
+    // 自定义日志器
+    sdk.WithLogger[types.ChatroomMessage](slog.Default()),
+    // 自定义重连策略
+    sdk.WithReconnectStrategy[types.ChatroomMessage](&sdk.ExponentialBackoffStrategy{
+        BaseDelay:  1 * time.Second,
+        MaxDelay:   60 * time.Second,
+        Multiplier: 2.0,
+    }),
+    // 最大重连次数（0表示无限重连）
+    sdk.WithMaxReconnectAttempts[types.ChatroomMessage](10),
+    // 重连失败回调
+    sdk.WithReconnectFailedCallback[types.ChatroomMessage](func(attempts int, err error) {
+        log.Printf("重连失败: %v", err)
+    }),
+)
+```
+
+#### 心跳配置
+
+```go
+// 配置心跳（默认不启用）
+ws := fishpi.NewUserNotificationWebSocket(
+    sdk.WithHeartbeat[types.UserMessage](30*time.Second, func() []byte {
+        // 返回自定义心跳消息
+        return []byte(`{"type":"ping"}`)
+    }),
+)
+```
+
+#### 私聊 WebSocket
 
 ```go
 ws := fishpi.NewPrivateChatWebSocket()
 
 ws.OnMessage(func(msg *types.ChatMessage) {
     if msg.Type == "msg" {
-        data := msg.Data.(types.ChatMessageData)
-        fmt.Printf("[私聊] %s: %s\n", data.FromUser, data.Content)
+        fmt.Printf("[私聊] %s: %s\n", msg.Data.SenderUserName, msg.Data.Content)
     }
 })
 
 ws.Connect()
-ws.SendMessage("toUser", "消息内容")
+ws.SendMessage("toUserName", "消息内容")
 ```
 
-#### 用户通知WebSocket
+#### 用户通知 WebSocket
 
 ```go
 ws := fishpi.NewUserNotificationWebSocket()
 
 ws.OnMessage(func(msg *types.UserMessage) {
-    switch msg.Command {
-    case "bzUpdate":
-        // 清风明月更新
-    case "refreshNotification":
-        // 通知刷新
-    }
+    fmt.Printf("[通知] 类型: %s\n", msg.Type)
 })
 
 ws.Connect()
