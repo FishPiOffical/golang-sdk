@@ -13,12 +13,25 @@ import (
 
 const (
 	// ItemTypeCheckin1day is a ItemType of type checkin1day.
+	// 单日免签卡
 	ItemTypeCheckin1day ItemType = "checkin1day"
+	// ItemTypeCheckin2days is a ItemType of type checkin2days.
+	// 两天免签卡
+	ItemTypeCheckin2days ItemType = "checkin2days"
 	// ItemTypePatchCheckinCard is a ItemType of type patchCheckinCard.
+	// 补签卡
 	ItemTypePatchCheckinCard ItemType = "patchCheckinCard"
+	// ItemTypeMetalTicket is a ItemType of type metalTicket.
+	// 摸鱼派一周年纪念勋章领取券
+	ItemTypeMetalTicket ItemType = "metalTicket"
+	// ItemTypeNameCard is a ItemType of type nameCard.
+	// 改名卡
+	ItemTypeNameCard ItemType = "nameCard"
 	// ItemTypePatchStart is a ItemType of type patchStart.
+	// 补签日期
 	ItemTypePatchStart ItemType = "patchStart"
 	// ItemTypeSysCheckinRemain is a ItemType of type sysCheckinRemain.
+	// 免签卡生效中，剩余X天
 	ItemTypeSysCheckinRemain ItemType = "sysCheckinRemain"
 )
 
@@ -26,7 +39,10 @@ var ErrInvalidItemType = fmt.Errorf("not a valid ItemType, try [%s]", strings.Jo
 
 var _ItemTypeNames = []string{
 	string(ItemTypeCheckin1day),
+	string(ItemTypeCheckin2days),
 	string(ItemTypePatchCheckinCard),
+	string(ItemTypeMetalTicket),
+	string(ItemTypeNameCard),
 	string(ItemTypePatchStart),
 	string(ItemTypeSysCheckinRemain),
 }
@@ -42,7 +58,10 @@ func ItemTypeNames() []string {
 func ItemTypeValues() []ItemType {
 	return []ItemType{
 		ItemTypeCheckin1day,
+		ItemTypeCheckin2days,
 		ItemTypePatchCheckinCard,
+		ItemTypeMetalTicket,
+		ItemTypeNameCard,
 		ItemTypePatchStart,
 		ItemTypeSysCheckinRemain,
 	}
@@ -62,7 +81,10 @@ func (x ItemType) IsValid() bool {
 
 var _ItemTypeValue = map[string]ItemType{
 	"checkin1day":      ItemTypeCheckin1day,
+	"checkin2days":     ItemTypeCheckin2days,
 	"patchCheckinCard": ItemTypePatchCheckinCard,
+	"metalTicket":      ItemTypeMetalTicket,
+	"nameCard":         ItemTypeNameCard,
 	"patchStart":       ItemTypePatchStart,
 	"sysCheckinRemain": ItemTypeSysCheckinRemain,
 }
