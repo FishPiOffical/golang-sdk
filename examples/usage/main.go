@@ -141,7 +141,8 @@ func main() {
 
 	// 私信
 	//getChatMessage()
-	getChatMarkAsRead()
+	//getChatMarkAsRead()
+	getChatGetList()
 
 	// 金手指
 	//postMofishScore()
@@ -521,6 +522,15 @@ func getChatMarkAsRead() {
 		return
 	}
 	logger.Info("标记私信聊天消息已读结果", slog.Any("resp", resp))
+}
+
+func getChatGetList() {
+	resp, err := client.GetChatGetList()
+	if err != nil {
+		logger.Error("获取私信聊天用户列表失败", slog.String("error", err.Error()))
+		return
+	}
+	logger.Info("私信聊天用户列表结果", slog.Any("resp", resp))
 }
 
 func postArticle() {

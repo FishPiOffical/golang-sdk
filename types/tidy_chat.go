@@ -13,4 +13,12 @@ type ChatMessage struct {
 	SenderUserName   string `json:"senderUserName"`
 	Content          string `json:"content"`
 	ReceiverUserName string `json:"receiverUserName"`
+
+	ReceiverOnlineFlag bool `json:"receiverOnlineFlag,omitempty"` // GET /chat/get-list 接口返回
+}
+
+type GetChatGetListResponse struct {
+	Result int            `json:"result"`
+	Data   []*ChatMessage `json:"data"`
+	Cached bool           `json:"cached"`
 }

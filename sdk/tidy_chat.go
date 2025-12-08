@@ -41,3 +41,19 @@ func (s *FishPiSDK) GetChatMarkAsRead(fromUser string) (*types.ResultResponse[an
 
 	return response, nil
 }
+
+// GetChatGetList 获取私聊用户列表以及第一条消息
+func (s *FishPiSDK) GetChatGetList() (*types.GetChatGetListResponse, error) {
+	response := new(types.GetChatGetListResponse)
+
+	_, err := s.client.R().
+		SetSuccessResult(response).
+		SetErrorResult(response).
+		Get("/chat/get-list")
+
+	if err != nil {
+		return nil, err
+	}
+
+	return response, nil
+}
