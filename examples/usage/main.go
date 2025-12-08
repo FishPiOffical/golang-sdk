@@ -63,6 +63,7 @@ const (
 	editArticleReplyCommentId = "1764215313804" // 回复念
 	otherArticleId            = "1630569106133"
 	botUserName               = "its21f"
+	chatMessageOId            = "1765184305408"
 )
 
 func main() {
@@ -143,7 +144,8 @@ func main() {
 	//getChatMessage()
 	//getChatMarkAsRead()
 	//getChatGetList()
-	getChatHasUnread()
+	//getChatHasUnread()
+	getChatRevoke()
 
 	// 金手指
 	//postMofishScore()
@@ -541,6 +543,15 @@ func getChatHasUnread() {
 		return
 	}
 	logger.Info("私信聊天未读消息结果", slog.Any("resp", resp))
+}
+
+func getChatRevoke() {
+	resp, err := client.GetChatRevoke(chatMessageOId)
+	if err != nil {
+		logger.Error("撤回私信聊天消息失败", slog.String("error", err.Error()))
+		return
+	}
+	logger.Info("撤回私信聊天消息结果", slog.Any("resp", resp))
 }
 
 func postArticle() {

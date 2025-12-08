@@ -73,3 +73,20 @@ func (s *FishPiSDK) GetChatHasUnread() (*types.ResultResponse[[]*types.ChatMessa
 
 	return response, nil
 }
+
+// GetChatRevoke 撤回私信消息
+func (s *FishPiSDK) GetChatRevoke(oId string) (*types.ResultResponse[any], error) {
+	response := new(types.ResultResponse[any])
+
+	_, err := s.client.R().
+		SetQueryParam("oId", oId).
+		SetSuccessResult(response).
+		SetErrorResult(response).
+		Get("/chat/revoke")
+
+	if err != nil {
+		return nil, err
+	}
+
+	return response, nil
+}
