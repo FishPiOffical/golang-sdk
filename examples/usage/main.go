@@ -131,7 +131,8 @@ func main() {
 	//postFollowArticle()
 	//postUnfollowArticle()
 	//postFollowArticleWatch()
-	postUnfollowArticleWatch()
+	//postUnfollowArticleWatch()
+	postArticleReward()
 
 	// 清风明月
 	//getBreezemoons()
@@ -701,6 +702,15 @@ func postUnfollowArticleWatch() {
 		return
 	}
 	logger.Info("关注文章结果", slog.Any("resp", resp))
+}
+
+func postArticleReward() {
+	resp, err := client.PostArticleReward(otherArticleId)
+	if err != nil {
+		logger.Error("打赏文章失败", slog.String("error", err.Error()))
+		return
+	}
+	logger.Info("打赏文章结果", slog.Any("resp", resp))
 }
 
 func postMofishScore() {

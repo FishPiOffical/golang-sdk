@@ -472,3 +472,9 @@ type PostArticleHeatResponse struct {
 	Msg         string `json:"msg,omitempty"`
 	ArticleHeat int    `json:"articleHeat,omitempty"`
 }
+
+type PostArticleRewardResponse struct {
+	Code                 int    `json:"code"`
+	Msg                  string `json:"msg,omitempty"`
+	ArticleRewardContent string `json:"articleRewardContent,omitempty"`
+}

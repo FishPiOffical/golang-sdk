@@ -340,3 +340,20 @@ func (s *FishPiSDK) PostUnfollowArticleWatch(articleId string) (*types.SimpleRes
 
 	return response, nil
 }
+
+// PostArticleReward 打赏文章
+func (s *FishPiSDK) PostArticleReward(articleId string) (*types.PostArticleRewardResponse, error) {
+	response := new(types.PostArticleRewardResponse)
+
+	_, err := s.client.R().
+		SetQueryParam("articleId", articleId).
+		SetSuccessResult(response).
+		SetErrorResult(response).
+		Post("/article/reward")
+
+	if err != nil {
+		return nil, err
+	}
+
+	return response, nil
+}
