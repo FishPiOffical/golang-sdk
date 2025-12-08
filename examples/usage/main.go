@@ -87,7 +87,7 @@ func main() {
 	//postPointTransfer()
 	//postFollowUser()
 	//postUnfollowUser()
-	getMembership()
+	//getMembership()
 	//getLogsMore()
 
 	// 通知
@@ -113,6 +113,7 @@ func main() {
 	//postRedPacketSend()
 	//postCloudGet()
 	//postCloudSync()
+	//getDefaultEmojis()
 	//getSiGuoYa()
 
 	// 图床
@@ -481,6 +482,11 @@ func postCloudSync() {
 		return
 	}
 	logger.Info("同步云游戏资源结果", slog.Any("resp", resp))
+}
+
+func getDefaultEmojis() {
+	emojis := client.GetDefaultEmojis()
+	logger.Info("默认表情列表结果", slog.Any("emojis", emojis))
 }
 
 func getSiGuoYa() {

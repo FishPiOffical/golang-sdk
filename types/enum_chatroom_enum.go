@@ -317,6 +317,1015 @@ func (x CloudGameId) Ptr() *CloudGameId {
 }
 
 const (
+	// EmojiGraphicsSmile is a EmojiGraphics of type smile.
+	EmojiGraphicsSmile EmojiGraphics = "smile"
+	// EmojiGraphicsLaughing is a EmojiGraphics of type laughing.
+	EmojiGraphicsLaughing EmojiGraphics = "laughing"
+	// EmojiGraphicsBlush is a EmojiGraphics of type blush.
+	EmojiGraphicsBlush EmojiGraphics = "blush"
+	// EmojiGraphicsSmiley is a EmojiGraphics of type smiley.
+	EmojiGraphicsSmiley EmojiGraphics = "smiley"
+	// EmojiGraphicsRelaxed is a EmojiGraphics of type relaxed.
+	EmojiGraphicsRelaxed EmojiGraphics = "relaxed"
+	// EmojiGraphicsSmirk is a EmojiGraphics of type smirk.
+	EmojiGraphicsSmirk EmojiGraphics = "smirk"
+	// EmojiGraphicsHeartEyes is a EmojiGraphics of type heart_eyes.
+	EmojiGraphicsHeartEyes EmojiGraphics = "heart_eyes"
+	// EmojiGraphicsKissingHeart is a EmojiGraphics of type kissing_heart.
+	EmojiGraphicsKissingHeart EmojiGraphics = "kissing_heart"
+	// EmojiGraphicsKissingClosedEyes is a EmojiGraphics of type kissing_closed_eyes.
+	EmojiGraphicsKissingClosedEyes EmojiGraphics = "kissing_closed_eyes"
+	// EmojiGraphicsFlushed is a EmojiGraphics of type flushed.
+	EmojiGraphicsFlushed EmojiGraphics = "flushed"
+	// EmojiGraphicsRelieved is a EmojiGraphics of type relieved.
+	EmojiGraphicsRelieved EmojiGraphics = "relieved"
+	// EmojiGraphicsSatisfied is a EmojiGraphics of type satisfied.
+	EmojiGraphicsSatisfied EmojiGraphics = "satisfied"
+	// EmojiGraphicsGrin is a EmojiGraphics of type grin.
+	EmojiGraphicsGrin EmojiGraphics = "grin"
+	// EmojiGraphicsWink is a EmojiGraphics of type wink.
+	EmojiGraphicsWink EmojiGraphics = "wink"
+	// EmojiGraphicsStuckOutTongueWinkingEye is a EmojiGraphics of type stuck_out_tongue_winking_eye.
+	EmojiGraphicsStuckOutTongueWinkingEye EmojiGraphics = "stuck_out_tongue_winking_eye"
+	// EmojiGraphicsStuckOutTongueClosedEyes is a EmojiGraphics of type stuck_out_tongue_closed_eyes.
+	EmojiGraphicsStuckOutTongueClosedEyes EmojiGraphics = "stuck_out_tongue_closed_eyes"
+	// EmojiGraphicsGrinning is a EmojiGraphics of type grinning.
+	EmojiGraphicsGrinning EmojiGraphics = "grinning"
+	// EmojiGraphicsKissing is a EmojiGraphics of type kissing.
+	EmojiGraphicsKissing EmojiGraphics = "kissing"
+	// EmojiGraphicsKissingSmilingEyes is a EmojiGraphics of type kissing_smiling_eyes.
+	EmojiGraphicsKissingSmilingEyes EmojiGraphics = "kissing_smiling_eyes"
+	// EmojiGraphicsStuckOutTongue is a EmojiGraphics of type stuck_out_tongue.
+	EmojiGraphicsStuckOutTongue EmojiGraphics = "stuck_out_tongue"
+	// EmojiGraphicsSleeping is a EmojiGraphics of type sleeping.
+	EmojiGraphicsSleeping EmojiGraphics = "sleeping"
+	// EmojiGraphicsWorried is a EmojiGraphics of type worried.
+	EmojiGraphicsWorried EmojiGraphics = "worried"
+	// EmojiGraphicsFrowning is a EmojiGraphics of type frowning.
+	EmojiGraphicsFrowning EmojiGraphics = "frowning"
+	// EmojiGraphicsAnguished is a EmojiGraphics of type anguished.
+	EmojiGraphicsAnguished EmojiGraphics = "anguished"
+	// EmojiGraphicsOpenMouth is a EmojiGraphics of type open_mouth.
+	EmojiGraphicsOpenMouth EmojiGraphics = "open_mouth"
+	// EmojiGraphicsGrimacing is a EmojiGraphics of type grimacing.
+	EmojiGraphicsGrimacing EmojiGraphics = "grimacing"
+	// EmojiGraphicsConfused is a EmojiGraphics of type confused.
+	EmojiGraphicsConfused EmojiGraphics = "confused"
+	// EmojiGraphicsHushed is a EmojiGraphics of type hushed.
+	EmojiGraphicsHushed EmojiGraphics = "hushed"
+	// EmojiGraphicsExpressionless is a EmojiGraphics of type expressionless.
+	EmojiGraphicsExpressionless EmojiGraphics = "expressionless"
+	// EmojiGraphicsUnamused is a EmojiGraphics of type unamused.
+	EmojiGraphicsUnamused EmojiGraphics = "unamused"
+	// EmojiGraphicsSweatSmile is a EmojiGraphics of type sweat_smile.
+	EmojiGraphicsSweatSmile EmojiGraphics = "sweat_smile"
+	// EmojiGraphicsSweat is a EmojiGraphics of type sweat.
+	EmojiGraphicsSweat EmojiGraphics = "sweat"
+	// EmojiGraphicsDisappointedRelieved is a EmojiGraphics of type disappointed_relieved.
+	EmojiGraphicsDisappointedRelieved EmojiGraphics = "disappointed_relieved"
+	// EmojiGraphicsWeary is a EmojiGraphics of type weary.
+	EmojiGraphicsWeary EmojiGraphics = "weary"
+	// EmojiGraphicsPensive is a EmojiGraphics of type pensive.
+	EmojiGraphicsPensive EmojiGraphics = "pensive"
+	// EmojiGraphicsDisappointed is a EmojiGraphics of type disappointed.
+	EmojiGraphicsDisappointed EmojiGraphics = "disappointed"
+	// EmojiGraphicsConfounded is a EmojiGraphics of type confounded.
+	EmojiGraphicsConfounded EmojiGraphics = "confounded"
+	// EmojiGraphicsFearful is a EmojiGraphics of type fearful.
+	EmojiGraphicsFearful EmojiGraphics = "fearful"
+	// EmojiGraphicsColdSweat is a EmojiGraphics of type cold_sweat.
+	EmojiGraphicsColdSweat EmojiGraphics = "cold_sweat"
+	// EmojiGraphicsPersevere is a EmojiGraphics of type persevere.
+	EmojiGraphicsPersevere EmojiGraphics = "persevere"
+	// EmojiGraphicsCry is a EmojiGraphics of type cry.
+	EmojiGraphicsCry EmojiGraphics = "cry"
+	// EmojiGraphicsSob is a EmojiGraphics of type sob.
+	EmojiGraphicsSob EmojiGraphics = "sob"
+	// EmojiGraphicsJoy is a EmojiGraphics of type joy.
+	EmojiGraphicsJoy EmojiGraphics = "joy"
+	// EmojiGraphicsAstonished is a EmojiGraphics of type astonished.
+	EmojiGraphicsAstonished EmojiGraphics = "astonished"
+	// EmojiGraphicsScream is a EmojiGraphics of type scream.
+	EmojiGraphicsScream EmojiGraphics = "scream"
+	// EmojiGraphicsTiredFace is a EmojiGraphics of type tired_face.
+	EmojiGraphicsTiredFace EmojiGraphics = "tired_face"
+	// EmojiGraphicsAngry is a EmojiGraphics of type angry.
+	EmojiGraphicsAngry EmojiGraphics = "angry"
+	// EmojiGraphicsRage is a EmojiGraphics of type rage.
+	EmojiGraphicsRage EmojiGraphics = "rage"
+	// EmojiGraphicsTriumph is a EmojiGraphics of type triumph.
+	EmojiGraphicsTriumph EmojiGraphics = "triumph"
+	// EmojiGraphicsSleepy is a EmojiGraphics of type sleepy.
+	EmojiGraphicsSleepy EmojiGraphics = "sleepy"
+	// EmojiGraphicsYum is a EmojiGraphics of type yum.
+	EmojiGraphicsYum EmojiGraphics = "yum"
+	// EmojiGraphicsMask is a EmojiGraphics of type mask.
+	EmojiGraphicsMask EmojiGraphics = "mask"
+	// EmojiGraphicsSunglasses is a EmojiGraphics of type sunglasses.
+	EmojiGraphicsSunglasses EmojiGraphics = "sunglasses"
+	// EmojiGraphicsDizzyFace is a EmojiGraphics of type dizzy_face.
+	EmojiGraphicsDizzyFace EmojiGraphics = "dizzy_face"
+	// EmojiGraphicsImp is a EmojiGraphics of type imp.
+	EmojiGraphicsImp EmojiGraphics = "imp"
+	// EmojiGraphicsSmilingImp is a EmojiGraphics of type smiling_imp.
+	EmojiGraphicsSmilingImp EmojiGraphics = "smiling_imp"
+	// EmojiGraphicsNeutralFace is a EmojiGraphics of type neutral_face.
+	EmojiGraphicsNeutralFace EmojiGraphics = "neutral_face"
+	// EmojiGraphicsNoMouth is a EmojiGraphics of type no_mouth.
+	EmojiGraphicsNoMouth EmojiGraphics = "no_mouth"
+	// EmojiGraphicsInnocent is a EmojiGraphics of type innocent.
+	EmojiGraphicsInnocent EmojiGraphics = "innocent"
+	// EmojiGraphicsAlien is a EmojiGraphics of type alien.
+	EmojiGraphicsAlien EmojiGraphics = "alien"
+	// EmojiGraphicsYellowHeart is a EmojiGraphics of type yellow_heart.
+	EmojiGraphicsYellowHeart EmojiGraphics = "yellow_heart"
+	// EmojiGraphicsBlueHeart is a EmojiGraphics of type blue_heart.
+	EmojiGraphicsBlueHeart EmojiGraphics = "blue_heart"
+	// EmojiGraphicsPurpleHeart is a EmojiGraphics of type purple_heart.
+	EmojiGraphicsPurpleHeart EmojiGraphics = "purple_heart"
+	// EmojiGraphicsHeart is a EmojiGraphics of type heart.
+	EmojiGraphicsHeart EmojiGraphics = "heart"
+	// EmojiGraphicsGreenHeart is a EmojiGraphics of type green_heart.
+	EmojiGraphicsGreenHeart EmojiGraphics = "green_heart"
+	// EmojiGraphicsBrokenHeart is a EmojiGraphics of type broken_heart.
+	EmojiGraphicsBrokenHeart EmojiGraphics = "broken_heart"
+	// EmojiGraphicsHeartbeat is a EmojiGraphics of type heartbeat.
+	EmojiGraphicsHeartbeat EmojiGraphics = "heartbeat"
+	// EmojiGraphicsHeartpulse is a EmojiGraphics of type heartpulse.
+	EmojiGraphicsHeartpulse EmojiGraphics = "heartpulse"
+	// EmojiGraphicsTwoHearts is a EmojiGraphics of type two_hearts.
+	EmojiGraphicsTwoHearts EmojiGraphics = "two_hearts"
+	// EmojiGraphicsRevolvingHearts is a EmojiGraphics of type revolving_hearts.
+	EmojiGraphicsRevolvingHearts EmojiGraphics = "revolving_hearts"
+	// EmojiGraphicsCupid is a EmojiGraphics of type cupid.
+	EmojiGraphicsCupid EmojiGraphics = "cupid"
+	// EmojiGraphicsSparklingHeart is a EmojiGraphics of type sparkling_heart.
+	EmojiGraphicsSparklingHeart EmojiGraphics = "sparkling_heart"
+	// EmojiGraphicsSparkles is a EmojiGraphics of type sparkles.
+	EmojiGraphicsSparkles EmojiGraphics = "sparkles"
+	// EmojiGraphicsStar is a EmojiGraphics of type star.
+	EmojiGraphicsStar EmojiGraphics = "star"
+	// EmojiGraphicsStar2 is a EmojiGraphics of type star2.
+	EmojiGraphicsStar2 EmojiGraphics = "star2"
+	// EmojiGraphicsDizzy is a EmojiGraphics of type dizzy.
+	EmojiGraphicsDizzy EmojiGraphics = "dizzy"
+	// EmojiGraphicsBoom is a EmojiGraphics of type boom.
+	EmojiGraphicsBoom EmojiGraphics = "boom"
+	// EmojiGraphicsCollision is a EmojiGraphics of type collision.
+	EmojiGraphicsCollision EmojiGraphics = "collision"
+	// EmojiGraphicsAnger is a EmojiGraphics of type anger.
+	EmojiGraphicsAnger EmojiGraphics = "anger"
+	// EmojiGraphicsExclamation is a EmojiGraphics of type exclamation.
+	EmojiGraphicsExclamation EmojiGraphics = "exclamation"
+	// EmojiGraphicsQuestion is a EmojiGraphics of type question.
+	EmojiGraphicsQuestion EmojiGraphics = "question"
+	// EmojiGraphicsGreyExclamation is a EmojiGraphics of type grey_exclamation.
+	EmojiGraphicsGreyExclamation EmojiGraphics = "grey_exclamation"
+	// EmojiGraphicsGreyQuestion is a EmojiGraphics of type grey_question.
+	EmojiGraphicsGreyQuestion EmojiGraphics = "grey_question"
+	// EmojiGraphicsZzz is a EmojiGraphics of type zzz.
+	EmojiGraphicsZzz EmojiGraphics = "zzz"
+	// EmojiGraphicsDash is a EmojiGraphics of type dash.
+	EmojiGraphicsDash EmojiGraphics = "dash"
+	// EmojiGraphicsSweatDrops is a EmojiGraphics of type sweat_drops.
+	EmojiGraphicsSweatDrops EmojiGraphics = "sweat_drops"
+	// EmojiGraphicsNotes is a EmojiGraphics of type notes.
+	EmojiGraphicsNotes EmojiGraphics = "notes"
+	// EmojiGraphicsMusicalNote is a EmojiGraphics of type musical_note.
+	EmojiGraphicsMusicalNote EmojiGraphics = "musical_note"
+	// EmojiGraphicsFire is a EmojiGraphics of type fire.
+	EmojiGraphicsFire EmojiGraphics = "fire"
+	// EmojiGraphicsPoop is a EmojiGraphics of type poop.
+	EmojiGraphicsPoop EmojiGraphics = "poop"
+	// EmojiGraphicsIncreaseOne is a EmojiGraphics of type increaseOne.
+	EmojiGraphicsIncreaseOne EmojiGraphics = "+1"
+	// EmojiGraphicsThumbsup is a EmojiGraphics of type thumbsup.
+	EmojiGraphicsThumbsup EmojiGraphics = "thumbsup"
+	// EmojiGraphicsDecreaseOne is a EmojiGraphics of type decreaseOne.
+	EmojiGraphicsDecreaseOne EmojiGraphics = "-1"
+	// EmojiGraphicsThumbsdown is a EmojiGraphics of type thumbsdown.
+	EmojiGraphicsThumbsdown EmojiGraphics = "thumbsdown"
+	// EmojiGraphicsOkHand is a EmojiGraphics of type ok_hand.
+	EmojiGraphicsOkHand EmojiGraphics = "ok_hand"
+	// EmojiGraphicsPunch is a EmojiGraphics of type punch.
+	EmojiGraphicsPunch EmojiGraphics = "punch"
+	// EmojiGraphicsFacepunch is a EmojiGraphics of type facepunch.
+	EmojiGraphicsFacepunch EmojiGraphics = "facepunch"
+	// EmojiGraphicsFist is a EmojiGraphics of type fist.
+	EmojiGraphicsFist EmojiGraphics = "fist"
+	// EmojiGraphicsV is a EmojiGraphics of type v.
+	EmojiGraphicsV EmojiGraphics = "v"
+	// EmojiGraphicsWave is a EmojiGraphics of type wave.
+	EmojiGraphicsWave EmojiGraphics = "wave"
+	// EmojiGraphicsHand is a EmojiGraphics of type hand.
+	EmojiGraphicsHand EmojiGraphics = "hand"
+	// EmojiGraphicsRaisedHand is a EmojiGraphics of type raised_hand.
+	EmojiGraphicsRaisedHand EmojiGraphics = "raised_hand"
+	// EmojiGraphicsOpenHands is a EmojiGraphics of type open_hands.
+	EmojiGraphicsOpenHands EmojiGraphics = "open_hands"
+	// EmojiGraphicsPointUp is a EmojiGraphics of type point_up.
+	EmojiGraphicsPointUp EmojiGraphics = "point_up"
+	// EmojiGraphicsPointDown is a EmojiGraphics of type point_down.
+	EmojiGraphicsPointDown EmojiGraphics = "point_down"
+	// EmojiGraphicsPointLeft is a EmojiGraphics of type point_left.
+	EmojiGraphicsPointLeft EmojiGraphics = "point_left"
+	// EmojiGraphicsPointRight is a EmojiGraphics of type point_right.
+	EmojiGraphicsPointRight EmojiGraphics = "point_right"
+	// EmojiGraphicsRaisedHands is a EmojiGraphics of type raised_hands.
+	EmojiGraphicsRaisedHands EmojiGraphics = "raised_hands"
+	// EmojiGraphicsPray is a EmojiGraphics of type pray.
+	EmojiGraphicsPray EmojiGraphics = "pray"
+	// EmojiGraphicsPointUp2 is a EmojiGraphics of type point_up_2.
+	EmojiGraphicsPointUp2 EmojiGraphics = "point_up_2"
+	// EmojiGraphicsClap is a EmojiGraphics of type clap.
+	EmojiGraphicsClap EmojiGraphics = "clap"
+	// EmojiGraphicsMuscle is a EmojiGraphics of type muscle.
+	EmojiGraphicsMuscle EmojiGraphics = "muscle"
+	// EmojiGraphicsCouple is a EmojiGraphics of type couple.
+	EmojiGraphicsCouple EmojiGraphics = "couple"
+	// EmojiGraphicsFamily is a EmojiGraphics of type family.
+	EmojiGraphicsFamily EmojiGraphics = "family"
+	// EmojiGraphicsTwoMenHoldingHands is a EmojiGraphics of type two_men_holding_hands.
+	EmojiGraphicsTwoMenHoldingHands EmojiGraphics = "two_men_holding_hands"
+	// EmojiGraphicsTwoWomenHoldingHands is a EmojiGraphics of type two_women_holding_hands.
+	EmojiGraphicsTwoWomenHoldingHands EmojiGraphics = "two_women_holding_hands"
+	// EmojiGraphicsDancer is a EmojiGraphics of type dancer.
+	EmojiGraphicsDancer EmojiGraphics = "dancer"
+	// EmojiGraphicsDancers is a EmojiGraphics of type dancers.
+	EmojiGraphicsDancers EmojiGraphics = "dancers"
+	// EmojiGraphicsOkWoman is a EmojiGraphics of type ok_woman.
+	EmojiGraphicsOkWoman EmojiGraphics = "ok_woman"
+	// EmojiGraphicsNoGood is a EmojiGraphics of type no_good.
+	EmojiGraphicsNoGood EmojiGraphics = "no_good"
+	// EmojiGraphicsInformationDeskPerson is a EmojiGraphics of type information_desk_person.
+	EmojiGraphicsInformationDeskPerson EmojiGraphics = "information_desk_person"
+	// EmojiGraphicsRaisingHand is a EmojiGraphics of type raising_hand.
+	EmojiGraphicsRaisingHand EmojiGraphics = "raising_hand"
+	// EmojiGraphicsBrideWithVeil is a EmojiGraphics of type bride_with_veil.
+	EmojiGraphicsBrideWithVeil EmojiGraphics = "bride_with_veil"
+	// EmojiGraphicsPersonWithPoutingFace is a EmojiGraphics of type person_with_pouting_face.
+	EmojiGraphicsPersonWithPoutingFace EmojiGraphics = "person_with_pouting_face"
+	// EmojiGraphicsPersonFrowning is a EmojiGraphics of type person_frowning.
+	EmojiGraphicsPersonFrowning EmojiGraphics = "person_frowning"
+	// EmojiGraphicsBow is a EmojiGraphics of type bow.
+	EmojiGraphicsBow EmojiGraphics = "bow"
+	// EmojiGraphicsCouplekiss is a EmojiGraphics of type couplekiss.
+	EmojiGraphicsCouplekiss EmojiGraphics = "couplekiss"
+	// EmojiGraphicsCoupleWithHeart is a EmojiGraphics of type couple_with_heart.
+	EmojiGraphicsCoupleWithHeart EmojiGraphics = "couple_with_heart"
+	// EmojiGraphicsMassage is a EmojiGraphics of type massage.
+	EmojiGraphicsMassage EmojiGraphics = "massage"
+	// EmojiGraphicsHaircut is a EmojiGraphics of type haircut.
+	EmojiGraphicsHaircut EmojiGraphics = "haircut"
+	// EmojiGraphicsNailCare is a EmojiGraphics of type nail_care.
+	EmojiGraphicsNailCare EmojiGraphics = "nail_care"
+	// EmojiGraphicsBoy is a EmojiGraphics of type boy.
+	EmojiGraphicsBoy EmojiGraphics = "boy"
+	// EmojiGraphicsGirl is a EmojiGraphics of type girl.
+	EmojiGraphicsGirl EmojiGraphics = "girl"
+	// EmojiGraphicsWoman is a EmojiGraphics of type woman.
+	EmojiGraphicsWoman EmojiGraphics = "woman"
+	// EmojiGraphicsMan is a EmojiGraphics of type man.
+	EmojiGraphicsMan EmojiGraphics = "man"
+	// EmojiGraphicsBaby is a EmojiGraphics of type baby.
+	EmojiGraphicsBaby EmojiGraphics = "baby"
+	// EmojiGraphicsOlderWoman is a EmojiGraphics of type older_woman.
+	EmojiGraphicsOlderWoman EmojiGraphics = "older_woman"
+	// EmojiGraphicsOlderMan is a EmojiGraphics of type older_man.
+	EmojiGraphicsOlderMan EmojiGraphics = "older_man"
+	// EmojiGraphicsPersonWithBlondHair is a EmojiGraphics of type person_with_blond_hair.
+	EmojiGraphicsPersonWithBlondHair EmojiGraphics = "person_with_blond_hair"
+	// EmojiGraphicsManWithGuaPiMao is a EmojiGraphics of type man_with_gua_pi_mao.
+	EmojiGraphicsManWithGuaPiMao EmojiGraphics = "man_with_gua_pi_mao"
+	// EmojiGraphicsManWithTurban is a EmojiGraphics of type man_with_turban.
+	EmojiGraphicsManWithTurban EmojiGraphics = "man_with_turban"
+	// EmojiGraphicsConstructionWorker is a EmojiGraphics of type construction_worker.
+	EmojiGraphicsConstructionWorker EmojiGraphics = "construction_worker"
+	// EmojiGraphicsCop is a EmojiGraphics of type cop.
+	EmojiGraphicsCop EmojiGraphics = "cop"
+	// EmojiGraphicsAngel is a EmojiGraphics of type angel.
+	EmojiGraphicsAngel EmojiGraphics = "angel"
+	// EmojiGraphicsPrincess is a EmojiGraphics of type princess.
+	EmojiGraphicsPrincess EmojiGraphics = "princess"
+	// EmojiGraphicsSmileyCat is a EmojiGraphics of type smiley_cat.
+	EmojiGraphicsSmileyCat EmojiGraphics = "smiley_cat"
+	// EmojiGraphicsSmileCat is a EmojiGraphics of type smile_cat.
+	EmojiGraphicsSmileCat EmojiGraphics = "smile_cat"
+	// EmojiGraphicsHeartEyesCat is a EmojiGraphics of type heart_eyes_cat.
+	EmojiGraphicsHeartEyesCat EmojiGraphics = "heart_eyes_cat"
+	// EmojiGraphicsKissingCat is a EmojiGraphics of type kissing_cat.
+	EmojiGraphicsKissingCat EmojiGraphics = "kissing_cat"
+	// EmojiGraphicsSmirkCat is a EmojiGraphics of type smirk_cat.
+	EmojiGraphicsSmirkCat EmojiGraphics = "smirk_cat"
+	// EmojiGraphicsScreamCat is a EmojiGraphics of type scream_cat.
+	EmojiGraphicsScreamCat EmojiGraphics = "scream_cat"
+	// EmojiGraphicsCryingCatFace is a EmojiGraphics of type crying_cat_face.
+	EmojiGraphicsCryingCatFace EmojiGraphics = "crying_cat_face"
+	// EmojiGraphicsJoyCat is a EmojiGraphics of type joy_cat.
+	EmojiGraphicsJoyCat EmojiGraphics = "joy_cat"
+	// EmojiGraphicsPoutingCat is a EmojiGraphics of type pouting_cat.
+	EmojiGraphicsPoutingCat EmojiGraphics = "pouting_cat"
+	// EmojiGraphicsJapaneseOgre is a EmojiGraphics of type japanese_ogre.
+	EmojiGraphicsJapaneseOgre EmojiGraphics = "japanese_ogre"
+	// EmojiGraphicsJapaneseGoblin is a EmojiGraphics of type japanese_goblin.
+	EmojiGraphicsJapaneseGoblin EmojiGraphics = "japanese_goblin"
+	// EmojiGraphicsSeeNoEvil is a EmojiGraphics of type see_no_evil.
+	EmojiGraphicsSeeNoEvil EmojiGraphics = "see_no_evil"
+	// EmojiGraphicsHearNoEvil is a EmojiGraphics of type hear_no_evil.
+	EmojiGraphicsHearNoEvil EmojiGraphics = "hear_no_evil"
+	// EmojiGraphicsSpeakNoEvil is a EmojiGraphics of type speak_no_evil.
+	EmojiGraphicsSpeakNoEvil EmojiGraphics = "speak_no_evil"
+	// EmojiGraphicsGuardsman is a EmojiGraphics of type guardsman.
+	EmojiGraphicsGuardsman EmojiGraphics = "guardsman"
+	// EmojiGraphicsSkull is a EmojiGraphics of type skull.
+	EmojiGraphicsSkull EmojiGraphics = "skull"
+	// EmojiGraphicsFeet is a EmojiGraphics of type feet.
+	EmojiGraphicsFeet EmojiGraphics = "feet"
+	// EmojiGraphicsLips is a EmojiGraphics of type lips.
+	EmojiGraphicsLips EmojiGraphics = "lips"
+	// EmojiGraphicsKiss is a EmojiGraphics of type kiss.
+	EmojiGraphicsKiss EmojiGraphics = "kiss"
+	// EmojiGraphicsDroplet is a EmojiGraphics of type droplet.
+	EmojiGraphicsDroplet EmojiGraphics = "droplet"
+	// EmojiGraphicsEar is a EmojiGraphics of type ear.
+	EmojiGraphicsEar EmojiGraphics = "ear"
+	// EmojiGraphicsEyes is a EmojiGraphics of type eyes.
+	EmojiGraphicsEyes EmojiGraphics = "eyes"
+	// EmojiGraphicsNose is a EmojiGraphics of type nose.
+	EmojiGraphicsNose EmojiGraphics = "nose"
+	// EmojiGraphicsTongue is a EmojiGraphics of type tongue.
+	EmojiGraphicsTongue EmojiGraphics = "tongue"
+	// EmojiGraphicsLoveLetter is a EmojiGraphics of type love_letter.
+	EmojiGraphicsLoveLetter EmojiGraphics = "love_letter"
+	// EmojiGraphicsBustInSilhouette is a EmojiGraphics of type bust_in_silhouette.
+	EmojiGraphicsBustInSilhouette EmojiGraphics = "bust_in_silhouette"
+	// EmojiGraphicsBustsInSilhouette is a EmojiGraphics of type busts_in_silhouette.
+	EmojiGraphicsBustsInSilhouette EmojiGraphics = "busts_in_silhouette"
+	// EmojiGraphicsSpeechBalloon is a EmojiGraphics of type speech_balloon.
+	EmojiGraphicsSpeechBalloon EmojiGraphics = "speech_balloon"
+	// EmojiGraphicsThoughtBalloon is a EmojiGraphics of type thought_balloon.
+	EmojiGraphicsThoughtBalloon EmojiGraphics = "thought_balloon"
+)
+
+var ErrInvalidEmojiGraphics = fmt.Errorf("not a valid EmojiGraphics, try [%s]", strings.Join(_EmojiGraphicsNames, ", "))
+
+var _EmojiGraphicsNames = []string{
+	string(EmojiGraphicsSmile),
+	string(EmojiGraphicsLaughing),
+	string(EmojiGraphicsBlush),
+	string(EmojiGraphicsSmiley),
+	string(EmojiGraphicsRelaxed),
+	string(EmojiGraphicsSmirk),
+	string(EmojiGraphicsHeartEyes),
+	string(EmojiGraphicsKissingHeart),
+	string(EmojiGraphicsKissingClosedEyes),
+	string(EmojiGraphicsFlushed),
+	string(EmojiGraphicsRelieved),
+	string(EmojiGraphicsSatisfied),
+	string(EmojiGraphicsGrin),
+	string(EmojiGraphicsWink),
+	string(EmojiGraphicsStuckOutTongueWinkingEye),
+	string(EmojiGraphicsStuckOutTongueClosedEyes),
+	string(EmojiGraphicsGrinning),
+	string(EmojiGraphicsKissing),
+	string(EmojiGraphicsKissingSmilingEyes),
+	string(EmojiGraphicsStuckOutTongue),
+	string(EmojiGraphicsSleeping),
+	string(EmojiGraphicsWorried),
+	string(EmojiGraphicsFrowning),
+	string(EmojiGraphicsAnguished),
+	string(EmojiGraphicsOpenMouth),
+	string(EmojiGraphicsGrimacing),
+	string(EmojiGraphicsConfused),
+	string(EmojiGraphicsHushed),
+	string(EmojiGraphicsExpressionless),
+	string(EmojiGraphicsUnamused),
+	string(EmojiGraphicsSweatSmile),
+	string(EmojiGraphicsSweat),
+	string(EmojiGraphicsDisappointedRelieved),
+	string(EmojiGraphicsWeary),
+	string(EmojiGraphicsPensive),
+	string(EmojiGraphicsDisappointed),
+	string(EmojiGraphicsConfounded),
+	string(EmojiGraphicsFearful),
+	string(EmojiGraphicsColdSweat),
+	string(EmojiGraphicsPersevere),
+	string(EmojiGraphicsCry),
+	string(EmojiGraphicsSob),
+	string(EmojiGraphicsJoy),
+	string(EmojiGraphicsAstonished),
+	string(EmojiGraphicsScream),
+	string(EmojiGraphicsTiredFace),
+	string(EmojiGraphicsAngry),
+	string(EmojiGraphicsRage),
+	string(EmojiGraphicsTriumph),
+	string(EmojiGraphicsSleepy),
+	string(EmojiGraphicsYum),
+	string(EmojiGraphicsMask),
+	string(EmojiGraphicsSunglasses),
+	string(EmojiGraphicsDizzyFace),
+	string(EmojiGraphicsImp),
+	string(EmojiGraphicsSmilingImp),
+	string(EmojiGraphicsNeutralFace),
+	string(EmojiGraphicsNoMouth),
+	string(EmojiGraphicsInnocent),
+	string(EmojiGraphicsAlien),
+	string(EmojiGraphicsYellowHeart),
+	string(EmojiGraphicsBlueHeart),
+	string(EmojiGraphicsPurpleHeart),
+	string(EmojiGraphicsHeart),
+	string(EmojiGraphicsGreenHeart),
+	string(EmojiGraphicsBrokenHeart),
+	string(EmojiGraphicsHeartbeat),
+	string(EmojiGraphicsHeartpulse),
+	string(EmojiGraphicsTwoHearts),
+	string(EmojiGraphicsRevolvingHearts),
+	string(EmojiGraphicsCupid),
+	string(EmojiGraphicsSparklingHeart),
+	string(EmojiGraphicsSparkles),
+	string(EmojiGraphicsStar),
+	string(EmojiGraphicsStar2),
+	string(EmojiGraphicsDizzy),
+	string(EmojiGraphicsBoom),
+	string(EmojiGraphicsCollision),
+	string(EmojiGraphicsAnger),
+	string(EmojiGraphicsExclamation),
+	string(EmojiGraphicsQuestion),
+	string(EmojiGraphicsGreyExclamation),
+	string(EmojiGraphicsGreyQuestion),
+	string(EmojiGraphicsZzz),
+	string(EmojiGraphicsDash),
+	string(EmojiGraphicsSweatDrops),
+	string(EmojiGraphicsNotes),
+	string(EmojiGraphicsMusicalNote),
+	string(EmojiGraphicsFire),
+	string(EmojiGraphicsPoop),
+	string(EmojiGraphicsIncreaseOne),
+	string(EmojiGraphicsThumbsup),
+	string(EmojiGraphicsDecreaseOne),
+	string(EmojiGraphicsThumbsdown),
+	string(EmojiGraphicsOkHand),
+	string(EmojiGraphicsPunch),
+	string(EmojiGraphicsFacepunch),
+	string(EmojiGraphicsFist),
+	string(EmojiGraphicsV),
+	string(EmojiGraphicsWave),
+	string(EmojiGraphicsHand),
+	string(EmojiGraphicsRaisedHand),
+	string(EmojiGraphicsOpenHands),
+	string(EmojiGraphicsPointUp),
+	string(EmojiGraphicsPointDown),
+	string(EmojiGraphicsPointLeft),
+	string(EmojiGraphicsPointRight),
+	string(EmojiGraphicsRaisedHands),
+	string(EmojiGraphicsPray),
+	string(EmojiGraphicsPointUp2),
+	string(EmojiGraphicsClap),
+	string(EmojiGraphicsMuscle),
+	string(EmojiGraphicsCouple),
+	string(EmojiGraphicsFamily),
+	string(EmojiGraphicsTwoMenHoldingHands),
+	string(EmojiGraphicsTwoWomenHoldingHands),
+	string(EmojiGraphicsDancer),
+	string(EmojiGraphicsDancers),
+	string(EmojiGraphicsOkWoman),
+	string(EmojiGraphicsNoGood),
+	string(EmojiGraphicsInformationDeskPerson),
+	string(EmojiGraphicsRaisingHand),
+	string(EmojiGraphicsBrideWithVeil),
+	string(EmojiGraphicsPersonWithPoutingFace),
+	string(EmojiGraphicsPersonFrowning),
+	string(EmojiGraphicsBow),
+	string(EmojiGraphicsCouplekiss),
+	string(EmojiGraphicsCoupleWithHeart),
+	string(EmojiGraphicsMassage),
+	string(EmojiGraphicsHaircut),
+	string(EmojiGraphicsNailCare),
+	string(EmojiGraphicsBoy),
+	string(EmojiGraphicsGirl),
+	string(EmojiGraphicsWoman),
+	string(EmojiGraphicsMan),
+	string(EmojiGraphicsBaby),
+	string(EmojiGraphicsOlderWoman),
+	string(EmojiGraphicsOlderMan),
+	string(EmojiGraphicsPersonWithBlondHair),
+	string(EmojiGraphicsManWithGuaPiMao),
+	string(EmojiGraphicsManWithTurban),
+	string(EmojiGraphicsConstructionWorker),
+	string(EmojiGraphicsCop),
+	string(EmojiGraphicsAngel),
+	string(EmojiGraphicsPrincess),
+	string(EmojiGraphicsSmileyCat),
+	string(EmojiGraphicsSmileCat),
+	string(EmojiGraphicsHeartEyesCat),
+	string(EmojiGraphicsKissingCat),
+	string(EmojiGraphicsSmirkCat),
+	string(EmojiGraphicsScreamCat),
+	string(EmojiGraphicsCryingCatFace),
+	string(EmojiGraphicsJoyCat),
+	string(EmojiGraphicsPoutingCat),
+	string(EmojiGraphicsJapaneseOgre),
+	string(EmojiGraphicsJapaneseGoblin),
+	string(EmojiGraphicsSeeNoEvil),
+	string(EmojiGraphicsHearNoEvil),
+	string(EmojiGraphicsSpeakNoEvil),
+	string(EmojiGraphicsGuardsman),
+	string(EmojiGraphicsSkull),
+	string(EmojiGraphicsFeet),
+	string(EmojiGraphicsLips),
+	string(EmojiGraphicsKiss),
+	string(EmojiGraphicsDroplet),
+	string(EmojiGraphicsEar),
+	string(EmojiGraphicsEyes),
+	string(EmojiGraphicsNose),
+	string(EmojiGraphicsTongue),
+	string(EmojiGraphicsLoveLetter),
+	string(EmojiGraphicsBustInSilhouette),
+	string(EmojiGraphicsBustsInSilhouette),
+	string(EmojiGraphicsSpeechBalloon),
+	string(EmojiGraphicsThoughtBalloon),
+}
+
+// EmojiGraphicsNames returns a list of possible string values of EmojiGraphics.
+func EmojiGraphicsNames() []string {
+	tmp := make([]string, len(_EmojiGraphicsNames))
+	copy(tmp, _EmojiGraphicsNames)
+	return tmp
+}
+
+// EmojiGraphicsValues returns a list of the values for EmojiGraphics
+func EmojiGraphicsValues() []EmojiGraphics {
+	return []EmojiGraphics{
+		EmojiGraphicsSmile,
+		EmojiGraphicsLaughing,
+		EmojiGraphicsBlush,
+		EmojiGraphicsSmiley,
+		EmojiGraphicsRelaxed,
+		EmojiGraphicsSmirk,
+		EmojiGraphicsHeartEyes,
+		EmojiGraphicsKissingHeart,
+		EmojiGraphicsKissingClosedEyes,
+		EmojiGraphicsFlushed,
+		EmojiGraphicsRelieved,
+		EmojiGraphicsSatisfied,
+		EmojiGraphicsGrin,
+		EmojiGraphicsWink,
+		EmojiGraphicsStuckOutTongueWinkingEye,
+		EmojiGraphicsStuckOutTongueClosedEyes,
+		EmojiGraphicsGrinning,
+		EmojiGraphicsKissing,
+		EmojiGraphicsKissingSmilingEyes,
+		EmojiGraphicsStuckOutTongue,
+		EmojiGraphicsSleeping,
+		EmojiGraphicsWorried,
+		EmojiGraphicsFrowning,
+		EmojiGraphicsAnguished,
+		EmojiGraphicsOpenMouth,
+		EmojiGraphicsGrimacing,
+		EmojiGraphicsConfused,
+		EmojiGraphicsHushed,
+		EmojiGraphicsExpressionless,
+		EmojiGraphicsUnamused,
+		EmojiGraphicsSweatSmile,
+		EmojiGraphicsSweat,
+		EmojiGraphicsDisappointedRelieved,
+		EmojiGraphicsWeary,
+		EmojiGraphicsPensive,
+		EmojiGraphicsDisappointed,
+		EmojiGraphicsConfounded,
+		EmojiGraphicsFearful,
+		EmojiGraphicsColdSweat,
+		EmojiGraphicsPersevere,
+		EmojiGraphicsCry,
+		EmojiGraphicsSob,
+		EmojiGraphicsJoy,
+		EmojiGraphicsAstonished,
+		EmojiGraphicsScream,
+		EmojiGraphicsTiredFace,
+		EmojiGraphicsAngry,
+		EmojiGraphicsRage,
+		EmojiGraphicsTriumph,
+		EmojiGraphicsSleepy,
+		EmojiGraphicsYum,
+		EmojiGraphicsMask,
+		EmojiGraphicsSunglasses,
+		EmojiGraphicsDizzyFace,
+		EmojiGraphicsImp,
+		EmojiGraphicsSmilingImp,
+		EmojiGraphicsNeutralFace,
+		EmojiGraphicsNoMouth,
+		EmojiGraphicsInnocent,
+		EmojiGraphicsAlien,
+		EmojiGraphicsYellowHeart,
+		EmojiGraphicsBlueHeart,
+		EmojiGraphicsPurpleHeart,
+		EmojiGraphicsHeart,
+		EmojiGraphicsGreenHeart,
+		EmojiGraphicsBrokenHeart,
+		EmojiGraphicsHeartbeat,
+		EmojiGraphicsHeartpulse,
+		EmojiGraphicsTwoHearts,
+		EmojiGraphicsRevolvingHearts,
+		EmojiGraphicsCupid,
+		EmojiGraphicsSparklingHeart,
+		EmojiGraphicsSparkles,
+		EmojiGraphicsStar,
+		EmojiGraphicsStar2,
+		EmojiGraphicsDizzy,
+		EmojiGraphicsBoom,
+		EmojiGraphicsCollision,
+		EmojiGraphicsAnger,
+		EmojiGraphicsExclamation,
+		EmojiGraphicsQuestion,
+		EmojiGraphicsGreyExclamation,
+		EmojiGraphicsGreyQuestion,
+		EmojiGraphicsZzz,
+		EmojiGraphicsDash,
+		EmojiGraphicsSweatDrops,
+		EmojiGraphicsNotes,
+		EmojiGraphicsMusicalNote,
+		EmojiGraphicsFire,
+		EmojiGraphicsPoop,
+		EmojiGraphicsIncreaseOne,
+		EmojiGraphicsThumbsup,
+		EmojiGraphicsDecreaseOne,
+		EmojiGraphicsThumbsdown,
+		EmojiGraphicsOkHand,
+		EmojiGraphicsPunch,
+		EmojiGraphicsFacepunch,
+		EmojiGraphicsFist,
+		EmojiGraphicsV,
+		EmojiGraphicsWave,
+		EmojiGraphicsHand,
+		EmojiGraphicsRaisedHand,
+		EmojiGraphicsOpenHands,
+		EmojiGraphicsPointUp,
+		EmojiGraphicsPointDown,
+		EmojiGraphicsPointLeft,
+		EmojiGraphicsPointRight,
+		EmojiGraphicsRaisedHands,
+		EmojiGraphicsPray,
+		EmojiGraphicsPointUp2,
+		EmojiGraphicsClap,
+		EmojiGraphicsMuscle,
+		EmojiGraphicsCouple,
+		EmojiGraphicsFamily,
+		EmojiGraphicsTwoMenHoldingHands,
+		EmojiGraphicsTwoWomenHoldingHands,
+		EmojiGraphicsDancer,
+		EmojiGraphicsDancers,
+		EmojiGraphicsOkWoman,
+		EmojiGraphicsNoGood,
+		EmojiGraphicsInformationDeskPerson,
+		EmojiGraphicsRaisingHand,
+		EmojiGraphicsBrideWithVeil,
+		EmojiGraphicsPersonWithPoutingFace,
+		EmojiGraphicsPersonFrowning,
+		EmojiGraphicsBow,
+		EmojiGraphicsCouplekiss,
+		EmojiGraphicsCoupleWithHeart,
+		EmojiGraphicsMassage,
+		EmojiGraphicsHaircut,
+		EmojiGraphicsNailCare,
+		EmojiGraphicsBoy,
+		EmojiGraphicsGirl,
+		EmojiGraphicsWoman,
+		EmojiGraphicsMan,
+		EmojiGraphicsBaby,
+		EmojiGraphicsOlderWoman,
+		EmojiGraphicsOlderMan,
+		EmojiGraphicsPersonWithBlondHair,
+		EmojiGraphicsManWithGuaPiMao,
+		EmojiGraphicsManWithTurban,
+		EmojiGraphicsConstructionWorker,
+		EmojiGraphicsCop,
+		EmojiGraphicsAngel,
+		EmojiGraphicsPrincess,
+		EmojiGraphicsSmileyCat,
+		EmojiGraphicsSmileCat,
+		EmojiGraphicsHeartEyesCat,
+		EmojiGraphicsKissingCat,
+		EmojiGraphicsSmirkCat,
+		EmojiGraphicsScreamCat,
+		EmojiGraphicsCryingCatFace,
+		EmojiGraphicsJoyCat,
+		EmojiGraphicsPoutingCat,
+		EmojiGraphicsJapaneseOgre,
+		EmojiGraphicsJapaneseGoblin,
+		EmojiGraphicsSeeNoEvil,
+		EmojiGraphicsHearNoEvil,
+		EmojiGraphicsSpeakNoEvil,
+		EmojiGraphicsGuardsman,
+		EmojiGraphicsSkull,
+		EmojiGraphicsFeet,
+		EmojiGraphicsLips,
+		EmojiGraphicsKiss,
+		EmojiGraphicsDroplet,
+		EmojiGraphicsEar,
+		EmojiGraphicsEyes,
+		EmojiGraphicsNose,
+		EmojiGraphicsTongue,
+		EmojiGraphicsLoveLetter,
+		EmojiGraphicsBustInSilhouette,
+		EmojiGraphicsBustsInSilhouette,
+		EmojiGraphicsSpeechBalloon,
+		EmojiGraphicsThoughtBalloon,
+	}
+}
+
+// String implements the Stringer interface.
+func (x EmojiGraphics) String() string {
+	return string(x)
+}
+
+// IsValid provides a quick way to determine if the typed value is
+// part of the allowed enumerated values
+func (x EmojiGraphics) IsValid() bool {
+	_, err := ParseEmojiGraphics(string(x))
+	return err == nil
+}
+
+var _EmojiGraphicsValue = map[string]EmojiGraphics{
+	"smile":                        EmojiGraphicsSmile,
+	"laughing":                     EmojiGraphicsLaughing,
+	"blush":                        EmojiGraphicsBlush,
+	"smiley":                       EmojiGraphicsSmiley,
+	"relaxed":                      EmojiGraphicsRelaxed,
+	"smirk":                        EmojiGraphicsSmirk,
+	"heart_eyes":                   EmojiGraphicsHeartEyes,
+	"kissing_heart":                EmojiGraphicsKissingHeart,
+	"kissing_closed_eyes":          EmojiGraphicsKissingClosedEyes,
+	"flushed":                      EmojiGraphicsFlushed,
+	"relieved":                     EmojiGraphicsRelieved,
+	"satisfied":                    EmojiGraphicsSatisfied,
+	"grin":                         EmojiGraphicsGrin,
+	"wink":                         EmojiGraphicsWink,
+	"stuck_out_tongue_winking_eye": EmojiGraphicsStuckOutTongueWinkingEye,
+	"stuck_out_tongue_closed_eyes": EmojiGraphicsStuckOutTongueClosedEyes,
+	"grinning":                     EmojiGraphicsGrinning,
+	"kissing":                      EmojiGraphicsKissing,
+	"kissing_smiling_eyes":         EmojiGraphicsKissingSmilingEyes,
+	"stuck_out_tongue":             EmojiGraphicsStuckOutTongue,
+	"sleeping":                     EmojiGraphicsSleeping,
+	"worried":                      EmojiGraphicsWorried,
+	"frowning":                     EmojiGraphicsFrowning,
+	"anguished":                    EmojiGraphicsAnguished,
+	"open_mouth":                   EmojiGraphicsOpenMouth,
+	"grimacing":                    EmojiGraphicsGrimacing,
+	"confused":                     EmojiGraphicsConfused,
+	"hushed":                       EmojiGraphicsHushed,
+	"expressionless":               EmojiGraphicsExpressionless,
+	"unamused":                     EmojiGraphicsUnamused,
+	"sweat_smile":                  EmojiGraphicsSweatSmile,
+	"sweat":                        EmojiGraphicsSweat,
+	"disappointed_relieved":        EmojiGraphicsDisappointedRelieved,
+	"weary":                        EmojiGraphicsWeary,
+	"pensive":                      EmojiGraphicsPensive,
+	"disappointed":                 EmojiGraphicsDisappointed,
+	"confounded":                   EmojiGraphicsConfounded,
+	"fearful":                      EmojiGraphicsFearful,
+	"cold_sweat":                   EmojiGraphicsColdSweat,
+	"persevere":                    EmojiGraphicsPersevere,
+	"cry":                          EmojiGraphicsCry,
+	"sob":                          EmojiGraphicsSob,
+	"joy":                          EmojiGraphicsJoy,
+	"astonished":                   EmojiGraphicsAstonished,
+	"scream":                       EmojiGraphicsScream,
+	"tired_face":                   EmojiGraphicsTiredFace,
+	"angry":                        EmojiGraphicsAngry,
+	"rage":                         EmojiGraphicsRage,
+	"triumph":                      EmojiGraphicsTriumph,
+	"sleepy":                       EmojiGraphicsSleepy,
+	"yum":                          EmojiGraphicsYum,
+	"mask":                         EmojiGraphicsMask,
+	"sunglasses":                   EmojiGraphicsSunglasses,
+	"dizzy_face":                   EmojiGraphicsDizzyFace,
+	"imp":                          EmojiGraphicsImp,
+	"smiling_imp":                  EmojiGraphicsSmilingImp,
+	"neutral_face":                 EmojiGraphicsNeutralFace,
+	"no_mouth":                     EmojiGraphicsNoMouth,
+	"innocent":                     EmojiGraphicsInnocent,
+	"alien":                        EmojiGraphicsAlien,
+	"yellow_heart":                 EmojiGraphicsYellowHeart,
+	"blue_heart":                   EmojiGraphicsBlueHeart,
+	"purple_heart":                 EmojiGraphicsPurpleHeart,
+	"heart":                        EmojiGraphicsHeart,
+	"green_heart":                  EmojiGraphicsGreenHeart,
+	"broken_heart":                 EmojiGraphicsBrokenHeart,
+	"heartbeat":                    EmojiGraphicsHeartbeat,
+	"heartpulse":                   EmojiGraphicsHeartpulse,
+	"two_hearts":                   EmojiGraphicsTwoHearts,
+	"revolving_hearts":             EmojiGraphicsRevolvingHearts,
+	"cupid":                        EmojiGraphicsCupid,
+	"sparkling_heart":              EmojiGraphicsSparklingHeart,
+	"sparkles":                     EmojiGraphicsSparkles,
+	"star":                         EmojiGraphicsStar,
+	"star2":                        EmojiGraphicsStar2,
+	"dizzy":                        EmojiGraphicsDizzy,
+	"boom":                         EmojiGraphicsBoom,
+	"collision":                    EmojiGraphicsCollision,
+	"anger":                        EmojiGraphicsAnger,
+	"exclamation":                  EmojiGraphicsExclamation,
+	"question":                     EmojiGraphicsQuestion,
+	"grey_exclamation":             EmojiGraphicsGreyExclamation,
+	"grey_question":                EmojiGraphicsGreyQuestion,
+	"zzz":                          EmojiGraphicsZzz,
+	"dash":                         EmojiGraphicsDash,
+	"sweat_drops":                  EmojiGraphicsSweatDrops,
+	"notes":                        EmojiGraphicsNotes,
+	"musical_note":                 EmojiGraphicsMusicalNote,
+	"fire":                         EmojiGraphicsFire,
+	"poop":                         EmojiGraphicsPoop,
+	"+1":                           EmojiGraphicsIncreaseOne,
+	"thumbsup":                     EmojiGraphicsThumbsup,
+	"-1":                           EmojiGraphicsDecreaseOne,
+	"thumbsdown":                   EmojiGraphicsThumbsdown,
+	"ok_hand":                      EmojiGraphicsOkHand,
+	"punch":                        EmojiGraphicsPunch,
+	"facepunch":                    EmojiGraphicsFacepunch,
+	"fist":                         EmojiGraphicsFist,
+	"v":                            EmojiGraphicsV,
+	"wave":                         EmojiGraphicsWave,
+	"hand":                         EmojiGraphicsHand,
+	"raised_hand":                  EmojiGraphicsRaisedHand,
+	"open_hands":                   EmojiGraphicsOpenHands,
+	"point_up":                     EmojiGraphicsPointUp,
+	"point_down":                   EmojiGraphicsPointDown,
+	"point_left":                   EmojiGraphicsPointLeft,
+	"point_right":                  EmojiGraphicsPointRight,
+	"raised_hands":                 EmojiGraphicsRaisedHands,
+	"pray":                         EmojiGraphicsPray,
+	"point_up_2":                   EmojiGraphicsPointUp2,
+	"clap":                         EmojiGraphicsClap,
+	"muscle":                       EmojiGraphicsMuscle,
+	"couple":                       EmojiGraphicsCouple,
+	"family":                       EmojiGraphicsFamily,
+	"two_men_holding_hands":        EmojiGraphicsTwoMenHoldingHands,
+	"two_women_holding_hands":      EmojiGraphicsTwoWomenHoldingHands,
+	"dancer":                       EmojiGraphicsDancer,
+	"dancers":                      EmojiGraphicsDancers,
+	"ok_woman":                     EmojiGraphicsOkWoman,
+	"no_good":                      EmojiGraphicsNoGood,
+	"information_desk_person":      EmojiGraphicsInformationDeskPerson,
+	"raising_hand":                 EmojiGraphicsRaisingHand,
+	"bride_with_veil":              EmojiGraphicsBrideWithVeil,
+	"person_with_pouting_face":     EmojiGraphicsPersonWithPoutingFace,
+	"person_frowning":              EmojiGraphicsPersonFrowning,
+	"bow":                          EmojiGraphicsBow,
+	"couplekiss":                   EmojiGraphicsCouplekiss,
+	"couple_with_heart":            EmojiGraphicsCoupleWithHeart,
+	"massage":                      EmojiGraphicsMassage,
+	"haircut":                      EmojiGraphicsHaircut,
+	"nail_care":                    EmojiGraphicsNailCare,
+	"boy":                          EmojiGraphicsBoy,
+	"girl":                         EmojiGraphicsGirl,
+	"woman":                        EmojiGraphicsWoman,
+	"man":                          EmojiGraphicsMan,
+	"baby":                         EmojiGraphicsBaby,
+	"older_woman":                  EmojiGraphicsOlderWoman,
+	"older_man":                    EmojiGraphicsOlderMan,
+	"person_with_blond_hair":       EmojiGraphicsPersonWithBlondHair,
+	"man_with_gua_pi_mao":          EmojiGraphicsManWithGuaPiMao,
+	"man_with_turban":              EmojiGraphicsManWithTurban,
+	"construction_worker":          EmojiGraphicsConstructionWorker,
+	"cop":                          EmojiGraphicsCop,
+	"angel":                        EmojiGraphicsAngel,
+	"princess":                     EmojiGraphicsPrincess,
+	"smiley_cat":                   EmojiGraphicsSmileyCat,
+	"smile_cat":                    EmojiGraphicsSmileCat,
+	"heart_eyes_cat":               EmojiGraphicsHeartEyesCat,
+	"kissing_cat":                  EmojiGraphicsKissingCat,
+	"smirk_cat":                    EmojiGraphicsSmirkCat,
+	"scream_cat":                   EmojiGraphicsScreamCat,
+	"crying_cat_face":              EmojiGraphicsCryingCatFace,
+	"joy_cat":                      EmojiGraphicsJoyCat,
+	"pouting_cat":                  EmojiGraphicsPoutingCat,
+	"japanese_ogre":                EmojiGraphicsJapaneseOgre,
+	"japanese_goblin":              EmojiGraphicsJapaneseGoblin,
+	"see_no_evil":                  EmojiGraphicsSeeNoEvil,
+	"hear_no_evil":                 EmojiGraphicsHearNoEvil,
+	"speak_no_evil":                EmojiGraphicsSpeakNoEvil,
+	"guardsman":                    EmojiGraphicsGuardsman,
+	"skull":                        EmojiGraphicsSkull,
+	"feet":                         EmojiGraphicsFeet,
+	"lips":                         EmojiGraphicsLips,
+	"kiss":                         EmojiGraphicsKiss,
+	"droplet":                      EmojiGraphicsDroplet,
+	"ear":                          EmojiGraphicsEar,
+	"eyes":                         EmojiGraphicsEyes,
+	"nose":                         EmojiGraphicsNose,
+	"tongue":                       EmojiGraphicsTongue,
+	"love_letter":                  EmojiGraphicsLoveLetter,
+	"bust_in_silhouette":           EmojiGraphicsBustInSilhouette,
+	"busts_in_silhouette":          EmojiGraphicsBustsInSilhouette,
+	"speech_balloon":               EmojiGraphicsSpeechBalloon,
+	"thought_balloon":              EmojiGraphicsThoughtBalloon,
+}
+
+// ParseEmojiGraphics attempts to convert a string to a EmojiGraphics.
+func ParseEmojiGraphics(name string) (EmojiGraphics, error) {
+	if x, ok := _EmojiGraphicsValue[name]; ok {
+		return x, nil
+	}
+	return EmojiGraphics(""), fmt.Errorf("%s is %w", name, ErrInvalidEmojiGraphics)
+}
+
+// MustParseEmojiGraphics converts a string to a EmojiGraphics, and panics if is not valid.
+func MustParseEmojiGraphics(name string) EmojiGraphics {
+	val, err := ParseEmojiGraphics(name)
+	if err != nil {
+		panic(err)
+	}
+	return val
+}
+
+func (x EmojiGraphics) Ptr() *EmojiGraphics {
+	return &x
+}
+
+const (
+	// EmojiVditorDoge is a EmojiVditor of type doge.
+	EmojiVditorDoge EmojiVditor = "doge"
+	// EmojiVditorTrollface is a EmojiVditor of type trollface.
+	EmojiVditorTrollface EmojiVditor = "trollface"
+	// EmojiVditorHuaji is a EmojiVditor of type huaji.
+	EmojiVditorHuaji EmojiVditor = "huaji"
+	// EmojiVditorOctocat is a EmojiVditor of type octocat.
+	EmojiVditorOctocat EmojiVditor = "octocat"
+	// EmojiVditorWulian is a EmojiVditor of type wulian.
+	EmojiVditorWulian EmojiVditor = "wulian"
+)
+
+var ErrInvalidEmojiVditor = fmt.Errorf("not a valid EmojiVditor, try [%s]", strings.Join(_EmojiVditorNames, ", "))
+
+var _EmojiVditorNames = []string{
+	string(EmojiVditorDoge),
+	string(EmojiVditorTrollface),
+	string(EmojiVditorHuaji),
+	string(EmojiVditorOctocat),
+	string(EmojiVditorWulian),
+}
+
+// EmojiVditorNames returns a list of possible string values of EmojiVditor.
+func EmojiVditorNames() []string {
+	tmp := make([]string, len(_EmojiVditorNames))
+	copy(tmp, _EmojiVditorNames)
+	return tmp
+}
+
+// EmojiVditorValues returns a list of the values for EmojiVditor
+func EmojiVditorValues() []EmojiVditor {
+	return []EmojiVditor{
+		EmojiVditorDoge,
+		EmojiVditorTrollface,
+		EmojiVditorHuaji,
+		EmojiVditorOctocat,
+		EmojiVditorWulian,
+	}
+}
+
+// String implements the Stringer interface.
+func (x EmojiVditor) String() string {
+	return string(x)
+}
+
+// IsValid provides a quick way to determine if the typed value is
+// part of the allowed enumerated values
+func (x EmojiVditor) IsValid() bool {
+	_, err := ParseEmojiVditor(string(x))
+	return err == nil
+}
+
+var _EmojiVditorValue = map[string]EmojiVditor{
+	"doge":      EmojiVditorDoge,
+	"trollface": EmojiVditorTrollface,
+	"huaji":     EmojiVditorHuaji,
+	"octocat":   EmojiVditorOctocat,
+	"wulian":    EmojiVditorWulian,
+}
+
+// ParseEmojiVditor attempts to convert a string to a EmojiVditor.
+func ParseEmojiVditor(name string) (EmojiVditor, error) {
+	if x, ok := _EmojiVditorValue[name]; ok {
+		return x, nil
+	}
+	return EmojiVditor(""), fmt.Errorf("%s is %w", name, ErrInvalidEmojiVditor)
+}
+
+// MustParseEmojiVditor converts a string to a EmojiVditor, and panics if is not valid.
+func MustParseEmojiVditor(name string) EmojiVditor {
+	val, err := ParseEmojiVditor(name)
+	if err != nil {
+		panic(err)
+	}
+	return val
+}
+
+func (x EmojiVditor) Ptr() *EmojiVditor {
+	return &x
+}
+
+const (
 	// GestureTypeRock is a GestureType of type Rock.
 	// 石头
 	GestureTypeRock GestureType = iota

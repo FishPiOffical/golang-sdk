@@ -1,6 +1,9 @@
 package sdk
 
 import (
+	"fmt"
+	"net/url"
+
 	"github.com/FishPiOffical/golang-sdk/types"
 )
 
@@ -204,4 +207,17 @@ func (s *FishPiSDK) GetSiGuoYa() (*types.ApiResponse[[]*types.MuteUser], error) 
 	}
 
 	return response, nil
+}
+
+// GetDefaultEmojis 获取默认表情列表
+func (s *FishPiSDK) GetDefaultEmojis() map[string]any {
+	emojis := make(map[string]any)
+	for _, emoji := range types.EmojiVditorNames() {
+		emojis[emoji] = fmt.Sprintf(EmojiVditorFormat, emoji)
+	}
+	link, _ := url.Parse(s.client.BaseURL)
+	for _, emoji := range types.EmojiGraphicsNames() {
+		emojis[emoji] = fmt.Sprintf(EmojiGraphicsFormat, link.Host, emoji)
+	}
+	return emojis
 }

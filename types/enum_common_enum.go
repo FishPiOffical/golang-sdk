@@ -12,6 +12,84 @@ import (
 )
 
 const (
+	// LogInfoTypeSimple is a LogInfoType of type simple.
+	// 基础日志
+	LogInfoTypeSimple LogInfoType = "simple"
+)
+
+var ErrInvalidLogInfoType = fmt.Errorf("not a valid LogInfoType, try [%s]", strings.Join(_LogInfoTypeNames, ", "))
+
+var _LogInfoTypeNames = []string{
+	string(LogInfoTypeSimple),
+}
+
+// LogInfoTypeNames returns a list of possible string values of LogInfoType.
+func LogInfoTypeNames() []string {
+	tmp := make([]string, len(_LogInfoTypeNames))
+	copy(tmp, _LogInfoTypeNames)
+	return tmp
+}
+
+// LogInfoTypeValues returns a list of the values for LogInfoType
+func LogInfoTypeValues() []LogInfoType {
+	return []LogInfoType{
+		LogInfoTypeSimple,
+	}
+}
+
+// String implements the Stringer interface.
+func (x LogInfoType) String() string {
+	return string(x)
+}
+
+// IsValid provides a quick way to determine if the typed value is
+// part of the allowed enumerated values
+func (x LogInfoType) IsValid() bool {
+	_, err := ParseLogInfoType(string(x))
+	return err == nil
+}
+
+var _LogInfoTypeValue = map[string]LogInfoType{
+	"simple": LogInfoTypeSimple,
+}
+
+// ParseLogInfoType attempts to convert a string to a LogInfoType.
+func ParseLogInfoType(name string) (LogInfoType, error) {
+	if x, ok := _LogInfoTypeValue[name]; ok {
+		return x, nil
+	}
+	return LogInfoType(""), fmt.Errorf("%s is %w", name, ErrInvalidLogInfoType)
+}
+
+// MustParseLogInfoType converts a string to a LogInfoType, and panics if is not valid.
+func MustParseLogInfoType(name string) LogInfoType {
+	val, err := ParseLogInfoType(name)
+	if err != nil {
+		panic(err)
+	}
+	return val
+}
+
+func (x LogInfoType) Ptr() *LogInfoType {
+	return &x
+}
+
+// MarshalText implements the text marshaller method.
+func (x LogInfoType) MarshalText() ([]byte, error) {
+	return []byte(string(x)), nil
+}
+
+// UnmarshalText implements the text unmarshaller method.
+func (x *LogInfoType) UnmarshalText(text []byte) error {
+	tmp, err := ParseLogInfoType(string(text))
+	if err != nil {
+		return err
+	}
+	*x = tmp
+	return nil
+}
+
+const (
 	// ReportDataTypeArticle is a ReportDataType of type Article.
 	// 文章
 	ReportDataTypeArticle ReportDataType = iota
