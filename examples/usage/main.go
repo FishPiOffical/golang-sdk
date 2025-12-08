@@ -132,12 +132,15 @@ func main() {
 	//postUnfollowArticle()
 	//postFollowArticleWatch()
 	//postUnfollowArticleWatch()
-	postArticleReward()
+	//postArticleReward()
 
 	// 清风明月
 	//getBreezemoons()
 	//postBreezemoon()
 	//getUserBreezemoons()
+
+	// 私信
+	getChatMessage()
 
 	// 金手指
 	//postMofishScore()
@@ -499,6 +502,15 @@ func getUserBreezemoons() {
 		return
 	}
 	logger.Info("指定用户的清风明月列表结果", slog.Any("resp", resp))
+}
+
+func getChatMessage() {
+	resp, err := client.GetChatMessage(botUserName, 1, 2)
+	if err != nil {
+		logger.Error("获取私信聊天消息失败", slog.String("error", err.Error()))
+		return
+	}
+	logger.Info("私信聊天消息结果", slog.Any("resp", resp))
 }
 
 func postArticle() {

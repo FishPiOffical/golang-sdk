@@ -13,6 +13,13 @@ type ApiResponse[T any] struct {
 	Data T      `json:"data"`
 }
 
+// ResultResponse 通用API响应结构(带Data字段)
+type ResultResponse[T any] struct {
+	Result int    `json:"result"`
+	Msg    string `json:"msg,omitempty"`
+	Data   T      `json:"data"`
+}
+
 // User 其他用户的信息
 type User struct {
 	OId                string      `json:"oId"`
