@@ -1,14 +1,10 @@
 package sdk
 
 import (
-	"bytes"
 	"fmt"
 	"log/slog"
-	"net/http"
 
 	"github.com/FishPiOffical/golang-sdk/config"
-	"github.com/FishPiOffical/golang-sdk/types"
-
 	"github.com/imroc/req/v3"
 )
 
@@ -92,81 +88,4 @@ func (s *FishPiSDK) GetUserAgent() string {
 // GetAPIKey 获取当前API Key
 func (s *FishPiSDK) GetAPIKey() string {
 	return s.configProvider.Get().ApiKey
-}
-
-// GetCaptcha 获取验证码
-func (s *FishPiSDK) GetCaptcha() (http.Header, *bytes.Buffer, error) {
-	body := new(bytes.Buffer)
-	res, err := s.client.R().
-		SetOutput(body).
-		Get("/captcha")
-	if err != nil {
-		return nil, nil, fmt.Errorf("failed to get captcha: %w", err)
-	}
-	return res.Header, body, nil
-}
-
-// Register 用户注册
-func (s *FishPiSDK) Register(req *types.PostRegisterRequest) error {
-	if req == nil {
-		return fmt.Errorf("request is required")
-	}
-	if req.UserName == "" {
-		return fmt.Errorf("userName is required")
-	}
-
-	res, err := s.client.R().
-		SetBodyJsonMarshal(req).
-		Post("/register")
-	if err != nil {
-		return fmt.Errorf("failed to register: %w", err)
-	}
-	slog.Info("请求结果", slog.String("res", res.String()))
-
-	return nil
-}
-
-// VerifyPhone 验证短信验证码是否正确
-func (s *FishPiSDK) VerifyPhone(code string) error {
-	if code == "" {
-		return fmt.Errorf("code is required")
-	}
-
-	res, err := s.client.R().
-		SetQueryParam("code", code).
-		Get("/verify")
-	if err != nil {
-		return fmt.Errorf("failed to verify code: %w", err)
-	}
-	slog.Info("验证结果", slog.String("res", res.String()))
-
-	return nil
-}
-
-// PreRegister 预注册
-func (s *FishPiSDK) PreRegister(userName, userPhone, inviteCode, captcha string) error {
-	if userName == "" {
-		return fmt.Errorf("userName is required")
-	}
-
-	var resp types.SimpleResponse
-	_, err := s.client.R().
-		SetBodyJsonMarshal(map[string]string{
-			"userName":   userName,
-			"userPhone":  userPhone,
-			"invitecode": inviteCode,
-			"captcha":    captcha,
-		}).
-		SetSuccessResult(&resp).
-		Post("/register/preregister")
-
-	if err != nil {
-		return fmt.Errorf("failed to pre-register: %w", err)
-	}
-
-	if resp.Code != 0 {
-		return fmt.Errorf("pre-register failed: %s", resp.Msg)
-	}
-
-	return nil
 }
