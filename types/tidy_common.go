@@ -17,7 +17,7 @@ type ApiResponse[T any] struct {
 type ResultResponse[T any] struct {
 	Result int    `json:"result"`
 	Msg    string `json:"msg,omitempty"`
-	Data   T      `json:"data"`
+	Data   T      `json:"data,omitempty"`
 }
 
 // User 其他用户的信息

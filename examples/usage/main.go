@@ -140,7 +140,8 @@ func main() {
 	//getUserBreezemoons()
 
 	// 私信
-	getChatMessage()
+	//getChatMessage()
+	getChatMarkAsRead()
 
 	// 金手指
 	//postMofishScore()
@@ -511,6 +512,15 @@ func getChatMessage() {
 		return
 	}
 	logger.Info("私信聊天消息结果", slog.Any("resp", resp))
+}
+
+func getChatMarkAsRead() {
+	resp, err := client.GetChatMarkAsRead(botUserName)
+	if err != nil {
+		logger.Error("标记私信聊天消息已读失败", slog.String("error", err.Error()))
+		return
+	}
+	logger.Info("标记私信聊天消息已读结果", slog.Any("resp", resp))
 }
 
 func postArticle() {
