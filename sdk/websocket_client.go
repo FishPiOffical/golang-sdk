@@ -526,6 +526,7 @@ func (h *genericWebSocketHandler[T]) OnMessage(_ *gws.Conn, message *gws.Message
 	}()
 
 	data := message.Bytes()
+	h.client.logger.Debug("received message", slog.String("data", string(data)))
 
 	// 使用消息解析器解析消息
 	msg, err := h.client.messageParser(data)

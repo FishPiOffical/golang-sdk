@@ -51,3 +51,20 @@ music // 音乐
 )
 */
 type ChatroomMsgJsonSubType string
+
+// ArticleChannelType 文章频道消息类型
+/*
+ENUM(
+articleHeat // 文章热度
+)
+*/
+type ArticleChannelType string
+
+// ArticleChannelOperation 文章频道操作类型
+/*
+ENUM(
+increase = "+" // 增加
+decrease = "-" // 减少
+)
+*/
+type ArticleChannelOperation string

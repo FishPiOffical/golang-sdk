@@ -12,6 +12,168 @@ import (
 )
 
 const (
+	// ArticleChannelOperationIncrease is a ArticleChannelOperation of type increase.
+	// 增加
+	ArticleChannelOperationIncrease ArticleChannelOperation = "+"
+	// ArticleChannelOperationDecrease is a ArticleChannelOperation of type decrease.
+	// 减少
+	ArticleChannelOperationDecrease ArticleChannelOperation = "-"
+)
+
+var ErrInvalidArticleChannelOperation = fmt.Errorf("not a valid ArticleChannelOperation, try [%s]", strings.Join(_ArticleChannelOperationNames, ", "))
+
+var _ArticleChannelOperationNames = []string{
+	string(ArticleChannelOperationIncrease),
+	string(ArticleChannelOperationDecrease),
+}
+
+// ArticleChannelOperationNames returns a list of possible string values of ArticleChannelOperation.
+func ArticleChannelOperationNames() []string {
+	tmp := make([]string, len(_ArticleChannelOperationNames))
+	copy(tmp, _ArticleChannelOperationNames)
+	return tmp
+}
+
+// ArticleChannelOperationValues returns a list of the values for ArticleChannelOperation
+func ArticleChannelOperationValues() []ArticleChannelOperation {
+	return []ArticleChannelOperation{
+		ArticleChannelOperationIncrease,
+		ArticleChannelOperationDecrease,
+	}
+}
+
+// String implements the Stringer interface.
+func (x ArticleChannelOperation) String() string {
+	return string(x)
+}
+
+// IsValid provides a quick way to determine if the typed value is
+// part of the allowed enumerated values
+func (x ArticleChannelOperation) IsValid() bool {
+	_, err := ParseArticleChannelOperation(string(x))
+	return err == nil
+}
+
+var _ArticleChannelOperationValue = map[string]ArticleChannelOperation{
+	"+": ArticleChannelOperationIncrease,
+	"-": ArticleChannelOperationDecrease,
+}
+
+// ParseArticleChannelOperation attempts to convert a string to a ArticleChannelOperation.
+func ParseArticleChannelOperation(name string) (ArticleChannelOperation, error) {
+	if x, ok := _ArticleChannelOperationValue[name]; ok {
+		return x, nil
+	}
+	return ArticleChannelOperation(""), fmt.Errorf("%s is %w", name, ErrInvalidArticleChannelOperation)
+}
+
+// MustParseArticleChannelOperation converts a string to a ArticleChannelOperation, and panics if is not valid.
+func MustParseArticleChannelOperation(name string) ArticleChannelOperation {
+	val, err := ParseArticleChannelOperation(name)
+	if err != nil {
+		panic(err)
+	}
+	return val
+}
+
+func (x ArticleChannelOperation) Ptr() *ArticleChannelOperation {
+	return &x
+}
+
+// MarshalText implements the text marshaller method.
+func (x ArticleChannelOperation) MarshalText() ([]byte, error) {
+	return []byte(string(x)), nil
+}
+
+// UnmarshalText implements the text unmarshaller method.
+func (x *ArticleChannelOperation) UnmarshalText(text []byte) error {
+	tmp, err := ParseArticleChannelOperation(string(text))
+	if err != nil {
+		return err
+	}
+	*x = tmp
+	return nil
+}
+
+const (
+	// ArticleChannelTypeArticleHeat is a ArticleChannelType of type articleHeat.
+	// 文章热度
+	ArticleChannelTypeArticleHeat ArticleChannelType = "articleHeat"
+)
+
+var ErrInvalidArticleChannelType = fmt.Errorf("not a valid ArticleChannelType, try [%s]", strings.Join(_ArticleChannelTypeNames, ", "))
+
+var _ArticleChannelTypeNames = []string{
+	string(ArticleChannelTypeArticleHeat),
+}
+
+// ArticleChannelTypeNames returns a list of possible string values of ArticleChannelType.
+func ArticleChannelTypeNames() []string {
+	tmp := make([]string, len(_ArticleChannelTypeNames))
+	copy(tmp, _ArticleChannelTypeNames)
+	return tmp
+}
+
+// ArticleChannelTypeValues returns a list of the values for ArticleChannelType
+func ArticleChannelTypeValues() []ArticleChannelType {
+	return []ArticleChannelType{
+		ArticleChannelTypeArticleHeat,
+	}
+}
+
+// String implements the Stringer interface.
+func (x ArticleChannelType) String() string {
+	return string(x)
+}
+
+// IsValid provides a quick way to determine if the typed value is
+// part of the allowed enumerated values
+func (x ArticleChannelType) IsValid() bool {
+	_, err := ParseArticleChannelType(string(x))
+	return err == nil
+}
+
+var _ArticleChannelTypeValue = map[string]ArticleChannelType{
+	"articleHeat": ArticleChannelTypeArticleHeat,
+}
+
+// ParseArticleChannelType attempts to convert a string to a ArticleChannelType.
+func ParseArticleChannelType(name string) (ArticleChannelType, error) {
+	if x, ok := _ArticleChannelTypeValue[name]; ok {
+		return x, nil
+	}
+	return ArticleChannelType(""), fmt.Errorf("%s is %w", name, ErrInvalidArticleChannelType)
+}
+
+// MustParseArticleChannelType converts a string to a ArticleChannelType, and panics if is not valid.
+func MustParseArticleChannelType(name string) ArticleChannelType {
+	val, err := ParseArticleChannelType(name)
+	if err != nil {
+		panic(err)
+	}
+	return val
+}
+
+func (x ArticleChannelType) Ptr() *ArticleChannelType {
+	return &x
+}
+
+// MarshalText implements the text marshaller method.
+func (x ArticleChannelType) MarshalText() ([]byte, error) {
+	return []byte(string(x)), nil
+}
+
+// UnmarshalText implements the text unmarshaller method.
+func (x *ArticleChannelType) UnmarshalText(text []byte) error {
+	tmp, err := ParseArticleChannelType(string(text))
+	if err != nil {
+		return err
+	}
+	*x = tmp
+	return nil
+}
+
+const (
 	// ChatroomMsgJsonSubTypeRandom is a ChatroomMsgJsonSubType of type random.
 	// 拼手气红包
 	ChatroomMsgJsonSubTypeRandom ChatroomMsgJsonSubType = "random"

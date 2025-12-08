@@ -152,3 +152,9 @@ type ChatroomMsgJsonInfo struct {
 	Source   string `json:"source"`   // 音乐链接
 	Title    string `json:"title"`    // 音乐名
 }
+
+type ArticleChannelMsg struct {
+	ArticleId string                  `json:"articleId"`
+	Type      ArticleChannelType      `json:"type"`
+	Operation ArticleChannelOperation `json:"operation"`
+}

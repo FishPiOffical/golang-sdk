@@ -150,6 +150,7 @@ func main() {
 	//userChannelWebsocket() // 通知
 	//chatChannelWebsocket() // 私聊
 	//chatroomWebsocket() // 聊天室
+	articleChannelWebsocket() // 文章热度通知
 
 }
 
@@ -987,6 +988,64 @@ func chatroomWebsocket() {
 	// 关闭连接
 	slog.Debug("正在断开连接...")
 	if err = ws.Close(); err != nil {
+		slog.Error("关闭连接失败", slog.Any("error", err))
+	}
+	slog.Debug("已断开连接")
+}
+
+func articleChannelWebsocket() {
+
+	// 使用函数式选项配置WebSocket客户端
+	ws := client.NewArticleChannelWebSocket(
+		editArticleId,
+		types.ArticleTypeThought,
+		// 可选：配置日志级别
+		sdk.WithLogger[types.ArticleChannelMsg](slog.Default()),
+		// 可选：配置重连失败回调
+		sdk.WithReconnectFailedCallback[types.ArticleChannelMsg](func(attempts int, err error) {
+			slog.Error("重连失败", slog.Int("失败次数", attempts), slog.Any("错误", err))
+		}),
+	)
+
+	// 设置消息回调
+	ws.OnMessage(func(msg *types.ArticleChannelMsg) {
+		slog.Info("[文章频道消息] 来自用户的消息",
+			slog.Any("msg", msg),
+		)
+	})
+
+	// 设置错误回调
+	ws.OnError(func(err error) {
+		slog.Error("[错误] WebSocket错误", slog.Any("error", err))
+	})
+
+	// 设置关闭回调
+	ws.OnClose(func() {
+		slog.Debug("[系统] WebSocket连接已关闭")
+	})
+
+	// 连接到文章频道
+	slog.Debug("正在连接到文章频道...")
+	if err := ws.Connect(); err != nil {
+		slog.Error("连接失败", slog.Any("error", err))
+		return
+	}
+	slog.Debug("已连接到文章频道！")
+
+	// 等待一下确保连接建立
+	time.Sleep(2 * time.Second)
+
+	// 设置信号处理，优雅退出
+	sigChan := make(chan os.Signal, 1)
+	signal.Notify(sigChan, syscall.SIGINT, syscall.SIGTERM)
+
+	// 保持程序运行
+	slog.Debug("文章频道已就绪，按 Ctrl+C 退出...")
+	<-sigChan
+
+	// 关闭连接
+	slog.Debug("正在断开连接...")
+	if err := ws.Close(); err != nil {
 		slog.Error("关闭连接失败", slog.Any("error", err))
 	}
 	slog.Debug("已断开连接")
