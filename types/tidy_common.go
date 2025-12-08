@@ -18,6 +18,7 @@ type ResultResponse[T any] struct {
 	Result int    `json:"result"`
 	Msg    string `json:"msg,omitempty"`
 	Data   T      `json:"data,omitempty"`
+	Cached bool   `json:"cached,omitempty"` // /chat/get-list /chat/has-unread 接口返回
 }
 
 // User 其他用户的信息
