@@ -254,26 +254,30 @@ const (
 	// ArticleTypeNormal is a ArticleType of type Normal.
 	// 普通帖子
 	ArticleTypeNormal ArticleType = iota
-	// ArticleTypeDiscussion is a ArticleType of type Discussion.
-	// 讨论区
-	ArticleTypeDiscussion
-	// ArticleTypeCity is a ArticleType of type City.
-	// 同城
-	ArticleTypeCity
-	// ArticleTypeQna is a ArticleType of type Qna.
-	// 问答
-	ArticleTypeQna
+	// ArticleTypePrivate is a ArticleType of type Private.
+	// 机要
+	ArticleTypePrivate
+	// ArticleTypeBroadcast is a ArticleType of type Broadcast.
+	// 同城广播
+	ArticleTypeBroadcast
+	// ArticleTypeThought is a ArticleType of type Thought.
+	// 思绪
+	ArticleTypeThought
+	// ArticleTypeQuestion is a ArticleType of type Question.
+	// 问题
+	ArticleTypeQuestion ArticleType = iota + 1
 )
 
 var ErrInvalidArticleType = fmt.Errorf("not a valid ArticleType, try [%s]", strings.Join(_ArticleTypeNames, ", "))
 
-const _ArticleTypeName = "normaldiscussioncityqna"
+const _ArticleTypeName = "normalprivatebroadcastthoughtquestion"
 
 var _ArticleTypeNames = []string{
 	_ArticleTypeName[0:6],
-	_ArticleTypeName[6:16],
-	_ArticleTypeName[16:20],
-	_ArticleTypeName[20:23],
+	_ArticleTypeName[6:13],
+	_ArticleTypeName[13:22],
+	_ArticleTypeName[22:29],
+	_ArticleTypeName[29:37],
 }
 
 // ArticleTypeNames returns a list of possible string values of ArticleType.
@@ -287,17 +291,19 @@ func ArticleTypeNames() []string {
 func ArticleTypeValues() []ArticleType {
 	return []ArticleType{
 		ArticleTypeNormal,
-		ArticleTypeDiscussion,
-		ArticleTypeCity,
-		ArticleTypeQna,
+		ArticleTypePrivate,
+		ArticleTypeBroadcast,
+		ArticleTypeThought,
+		ArticleTypeQuestion,
 	}
 }
 
 var _ArticleTypeMap = map[ArticleType]string{
-	ArticleTypeNormal:     _ArticleTypeName[0:6],
-	ArticleTypeDiscussion: _ArticleTypeName[6:16],
-	ArticleTypeCity:       _ArticleTypeName[16:20],
-	ArticleTypeQna:        _ArticleTypeName[20:23],
+	ArticleTypeNormal:    _ArticleTypeName[0:6],
+	ArticleTypePrivate:   _ArticleTypeName[6:13],
+	ArticleTypeBroadcast: _ArticleTypeName[13:22],
+	ArticleTypeThought:   _ArticleTypeName[22:29],
+	ArticleTypeQuestion:  _ArticleTypeName[29:37],
 }
 
 // String implements the Stringer interface.
@@ -317,9 +323,10 @@ func (x ArticleType) IsValid() bool {
 
 var _ArticleTypeValue = map[string]ArticleType{
 	_ArticleTypeName[0:6]:   ArticleTypeNormal,
-	_ArticleTypeName[6:16]:  ArticleTypeDiscussion,
-	_ArticleTypeName[16:20]: ArticleTypeCity,
-	_ArticleTypeName[20:23]: ArticleTypeQna,
+	_ArticleTypeName[6:13]:  ArticleTypePrivate,
+	_ArticleTypeName[13:22]: ArticleTypeBroadcast,
+	_ArticleTypeName[22:29]: ArticleTypeThought,
+	_ArticleTypeName[29:37]: ArticleTypeQuestion,
 }
 
 // ParseArticleType attempts to convert a string to a ArticleType.

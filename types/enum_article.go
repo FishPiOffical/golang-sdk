@@ -17,9 +17,10 @@ type ArticleListType string
 /*
 ENUM(
 normal=0 // 普通帖子
-discussion=1 // 讨论区
-city=2 // 同城
-qna=3 // 问答
+private=1 // 机要
+broadcast=2 // 同城广播
+thought=3 // 思绪
+question=5 // 问题
 )
 */
 type ArticleType int
