@@ -127,6 +127,7 @@ func main() {
 	//postVoteUpComment()
 	//postCommentThank()
 	//postCommentRemove()
+	//postArticleHeat()
 
 	// 清风明月
 	//getBreezemoons()
@@ -134,14 +135,21 @@ func main() {
 	//getUserBreezemoons()
 
 	// 金手指
-	//postArticleHeat()
+	//postMofishScore()
+	//postQueryLatestLoginIp()
 	//postGiveMetal()
 	//postRemoveMetal()
+	//postRemoveMetalByUserId()
+	//postUserQueryItems()
+	//postUserEditItems()
+	//postUserEditPoints()
+	//postUserLiveness()
+	//postYesterdayLivenessReward()
 
 	// websocket
 	//userChannelWebsocket() // 通知
 	//chatChannelWebsocket() // 私聊
-	chatroomWebsocket() // 聊天室
+	//chatroomWebsocket() // 聊天室
 
 }
 
@@ -654,6 +662,24 @@ func postArticleHeat() {
 	logger.Info("文章升温结果", slog.Any("resp", resp))
 }
 
+func postMofishScore() {
+	resp, err := client.PostMoFishScore(username, 10, time.Now().UnixMilli())
+	if err != nil {
+		logger.Error("提交摸鱼分数失败", slog.Any("error", err))
+		return
+	}
+	logger.Info("提交摸鱼分数结果", slog.Any("resp", resp))
+}
+
+func postQueryLatestLoginIp() {
+	resp, err := client.PostQueryLatestLoginIp(username)
+	if err != nil {
+		logger.Error("查询用户最新登录IP失败", slog.String("error", err.Error()))
+		return
+	}
+	logger.Info("查询用户最新登录IP结果", slog.Any("resp", resp))
+}
+
 func postGiveMetal() {
 	resp, err := client.PostGiveMetal("AziAzi", &types.Metal{
 		Name:        "最受欢迎设计师S1",
@@ -675,6 +701,60 @@ func postRemoveMetal() {
 		return
 	}
 	logger.Info("移除徽章结果", slog.Any("resp", resp))
+}
+
+func postRemoveMetalByUserId() {
+	resp, err := client.PostRemoveMetalByUserId("userOId", "最受欢迎设计师S1测试徽章")
+	if err != nil {
+		logger.Error("通过用户ID移除徽章失败", slog.String("error", err.Error()))
+		return
+	}
+	logger.Info("通过用户ID移除徽章结果", slog.Any("resp", resp))
+}
+
+func postUserQueryItems() {
+	resp, err := client.PostUserQueryItems(username)
+	if err != nil {
+		logger.Error("查询用户物品失败", slog.String("error", err.Error()))
+		return
+	}
+	logger.Info("查询用户物品结果", slog.Any("resp", resp))
+}
+
+func postUserEditItems() {
+	resp, err := client.PostUserEditItems(username, types.ItemTypeSysCheckinRemain, 0)
+	if err != nil {
+		logger.Error("编辑用户物品失败", slog.String("error", err.Error()))
+		return
+	}
+	logger.Info("编辑用户物品结果", slog.Any("resp", resp))
+}
+
+func postUserEditPoints() {
+	resp, err := client.PostUserEditPoints(username, -1, "开摆接口测试调整积分")
+	if err != nil {
+		logger.Error("编辑用户积分失败", slog.String("error", err.Error()))
+		return
+	}
+	logger.Info("编辑用户积分结果", slog.Any("resp", resp))
+}
+
+func postUserLiveness() {
+	resp, err := client.PostUserLiveness(username)
+	if err != nil {
+		logger.Error("获取用户活跃度失败", slog.String("error", err.Error()))
+		return
+	}
+	logger.Info("获取用户活跃度结果", slog.Any("resp", resp))
+}
+
+func postYesterdayLivenessReward() {
+	resp, err := client.PostYesterdayLivenessReward(username)
+	if err != nil {
+		logger.Error("领取用户昨日活跃度奖励失败", slog.String("error", err.Error()))
+		return
+	}
+	logger.Info("领取用户昨日活跃度奖励结果", slog.Any("resp", resp))
 }
 
 func postApiGetKey() {
