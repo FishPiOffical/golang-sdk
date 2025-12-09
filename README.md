@@ -15,10 +15,117 @@
 - ✅ **结构化日志** - 使用slog.Logger，支持自定义日志级别
 - ✅ **错误处理** - 完整的错误处理和包装
 
+## 接口
+- [ ] 鉴权
+    - [x] 获取apiKey
+    - [x] 查询用户信息
+    - [ ] 注册用户
+        - [ ] 预注册账号 POST /register
+        - [ ] 验证手机验证码 GET /verify
+        - [ ] 注册账号 POST /register2
+- [ ] OpenID 接入
+    - [ ] 获取授权链接
+    - [ ] 签名校验
+    - [ ] 获取用户信息
+- [ ] 新增
+    - [x] 获取用户VIP信息 通用 GET /api/membership/{userId}
+    - [x] 获取操作日志 通用 GET /logs/more
+- [ ] 杂项
+    - [ ] 勋章链接生成
+    - [ ] 客户端版本解析
+- [ ] 通用
+    - [x] 通过API累计用户的在线时间 WS
+    - [x] 查询成员信息
+    - [x] 用户名联想
+    - [x] 用户常用表情
+    - [x] 获取活跃度
+    - [x] 获取签到状态
+    - [x] 领取昨日活跃奖励
+    - [x] 查询在昨日奖励领取状态
+    - [x] 举报
+    - [x] 查询最近注册的20个用户
+    - [x] 转账
+    - [x] 关注用户
+    - [x] 取关用户
+- [x] 通知
+    - [x] 通知计数
+    - [x] 通知详情
+    - [x] 批量已读类型的通知
+    - [x] 已读所有消息
+- [ ] 聊天室
+    - [x] 获取发送弹幕的价格
+    - [x] 连接聊天室 WS
+    - [x] 聊天室地址API
+    - [x] 聊天历史消息
+        - [x] 通过聊天消息的oId获取前后消息
+    - [x] 发送消息
+        - [x] 弹幕
+        - [x] 红包
+    - [x] 撤回消息
+    - [x] 获取消息markdown
+    - [x] 打开红包
+    - [x] 获取表情包
+        - [x] 默认表情包
+    - [x] 同步表情包
+    - [x] 获取禁言中的成员列表（思过崖）
+- [ ] 图床
+    - [x] 上传图片
+    - [ ] 限制
+- [ ] 帖子
+    - [x] 发帖
+    - [x] 更新帖子
+    - [x] 帖子列表
+        - [x] 特别注意
+        - [x] 最近
+        - [x] 按标签
+        - [x] 按领域
+    - [x] 获取指定帖子
+    - [x] 获取指定用户的帖子列表
+    - [x] 给文章点赞
+    - [x] 感谢文章
+    - [x] 获取帖子的评论列表
+    - [x] 评论/回复
+    - [x] 更新评论
+    - [x] 给评论点赞
+    - [x] 感谢评论
+    - [x] 删除评论
+    - [x] 获取帖子当前正在阅读的人数
+        - [x] /article-channel WSS
+    - [x] 收藏帖子
+    - [x] 取消收藏帖子
+    - [x] 关注帖子
+    - [x] 取消关注帖子
+    - [x] 打赏帖子
+- [x] 清风明月
+    - [x] 获取清风明月列表
+    - [x] 发布清风明月
+    - [x] 获取指定用户的清风明月列表
+- [ ] 私信
+    - [x] 消息通知 /user-channel WSS
+    - [x] 获取用户私聊历史消息
+    - [x] 标记用户消息已读
+    - [x] 获取私聊用户列表以及第一条消息
+    - [x] 获取未读消息
+    - [x] 撤回私聊消息
+- [ ] 敏感操作
+    - [ ] 永久注销删除用户
+- [ ] 金手指
+    - [ ] 注意
+    - [x] 上传摸鱼大闯关关卡数据
+    - [x] 查询用户最近登录的IP地址
+    - [x] 添加勋章
+    - [x] 移除勋章
+    - [x] 移除勋章（通过userId）
+    - [x] 查询用户背包
+    - [x] 调整用户背包
+    - [x] 调整用户积分
+    - [x] 获取用户活跃度
+    - [x] 领取指定用户的昨日活跃奖励
+
 ## 安装
 
 ```bash
-go get github.com/fghwett/github.com/FishPiOffical/golang-sdk
+go get github.com/FishPiOffical/golang-sdk
 ```
 
 ## 快速开始
@@ -532,7 +639,7 @@ if err != nil {
 
 ```bash
 # 克隆项目
-git clone https://github.com/fghwett/github.com/FishPiOffical/golang-sdk
+git clone github.com/FishPiOffical/golang-sdk
 
 # 安装依赖
 go mod download
@@ -551,8 +658,8 @@ Apache 2.0
 ## 相关链接
 
 - [摸鱼派社区](https://fishpi.cn)
-- [API文档](https://fishpi.cn/article/1636516552191)
-- [TypeScript SDK](https://github.com/imlinhanchao/fishpi-api-package)
+- [API文档 v2.1.6](https://fishpi.cn/article/1636516552191)
+- [TypeScript SDK 2025.12.1](https://github.com/FishPiOffical/fishpi.js/commit/3ada85bec21bd372702d482622ba472668363f1b)
 
 ## 贡献
 
