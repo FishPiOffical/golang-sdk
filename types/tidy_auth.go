@@ -1,5 +1,7 @@
 package types
 
+import "encoding/json"
+
 // PostApiGetKeyRequest 获取ApiKey请求
 type PostApiGetKeyRequest struct {
 	NameOrEmail  string `json:"nameOrEmail"`
@@ -33,4 +35,15 @@ type UserInfo struct {
 	UserRole           string      `json:"userRole"`
 	FollowerCount      int         `json:"followerCount"`
 	UserURL            string      `json:"userURL"`
+}
+
+func (userInfo *UserInfo) GetMetalList() ([]*Metal, error) {
+	if userInfo.SysMetal == "" {
+		return []*Metal{}, nil
+	}
+	sysMetal := &SysMetal{}
+	if err := json.Unmarshal([]byte(userInfo.SysMetal), sysMetal); err != nil {
+		return nil, err
+	}
+	return sysMetal.List, nil
 }
