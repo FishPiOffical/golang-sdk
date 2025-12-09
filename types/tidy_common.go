@@ -50,6 +50,17 @@ type User struct {
 	AllMetalOwned      string      `json:"allMetalOwned"`
 }
 
+func (user *User) GetMetalList() ([]*Metal, error) {
+	if user.SysMetal == "" {
+		return []*Metal{}, nil
+	}
+	sysMetal := &SysMetal{}
+	if err := json.Unmarshal([]byte(user.SysMetal), sysMetal); err != nil {
+		return nil, err
+	}
+	return sysMetal.List, nil
+}
+
 // AssociateUser 联想的用户信息
 type AssociateUser struct {
 	UserName          string `json:"userName"`

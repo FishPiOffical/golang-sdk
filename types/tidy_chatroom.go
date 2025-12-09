@@ -1,5 +1,7 @@
 package types
 
+import "encoding/json"
+
 // GetChatroomNodeGetResponse 获取聊天室节点响应
 type GetChatroomNodeGetResponse struct {
 	Code      int                 `json:"code"`
@@ -35,6 +37,17 @@ type ChatroomMsgData struct {
 	UserAvatarURL20  string `json:"userAvatarURL20,omitempty"`
 	UserAvatarURL210 string `json:"userAvatarURL210,omitempty"`
 	UserAvatarURL48  string `json:"userAvatarURL48,omitempty"`
+}
+
+func (msg *ChatroomMsgData) GetMetalList() ([]*Metal, error) {
+	if msg.SysMetal == "" {
+		return []*Metal{}, nil
+	}
+	sysMetal := &SysMetal{}
+	if err := json.Unmarshal([]byte(msg.SysMetal), sysMetal); err != nil {
+		return nil, err
+	}
+	return sysMetal.List, nil
 }
 
 // PostChatroomRedPacketOpenResponse 打开聊天室红包响应

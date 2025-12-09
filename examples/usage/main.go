@@ -66,6 +66,7 @@ const (
 	chatMessageOId            = "1765184305408"
 	userIdYui                 = "1630488635229"
 	userIdIWPZ                = "1637917131504" // 和平鸽
+	userIdDRDA                = "1678416418912" // 加辣
 )
 
 func main() {
@@ -87,7 +88,7 @@ func main() {
 	//postPointTransfer()
 	//postFollowUser()
 	//postUnfollowUser()
-	//getMembership()
+	getMembership()
 	//getLogsMore()
 
 	// 通知
@@ -175,12 +176,17 @@ func main() {
 }
 
 func getUserInfoByUsername() {
-	user, err := client.GetUserInfoByUsername(username)
+	user, err := client.GetUserInfoByUsername("drda")
 	if err != nil {
 		logger.Error("获取用户信息失败", slog.String("error", err.Error()))
 		return
 	}
-	logger.Info("用户信息", slog.Any("user", user.UserNickname))
+	metalList, MetalErr := user.GetMetalList()
+	logger.Info("用户信息",
+		slog.Any("user", user.UserNickname),
+		slog.Any("metalList", metalList),
+		slog.Any("MetalErr", MetalErr),
+	)
 }
 
 func postUsersNames() {
@@ -287,7 +293,7 @@ func postUnfollowUser() {
 }
 
 func getMembership() {
-	resp, err := client.GetMembership(userIdIWPZ)
+	resp, err := client.GetMembership(userIdDRDA)
 	if err != nil {
 		logger.Error("获取用户VIP信息失败", slog.String("error", err.Error()))
 		return
