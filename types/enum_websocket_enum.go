@@ -498,9 +498,9 @@ func (x *ChatroomMsgType) UnmarshalText(text []byte) error {
 }
 
 const (
-	// UserChannelCommandBzUpdate is a UserChannelCommand of type bzUpdate.
+	// UserChannelCommandBzUpdate is a UserChannelCommand of type bz-update.
 	// 清风明月更新
-	UserChannelCommandBzUpdate UserChannelCommand = "bzUpdate"
+	UserChannelCommandBzUpdate UserChannelCommand = "bz-update"
 	// UserChannelCommandRefreshNotification is a UserChannelCommand of type refreshNotification.
 	// 未读消息数通知
 	UserChannelCommandRefreshNotification UserChannelCommand = "refreshNotification"
@@ -556,7 +556,7 @@ func (x UserChannelCommand) IsValid() bool {
 }
 
 var _UserChannelCommandValue = map[string]UserChannelCommand{
-	"bzUpdate":               UserChannelCommandBzUpdate,
+	"bz-update":              UserChannelCommandBzUpdate,
 	"refreshNotification":    UserChannelCommandRefreshNotification,
 	"chatUnreadCountRefresh": UserChannelCommandChatUnreadCountRefresh,
 	"newIdleChatMessage":     UserChannelCommandNewIdleChatMessage,

@@ -88,7 +88,7 @@ func main() {
 	//postPointTransfer()
 	//postFollowUser()
 	//postUnfollowUser()
-	getMembership()
+	//getMembership()
 	//getLogsMore()
 
 	// 通知
@@ -168,7 +168,7 @@ func main() {
 	//postYesterdayLivenessReward()
 
 	// websocket
-	//userChannelWebsocket() // 通知
+	userChannelWebsocket() // 通知
 	//chatChannelWebsocket() // 私聊
 	//chatroomWebsocket() // 聊天室
 	//articleChannelWebsocket() // 文章热度通知

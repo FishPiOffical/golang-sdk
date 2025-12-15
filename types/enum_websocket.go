@@ -4,7 +4,7 @@ package types
 // UserChannelCommand 用户频道命令
 /*
 ENUM(
-bzUpdate // 清风明月更新
+bz-update // 清风明月更新
 refreshNotification // 未读消息数通知
 chatUnreadCountRefresh // 聊天未读消息数通知
 newIdleChatMessage // 新的闲聊消息
