@@ -357,3 +357,18 @@ func (s *FishPiSDK) PostArticleReward(articleId string) (*types.PostArticleRewar
 
 	return response, nil
 }
+
+// GetArticleMd 获取帖子的Markdown原文
+func (s *FishPiSDK) GetArticleMd(articleId string) (*string, error) {
+	resp, err := s.client.R().
+		SetPathParam("articleId", articleId).
+		Get("/api/article/md/{articleId}")
+
+	if err != nil {
+		return nil, err
+	}
+
+	result := resp.String()
+
+	return &result, nil
+}

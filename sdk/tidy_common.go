@@ -244,3 +244,37 @@ func (s *FishPiSDK) GetLogsMore(page, pageSize int) (*types.ApiResponse[[]*types
 
 	return response, nil
 }
+
+// PostSettingsAvatar 更新头像
+func (s *FishPiSDK) PostSettingsAvatar(avatar string) (*types.SimpleResponse, error) {
+	response := new(types.SimpleResponse)
+
+	_, err := s.client.R().
+		SetBodyJsonMarshal(map[string]any{
+			"userAvatarURL": avatar,
+		}).
+		SetSuccessResult(response).
+		SetErrorResult(response).
+		Post("/api/settings/avatar")
+	if err != nil {
+		return nil, err
+	}
+
+	return response, nil
+}
+
+// PostSettingsProfiles 更新个人资料
+func (s *FishPiSDK) PostSettingsProfiles(profiles *types.PostSettingsProfilesRequest) (*types.SimpleResponse, error) {
+	response := new(types.SimpleResponse)
+
+	_, err := s.client.R().
+		SetBodyJsonMarshal(profiles).
+		SetSuccessResult(response).
+		SetErrorResult(response).
+		Post("/api/settings/profiles")
+	if err != nil {
+		return nil, err
+	}
+
+	return response, nil
+}

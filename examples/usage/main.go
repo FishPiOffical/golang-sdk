@@ -65,8 +65,9 @@ const (
 	botUserName               = "its21f"
 	chatMessageOId            = "1765184305408"
 	userIdYui                 = "1630488635229"
-	userIdIWPZ                = "1637917131504" // 和平鸽
-	userIdDRDA                = "1678416418912" // 加辣
+	userIdIWPZ                = "1637917131504"                                    // 和平鸽
+	userIdDRDA                = "1678416418912"                                    // 加辣
+	avatarUrl                 = "https://file.fishpi.cn/2022/08/blob-fbe21682.png" // 开摆的头像
 )
 
 func main() {
@@ -90,6 +91,8 @@ func main() {
 	//postUnfollowUser()
 	//getMembership()
 	//getLogsMore()
+	//postSettingsAvatar()
+	//postSettingsProfiles()
 
 	// 通知
 	//getNotificationCount()
@@ -142,6 +145,7 @@ func main() {
 	//postFollowArticleWatch()
 	//postUnfollowArticleWatch()
 	//postArticleReward()
+	getArticleMd()
 
 	// 清风明月
 	//getBreezemoons()
@@ -168,7 +172,7 @@ func main() {
 	//postYesterdayLivenessReward()
 
 	// websocket
-	userChannelWebsocket() // 通知
+	//userChannelWebsocket() // 通知
 	//chatChannelWebsocket() // 私聊
 	//chatroomWebsocket() // 聊天室
 	//articleChannelWebsocket() // 文章热度通知
@@ -309,6 +313,30 @@ func getLogsMore() {
 		return
 	}
 	logger.Info("操作日志结果", slog.Any("resp", resp))
+}
+
+func postSettingsAvatar() {
+	resp, err := client.PostSettingsAvatar(avatarUrl)
+	if err != nil {
+		logger.Error("更新用户头像失败", slog.String("error", err.Error()))
+		return
+	}
+	logger.Info("更新用户头像结果", slog.Any("resp", resp))
+}
+
+func postSettingsProfiles() {
+	resp, err := client.PostSettingsProfiles(&types.PostSettingsProfilesRequest{
+		UserNickname: "开摆",
+		UserTags:     "开摆,哇咔咔",
+		UserIntro:    "我就是我，不一样的烟火。",
+		UserURL:      "https://www.zqcnc.cn",
+		Mbti:         "ISFJ-T",
+	})
+	if err != nil {
+		logger.Error("更新用户资料失败", slog.String("error", err.Error()))
+		return
+	}
+	logger.Info("更新用户资料结果", slog.Any("resp", resp))
 }
 
 func getNotificationCount() {
@@ -824,6 +852,15 @@ func postArticleReward() {
 		return
 	}
 	logger.Info("打赏文章结果", slog.Any("resp", resp))
+}
+
+func getArticleMd() {
+	content, err := client.GetArticleMd(editArticleId)
+	if err != nil {
+		logger.Error("获取帖子的Markdown原文失败", slog.String("error", err.Error()))
+		return
+	}
+	logger.Info("获取帖子的Markdown原文成功", slog.String("content", convertor.ToString(content)))
 }
 
 func postMofishScore() {

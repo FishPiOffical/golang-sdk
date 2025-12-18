@@ -42,6 +42,8 @@
 - [ ] 新增
     - [x] 获取用户VIP信息 通用 GET /api/membership/{userId}
     - [x] 获取操作日志 通用 GET /logs/more
+    - [x] 修改头像 通用 POST /api/settings/avatar
+    - [x] 修改信息 通用 POST /api/settings/profiles
 - [ ] 杂项
     - [ ] 勋章链接生成
     - [ ] 客户端版本解析
@@ -108,6 +110,7 @@
     - [x] 关注帖子
     - [x] 取消关注帖子
     - [x] 打赏帖子
+    - [x] 获取帖子的Markdown原文
 - [x] 清风明月
     - [x] 获取清风明月列表
     - [x] 发布清风明月
@@ -332,8 +335,8 @@ Apache 2.0
 ## 相关链接
 
 - [摸鱼派社区](https://fishpi.cn)
-- [API文档 v2.1.6](https://fishpi.cn/article/1636516552191)
-- [TypeScript SDK 2025.12.1](https://github.com/FishPiOffical/fishpi.js/commit/3ada85bec21bd372702d482622ba472668363f1b)
+- [API文档 v2.1.8](https://fishpi.cn/article/1636516552191)
+- [TypeScript SDK 2025.12.17](https://github.com/FishPiOffical/fishpi.js/commit/5e213dd8b5ad4f163152de45eac05f2e5a33db59)
 
 ## 贡献
 

@@ -142,3 +142,11 @@ type MemberShipConfig struct {
 	AutoCheckin int    `json:"autoCheckin"`
 	Bold        bool   `json:"bold"`
 }
+
+type PostSettingsProfilesRequest struct {
+	UserNickname string `json:"userNickname,omitempty"` // 昵称
+	UserTags     string `json:"userTags,omitempty"`     // 用户标签，多个标签用逗号分隔
+	UserURL      string `json:"userURL,omitempty"`      // 个人主页URL
+	UserIntro    string `json:"userIntro,omitempty"`    // 个人简介
+	Mbti         string `json:"mbti,omitempty"`         // MBTI性格类型（例如：ENFP）todo 类型枚举
+}
