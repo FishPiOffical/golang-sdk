@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"net/http"
 	"os/signal"
 	"syscall"
 	"time"
@@ -68,6 +69,9 @@ const (
 	userIdIWPZ                = "1637917131504"                                    // 和平鸽
 	userIdDRDA                = "1678416418912"                                    // 加辣
 	avatarUrl                 = "https://file.fishpi.cn/2022/08/blob-fbe21682.png" // 开摆的头像
+
+	realm    = "https://test.fishpi.cn"
+	returnTo = "https://test.fishpi.cn/return_to"
 )
 
 func main() {
@@ -145,7 +149,7 @@ func main() {
 	//postFollowArticleWatch()
 	//postUnfollowArticleWatch()
 	//postArticleReward()
-	getArticleMd()
+	//getArticleMd()
 
 	// 清风明月
 	//getBreezemoons()
@@ -176,6 +180,11 @@ func main() {
 	//chatChannelWebsocket() // 私聊
 	//chatroomWebsocket() // 聊天室
 	//articleChannelWebsocket() // 文章热度通知
+
+	// openid
+	//getUserInfoById()
+	//getOpenIdUrl()
+	runOpenIdServer()
 
 }
 
@@ -1249,4 +1258,67 @@ func articleChannelWebsocket() {
 		slog.Error("关闭连接失败", slog.Any("error", err))
 	}
 	slog.Debug("已断开连接")
+}
+
+func getUserInfoById() {
+	resp, err := client.GetUserInfoById(userIdYui)
+	if err != nil {
+		logger.Error("通过用户ID获取用户信息失败", slog.String("error", err.Error()))
+		return
+	}
+	logger.Info("通过用户ID获取用户信息结果", slog.Any("resp", resp))
+}
+
+func getOpenIdUrl() {
+	link := client.GetOpenIdUrl(realm, returnTo)
+
+	logger.Info("获取OpenID链接结果", slog.String("link", link))
+}
+
+func runOpenIdServer() {
+	const baseAddr = "https://test.aweoo.top"
+	http.HandleFunc("/login", func(writer http.ResponseWriter, request *http.Request) {
+		addr := client.GetOpenIdUrl(baseAddr, baseAddr+"/openid/callback")
+		logger.Info("重定向到OpenID登录页面", slog.String("addr", addr))
+		http.Redirect(writer, request, addr, http.StatusFound)
+	})
+	http.HandleFunc("/openid/callback", func(w http.ResponseWriter, r *http.Request) {
+
+		var err error
+
+		q := r.URL.Query()
+
+		query := make(map[string]string)
+		for key := range q {
+			query[key] = q.Get(key)
+		}
+
+		var openId *string
+		if openId, err = client.PostOpenIdVerify(query); err != nil {
+			logger.Error("验证OpenID失败", slog.String("error", err.Error()))
+			http.Error(w, "验证OpenID失败", http.StatusBadRequest)
+		}
+		logger.Info("OpenID验证成功", slog.String("openId", convertor.ToString(openId)))
+
+		resp := new(types.ApiResponse[*types.GetUserInfoByIdData])
+		if resp, err = client.GetUserInfoById(convertor.ToString(openId)); err != nil {
+			logger.Error("通过OpenID获取用户信息失败", slog.String("error", err.Error()))
+			http.Error(w, "通过OpenID获取用户信息失败", http.StatusBadRequest)
+			return
+		}
+		if resp.Code != 0 {
+			logger.Error("通过OpenID获取用户信息失败", slog.Any("resp", resp))
+			http.Error(w, "通过OpenID获取用户信息失败", http.StatusBadRequest)
+			return
+		}
+		logger.Info("获取到用户信息", slog.Any("user", resp.Data))
+
+		// 响应成功页面
+		w.Header().Set("Content-Type", "text/html; charset=utf-8")
+		_, _ = w.Write([]byte("<html><body><h1>登录成功！</h1><p>欢迎，" + resp.Data.UserNickname + "！</p></body></html>"))
+	})
+	logger.Info("启动OpenID回调服务器，监听端口6666")
+	if err := http.ListenAndServe(":6666", nil); err != nil {
+		logger.Error("启动OpenID回调服务器失败", slog.String("error", err.Error()))
+	}
 }

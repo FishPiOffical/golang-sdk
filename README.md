@@ -35,10 +35,10 @@
         - [ ] 预注册账号 POST /register
         - [ ] 验证手机验证码 GET /verify
         - [ ] 注册账号 POST /register2
-- [ ] OpenID 接入
-    - [ ] 获取授权链接
-    - [ ] 签名校验
-    - [ ] 获取用户信息
+- [x] OpenID 接入
+    - [x] 获取授权链接
+    - [x] 签名校验获取openid
+    - [x] 获取用户信息
 - [ ] 新增
     - [x] 获取用户VIP信息 通用 GET /api/membership/{userId}
     - [x] 获取操作日志 通用 GET /logs/more
