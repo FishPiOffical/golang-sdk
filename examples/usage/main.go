@@ -68,10 +68,17 @@ const (
 	userIdYui                 = "1630488635229"
 	userIdIWPZ                = "1637917131504"                                    // 和平鸽
 	userIdDRDA                = "1678416418912"                                    // 加辣
+	userId8888                = "1656984017362"                                    // 开摆
 	avatarUrl                 = "https://file.fishpi.cn/2022/08/blob-fbe21682.png" // 开摆的头像
 
 	realm    = "https://test.fishpi.cn"
 	returnTo = "https://test.fishpi.cn/return_to"
+
+	medalIdAdmin    = "0"
+	medalIdYearOne  = "1"  // 摸鱼派1岁啦
+	medalIdFans16   = "5"  // 摸鱼派粉丝
+	medalIdTest     = "62" // 测试徽章
+	medalNameSister = "小姐姐认证"
 )
 
 func main() {
@@ -184,7 +191,23 @@ func main() {
 	// openid
 	//getUserInfoById()
 	//getOpenIdUrl()
-	runOpenIdServer()
+	//runOpenIdServer()
+
+	// medal
+	//postMedalMyList()
+	//postMedalMyReorder()
+	//postMedalMyDisplay()
+	//postMedalUserList()
+	//postMedalAdminList()
+	//postMedalAdminSearch()
+	//postMedalAdminDetail()
+	//postMedalAdminDelete()
+	//postMedalAdminEdit()
+	//postMedalAdminCreate()
+	//postMedalAdminGrant()
+	//postMedalAdminRevoke()
+	//postMedalAdminOwners()
+	getMedalUrl()
 
 }
 
@@ -890,37 +913,37 @@ func postQueryLatestLoginIp() {
 	logger.Info("查询用户最新登录IP结果", slog.Any("resp", resp))
 }
 
-func postGiveMetal() {
-	resp, err := client.PostGiveMetal("AziAzi", &types.Metal{
-		Name:        "最受欢迎设计师S1",
-		Description: "摸鱼派五周年徽章共创计划 N0.1",
-		Attr:        "url=https://file.fishpi.cn/2025/12/7cab0213437e841e8680120e612a9ea3-331d0a76.png&txt=最受欢迎设计师S1&scale=0.79&backcolor=cccccc,7d7b7b&way=top-left",
-		Data:        "",
-	})
-	if err != nil {
-		logger.Error("赠送徽章失败", slog.String("error", err.Error()))
-		return
-	}
-	logger.Info("赠送徽章结果", slog.Any("resp", resp))
-}
-
-func postRemoveMetal() {
-	resp, err := client.PostRemoveMetal(username, "最受欢迎设计师S1测试徽章")
-	if err != nil {
-		logger.Error("移除徽章失败", slog.String("error", err.Error()))
-		return
-	}
-	logger.Info("移除徽章结果", slog.Any("resp", resp))
-}
-
-func postRemoveMetalByUserId() {
-	resp, err := client.PostRemoveMetalByUserId("userOId", "最受欢迎设计师S1测试徽章")
-	if err != nil {
-		logger.Error("通过用户ID移除徽章失败", slog.String("error", err.Error()))
-		return
-	}
-	logger.Info("通过用户ID移除徽章结果", slog.Any("resp", resp))
-}
+//func postGiveMetal() {
+//	resp, err := client.PostGiveMetal("AziAzi", &types.Metal{
+//		Name:        "最受欢迎设计师S1",
+//		Description: "摸鱼派五周年徽章共创计划 N0.1",
+//		Attr:        "url=https://file.fishpi.cn/2025/12/7cab0213437e841e8680120e612a9ea3-331d0a76.png&txt=最受欢迎设计师S1&scale=0.79&backcolor=cccccc,7d7b7b&way=top-left",
+//		Data:        "",
+//	})
+//	if err != nil {
+//		logger.Error("赠送徽章失败", slog.String("error", err.Error()))
+//		return
+//	}
+//	logger.Info("赠送徽章结果", slog.Any("resp", resp))
+//}
+//
+//func postRemoveMetal() {
+//	resp, err := client.PostRemoveMetal(username, "最受欢迎设计师S1测试徽章")
+//	if err != nil {
+//		logger.Error("移除徽章失败", slog.String("error", err.Error()))
+//		return
+//	}
+//	logger.Info("移除徽章结果", slog.Any("resp", resp))
+//}
+//
+//func postRemoveMetalByUserId() {
+//	resp, err := client.PostRemoveMetalByUserId("userOId", "最受欢迎设计师S1测试徽章")
+//	if err != nil {
+//		logger.Error("通过用户ID移除徽章失败", slog.String("error", err.Error()))
+//		return
+//	}
+//	logger.Info("通过用户ID移除徽章结果", slog.Any("resp", resp))
+//}
 
 func postUserQueryItems() {
 	resp, err := client.PostUserQueryItems(username)
@@ -1321,4 +1344,151 @@ func runOpenIdServer() {
 	if err := http.ListenAndServe(":6666", nil); err != nil {
 		logger.Error("启动OpenID回调服务器失败", slog.String("error", err.Error()))
 	}
+}
+
+func postMedalMyList() {
+	resp, err := client.PostMedalMyList()
+	if err != nil {
+		logger.Error("获取我的徽章列表失败", slog.String("error", err.Error()))
+		return
+	}
+	logger.Info("获取我的徽章列表结果", slog.Any("resp", resp))
+}
+
+func postMedalMyReorder() {
+	resp, err := client.PostMedalMyReorder(medalIdYearOne, types.MedalReorderDirectionUp)
+	if err != nil {
+		logger.Error("重新排序我的徽章失败", slog.String("error", err.Error()))
+		return
+	}
+	logger.Info("重新排序我的徽章结果", slog.Any("resp", resp))
+}
+
+func postMedalMyDisplay() {
+	resp, err := client.PostMedalMyDisplay(medalIdFans16, false)
+	if err != nil {
+		logger.Error("设置我的徽章显示状态失败", slog.String("error", err.Error()))
+		return
+	}
+	logger.Info("设置我的徽章显示状态结果", slog.Any("resp", resp))
+}
+
+func postMedalUserList() {
+	resp, err := client.PostMedalUserList(&types.PostMedalUserListRequest{
+		//UserId: userIdYui,
+		UserName: username,
+	})
+	if err != nil {
+		logger.Error("获取用户徽章列表失败", slog.String("error", err.Error()))
+		return
+	}
+	logger.Info("获取用户徽章列表结果", slog.Any("resp", resp))
+}
+
+func postMedalAdminList() {
+	resp, err := client.PostMedalAdminList(1, 100)
+	if err != nil {
+		logger.Error("获取所有徽章列表失败", slog.String("error", err.Error()))
+		return
+	}
+	logger.Info("获取所有徽章列表结果", slog.Any("resp", resp))
+}
+
+func postMedalAdminSearch() {
+	resp, err := client.PostMedalAdminSearch("开摆")
+	if err != nil {
+		logger.Error("搜索徽章失败", slog.String("error", err.Error()))
+		return
+	}
+	logger.Info("搜索徽章结果", slog.Any("resp", resp))
+}
+
+func postMedalAdminDetail() {
+	resp, err := client.PostMedalAdminDetail(medalIdTest)
+	if err != nil {
+		logger.Error("获取徽章详情失败", slog.String("error", err.Error()))
+		return
+	}
+	logger.Info("获取徽章详情结果", slog.Any("resp", resp))
+}
+
+func postMedalAdminDelete() {
+	resp, err := client.PostMedalAdminDelete(medalIdTest)
+	if err != nil {
+		logger.Error("删除徽章失败", slog.String("error", err.Error()))
+		return
+	}
+	logger.Info("删除徽章结果", slog.Any("resp", resp))
+}
+
+func postMedalAdminEdit() {
+	resp, err := client.PostMedalAdminEdit(
+		medalIdTest,
+		"开摆的测试勋章",
+		types.MedalTypeNormal,
+		"这是一个用于测试的开摆勋章，请勿赠送。尊贵的{var1}{var2}，感谢您{var3}天来的支持！更新啦～",
+		"url=https://file.fishpi.cn/2025/06/image-6e223db8.png&backcolor=000000&fontcolor=ffffff",
+	)
+	if err != nil {
+		logger.Error("编辑徽章失败", slog.String("error", err.Error()))
+		return
+	}
+	logger.Info("编辑徽章结果", slog.Any("resp", resp))
+}
+
+func postMedalAdminCreate() {
+	resp, err := client.PostMedalAdminCreate(
+		"开摆的测试勋章",
+		types.MedalTypeNormal,
+		"这是一个用于测试的开摆勋章，请勿赠送。尊贵的{var1}{var2}，感谢您{var3}天来的支持！",
+		"url=https://file.fishpi.cn/2025/06/image-6e223db8.png&backcolor=000000&fontcolor=ffffff",
+	)
+	if err != nil {
+		logger.Error("创建徽章失败", slog.String("error", err.Error()))
+		return
+	}
+	logger.Info("创建徽章结果", slog.Any("resp", resp))
+}
+
+func postMedalAdminGrant() {
+	resp, err := client.PostMedalAdminGrant(
+		userId8888,
+		medalIdTest,
+		time.Now().Add(time.Hour*24*30).UnixMilli(),
+		"开摆;开发者;9999",
+	)
+	if err != nil {
+		logger.Error("管理员赠送徽章失败", slog.String("error", err.Error()))
+		return
+	}
+	logger.Info("管理员赠送徽章结果", slog.Any("resp", resp))
+}
+
+func postMedalAdminRevoke() {
+	resp, err := client.PostMedalAdminRevoke(
+		userId8888,
+		medalIdTest,
+	)
+	if err != nil {
+		logger.Error("管理员收回徽章失败", slog.String("error", err.Error()))
+		return
+	}
+	logger.Info("管理员收回徽章结果", slog.Any("resp", resp))
+}
+
+func postMedalAdminOwners() {
+	resp, err := client.PostMedalAdminOwners(medalIdTest, 1, 100)
+	if err != nil {
+		logger.Error("获取徽章拥有者列表失败", slog.String("error", err.Error()))
+		return
+	}
+	logger.Info("获取徽章拥有者列表结果", slog.Any("resp", resp))
+}
+
+func getMedalUrl() {
+	link := client.GetMedalUrl(&types.GetMedalUrlRequest{
+		//MedalId: medalIdYearOne,
+		MedalName: medalNameSister,
+	})
+	logger.Info("获取徽章图片链接结果", slog.String("link", link))
 }

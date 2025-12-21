@@ -128,14 +128,34 @@
     - [ ] 注意
     - [x] 上传摸鱼大闯关关卡数据
     - [x] 查询用户最近登录的IP地址
-    - [x] 添加勋章
-    - [x] 移除勋章
-    - [x] 移除勋章（通过userId）
+    - [x] ~~添加勋章（已废弃）~~
+    - [x] ~~移除勋章（已废弃）~~
+    - [x] ~~移除勋章（通过userId）（已废弃）~~
     - [x] 查询用户背包
     - [x] 调整用户背包
     - [x] 调整用户积分
     - [x] 获取用户活跃度
     - [x] 领取指定用户的昨日活跃奖励
+- [x] 新版勋章系统（Medal v2）
+  - [x] 用户侧API（需要登录）
+    - [x] 读取当前登录用户的所有勋章列表
+    - [x] 调整单个勋章顺序（上移/下移）
+    - [x] 调整当前登录用户隐藏/显示勋章
+    - [x] 读取指定用户当前展示中的勋章列表（用于主页展示）
+  - [x] 管理侧API（需要管理员/金手指权限）
+    - [x] 分页读取全部勋章列表(medal_admin_read)
+    - [x] 按关键词搜索勋章列表(medal_admin_read)
+    - [x] 读取指定勋章详细信息(medal_admin_read)
+    - [x] 删除指定勋章(medal_admin_write)
+    - [x] 编辑指定勋章(medal_admin_write)
+    - [x] 新建勋章(medal_admin_write)
+    - [x] 给指定用户发指定勋章(medal_admin_write)
+    - [x] 给指定用户移除指定勋章(medal_admin_write)
+    - [x] 读取指定勋章拥有的用户和拥有总数（分页）(medal_admin_read)
+  - [x] description/data（变量渲染说明补充）
+  - [x] 勋章生成页（SVG）
+    - [x] 通过勋章ID显示勋章
+    - [x] 通过勋章名称显示勋章
 
 ## 安装
 
@@ -335,7 +355,7 @@ Apache 2.0
 ## 相关链接
 
 - [摸鱼派社区](https://fishpi.cn)
-- [API文档 v2.1.8](https://fishpi.cn/article/1636516552191)
+- [API文档 v2.2.0](https://fishpi.cn/article/1636516552191)
 - [TypeScript SDK 2025.12.17](https://github.com/FishPiOffical/fishpi.js/commit/5e213dd8b5ad4f163152de45eac05f2e5a33db59)
 
 ## 贡献

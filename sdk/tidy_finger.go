@@ -46,6 +46,7 @@ func (s *FishPiSDK) PostQueryLatestLoginIp(userName string) (*types.ApiResponse[
 }
 
 // PostGiveMetal 添加勋章
+// Deprecated: 改用 PostMedalAdminGrant
 func (s *FishPiSDK) PostGiveMetal(userName string, metal *types.Metal) (*types.SimpleResponse, error) {
 	response := new(types.SimpleResponse)
 
@@ -70,6 +71,7 @@ func (s *FishPiSDK) PostGiveMetal(userName string, metal *types.Metal) (*types.S
 }
 
 // PostRemoveMetal 移除勋章
+// Deprecated: 改用 PostMedalAdminRevoke
 func (s *FishPiSDK) PostRemoveMetal(userName, metalName string) (*types.SimpleResponse, error) {
 	response := new(types.SimpleResponse)
 
@@ -91,6 +93,7 @@ func (s *FishPiSDK) PostRemoveMetal(userName, metalName string) (*types.SimpleRe
 }
 
 // PostRemoveMetalByUserId 通过用户ID移除勋章 未验证
+// Deprecated: 改用 PostMedalAdminRevoke
 func (s *FishPiSDK) PostRemoveMetalByUserId(userId, metalName string) (*types.SimpleResponse, error) {
 	resp := new(types.SimpleResponse)
 

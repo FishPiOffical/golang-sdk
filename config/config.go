@@ -17,4 +17,6 @@ type Config struct {
 	QueryGoldFingerKey    string `json:"query_gold_finger_key,omitempty" yaml:"queryGoldFingerKey,omitempty"`
 	MetalGoldFingerKey    string `json:"metal_gold_finger_key,omitempty" yaml:"metalGoldFingerKey,omitempty"`
 	ItemGoldFingerKey     string `json:"item_gold_finger_key,omitempty" yaml:"itemGoldFingerKey,omitempty"`
+	MedalReadFingerKey    string `json:"medal_read_finger_key,omitempty" yaml:"medalReadFingerKey,omitempty"`
+	MedalWriteFingerKey   string `json:"medal_write_finger_key,omitempty" yaml:"medalWriteFingerKey,omitempty"`
 }
