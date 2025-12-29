@@ -135,7 +135,7 @@ func (s *FishPiSDK) PostUserQueryItems(userName string) (*types.ApiResponse[map[
 }
 
 // PostUserEditItems 调整用户背包
-func (s *FishPiSDK) PostUserEditItems(userName, item types.ItemType, sum int64) (*types.ApiResponse[map[types.ItemType]int64], error) {
+func (s *FishPiSDK) PostUserEditItems(userName string, item types.ItemType, sum int64) (*types.ApiResponse[map[types.ItemType]int64], error) {
 	response := new(types.ApiResponse[map[types.ItemType]int64])
 
 	_, err := s.client.R().
