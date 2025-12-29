@@ -12,6 +12,126 @@ import (
 )
 
 const (
+	// BadgeWayTop is a BadgeWay of type top.
+	// 从上到下
+	BadgeWayTop BadgeWay = "top"
+	// BadgeWayBottom is a BadgeWay of type bottom.
+	// 从下到上
+	BadgeWayBottom BadgeWay = "bottom"
+	// BadgeWayLeft is a BadgeWay of type left.
+	// 从左到右
+	BadgeWayLeft BadgeWay = "left"
+	// BadgeWayRight is a BadgeWay of type right.
+	// 从右到左
+	BadgeWayRight BadgeWay = "right"
+	// BadgeWayTopLeft is a BadgeWay of type top-left.
+	// 从左上到右下
+	BadgeWayTopLeft BadgeWay = "top-left"
+	// BadgeWayTopRight is a BadgeWay of type top-right.
+	// 从右上到左下
+	BadgeWayTopRight BadgeWay = "top-right"
+	// BadgeWayBottomLeft is a BadgeWay of type bottom-left.
+	// 从左下到右上
+	BadgeWayBottomLeft BadgeWay = "bottom-left"
+	// BadgeWayBottomRight is a BadgeWay of type bottom-right.
+	// 从右下到左上
+	BadgeWayBottomRight BadgeWay = "bottom-right"
+)
+
+var ErrInvalidBadgeWay = fmt.Errorf("not a valid BadgeWay, try [%s]", strings.Join(_BadgeWayNames, ", "))
+
+var _BadgeWayNames = []string{
+	string(BadgeWayTop),
+	string(BadgeWayBottom),
+	string(BadgeWayLeft),
+	string(BadgeWayRight),
+	string(BadgeWayTopLeft),
+	string(BadgeWayTopRight),
+	string(BadgeWayBottomLeft),
+	string(BadgeWayBottomRight),
+}
+
+// BadgeWayNames returns a list of possible string values of BadgeWay.
+func BadgeWayNames() []string {
+	tmp := make([]string, len(_BadgeWayNames))
+	copy(tmp, _BadgeWayNames)
+	return tmp
+}
+
+// BadgeWayValues returns a list of the values for BadgeWay
+func BadgeWayValues() []BadgeWay {
+	return []BadgeWay{
+		BadgeWayTop,
+		BadgeWayBottom,
+		BadgeWayLeft,
+		BadgeWayRight,
+		BadgeWayTopLeft,
+		BadgeWayTopRight,
+		BadgeWayBottomLeft,
+		BadgeWayBottomRight,
+	}
+}
+
+// String implements the Stringer interface.
+func (x BadgeWay) String() string {
+	return string(x)
+}
+
+// IsValid provides a quick way to determine if the typed value is
+// part of the allowed enumerated values
+func (x BadgeWay) IsValid() bool {
+	_, err := ParseBadgeWay(string(x))
+	return err == nil
+}
+
+var _BadgeWayValue = map[string]BadgeWay{
+	"top":          BadgeWayTop,
+	"bottom":       BadgeWayBottom,
+	"left":         BadgeWayLeft,
+	"right":        BadgeWayRight,
+	"top-left":     BadgeWayTopLeft,
+	"top-right":    BadgeWayTopRight,
+	"bottom-left":  BadgeWayBottomLeft,
+	"bottom-right": BadgeWayBottomRight,
+}
+
+// ParseBadgeWay attempts to convert a string to a BadgeWay.
+func ParseBadgeWay(name string) (BadgeWay, error) {
+	if x, ok := _BadgeWayValue[name]; ok {
+		return x, nil
+	}
+	return BadgeWay(""), fmt.Errorf("%s is %w", name, ErrInvalidBadgeWay)
+}
+
+// MustParseBadgeWay converts a string to a BadgeWay, and panics if is not valid.
+func MustParseBadgeWay(name string) BadgeWay {
+	val, err := ParseBadgeWay(name)
+	if err != nil {
+		panic(err)
+	}
+	return val
+}
+
+func (x BadgeWay) Ptr() *BadgeWay {
+	return &x
+}
+
+// MarshalText implements the text marshaller method.
+func (x BadgeWay) MarshalText() ([]byte, error) {
+	return []byte(string(x)), nil
+}
+
+// UnmarshalText implements the text unmarshaller method.
+func (x *BadgeWay) UnmarshalText(text []byte) error {
+	tmp, err := ParseBadgeWay(string(text))
+	if err != nil {
+		return err
+	}
+	*x = tmp
+	return nil
+}
+
+const (
 	// MedalReorderDirectionUp is a MedalReorderDirection of type up.
 	// 上移
 	MedalReorderDirectionUp MedalReorderDirection = "up"
