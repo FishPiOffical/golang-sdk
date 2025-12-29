@@ -234,6 +234,8 @@ const (
 	// MedalTypeMythic is a MedalType of type mythic.
 	// 更亮的金色
 	MedalTypeMythic MedalType = "神话"
+	// MedalTypeFinite is a MedalType of type finite.
+	MedalTypeFinite MedalType = "限定"
 )
 
 var ErrInvalidMedalType = fmt.Errorf("not a valid MedalType, try [%s]", strings.Join(_MedalTypeNames, ", "))
@@ -245,6 +247,7 @@ var _MedalTypeNames = []string{
 	string(MedalTypeEpic),
 	string(MedalTypeLegendary),
 	string(MedalTypeMythic),
+	string(MedalTypeFinite),
 }
 
 // MedalTypeNames returns a list of possible string values of MedalType.
@@ -263,6 +266,7 @@ func MedalTypeValues() []MedalType {
 		MedalTypeEpic,
 		MedalTypeLegendary,
 		MedalTypeMythic,
+		MedalTypeFinite,
 	}
 }
 
@@ -285,6 +289,7 @@ var _MedalTypeValue = map[string]MedalType{
 	"史诗": MedalTypeEpic,
 	"传说": MedalTypeLegendary,
 	"神话": MedalTypeMythic,
+	"限定": MedalTypeFinite,
 }
 
 // ParseMedalType attempts to convert a string to a MedalType.

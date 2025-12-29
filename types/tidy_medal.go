@@ -27,6 +27,7 @@ rare=稀有 // 紫
 epic=史诗 // 橙+略加粗
 legendary=传说 // 金+加粗
 mythic=神话 // 更亮的金色
+finite=限定
 )
 */
 type MedalType string
