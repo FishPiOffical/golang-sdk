@@ -30,8 +30,11 @@ func NewSDK(configProvider config.Provider, options ...Option) *FishPiSDK {
 
 	reqClient := req.NewClient().
 		SetBaseURL(conf.BaseUrl).
-		SetCommonHeader("User-Agent", conf.UserAgent).
-		SetCommonQueryParam("apiKey", conf.ApiKey)
+		SetCommonHeader("User-Agent", conf.UserAgent)
+
+	if conf.ApiKey != "" {
+		reqClient.SetCommonQueryParam("apiKey", conf.ApiKey)
+	}
 
 	sdk := &FishPiSDK{
 		configProvider: configProvider,
@@ -74,8 +77,11 @@ func (s *FishPiSDK) UpdateConfig(config *config.Config) error {
 	}
 
 	// 更新 HTTP 客户端配置
-	s.client.SetBaseURL(config.BaseUrl).
-		SetCommonQueryParam("apiKey", config.ApiKey)
+	s.client.SetBaseURL(config.BaseUrl)
+
+	if config.ApiKey != "" {
+		s.client.SetCommonQueryParam("apiKey", config.ApiKey)
+	}
 
 	return nil
 }
