@@ -104,6 +104,8 @@ func main() {
 	//getLogsMore()
 	//postSettingsAvatar()
 	//postSettingsProfiles()
+	//getUserUsernamePoint()
+	getUserUsernameMedal()
 
 	// 通知
 	//getNotificationCount()
@@ -139,7 +141,7 @@ func main() {
 	// 帖子
 	//postArticle()
 	//putArticle()
-	getArticles()
+	//getArticles()
 	//getArticleDetail()
 	//getUserArticles()
 	//postVoteUpArticle()
@@ -369,6 +371,24 @@ func postSettingsProfiles() {
 		return
 	}
 	logger.Info("更新用户资料结果", slog.Any("resp", resp))
+}
+
+func getUserUsernamePoint() {
+	resp, err := client.GetUserUsernamePoint(username)
+	if err != nil {
+		logger.Error("查询指定用户积分失败", slog.String("error", err.Error()))
+		return
+	}
+	logger.Info("指定用户积分结果", slog.Any("resp", resp))
+}
+
+func getUserUsernameMedal() {
+	resp, err := client.GetUserUsernameMedal(username)
+	if err != nil {
+		logger.Error("查询指定用户勋章失败", slog.String("error", err.Error()))
+		return
+	}
+	logger.Info("指定用户勋章结果", slog.Any("resp", resp))
 }
 
 func getNotificationCount() {

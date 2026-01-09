@@ -278,3 +278,35 @@ func (s *FishPiSDK) PostSettingsProfiles(profiles *types.PostSettingsProfilesReq
 
 	return response, nil
 }
+
+// GetUserUsernamePoint 查询指定用户积分
+func (s *FishPiSDK) GetUserUsernamePoint(username string) (*types.ApiResponse[*types.GetUserUsernamePointData], error) {
+	response := new(types.ApiResponse[*types.GetUserUsernamePointData])
+
+	_, err := s.client.R().
+		SetPathParam("username", username).
+		SetSuccessResult(response).
+		SetErrorResult(response).
+		Get("/user/{username}/point")
+	if err != nil {
+		return nil, err
+	}
+
+	return response, nil
+}
+
+// GetUserUsernameMedal 查询指定用户勋章
+func (s *FishPiSDK) GetUserUsernameMedal(username string) (*types.ApiResponse[*types.GetUserUsernameMedalData], error) {
+	response := new(types.ApiResponse[*types.GetUserUsernameMedalData])
+
+	_, err := s.client.R().
+		SetPathParam("username", username).
+		SetSuccessResult(response).
+		SetErrorResult(response).
+		Get("/user/{username}/medal")
+	if err != nil {
+		return nil, err
+	}
+
+	return response, nil
+}

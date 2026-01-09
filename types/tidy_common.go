@@ -150,3 +150,24 @@ type PostSettingsProfilesRequest struct {
 	UserIntro    string `json:"userIntro,omitempty"`    // 个人简介
 	Mbti         string `json:"mbti,omitempty"`         // MBTI性格类型（例如：ENFP）todo 类型枚举
 }
+
+type GetUserUsernamePointData struct {
+	UserPoint int    `json:"userPoint"` // 用户积分
+	UserName  string `json:"userName"`  // 用户名
+}
+
+type GetUserUsernameMedalData struct {
+	List []*GetUserUsernameMedalInfo `json:"list"` // 勋章列表
+}
+
+type GetUserUsernameMedalInfo struct {
+	Data        string `json:"data"`
+	Name        string `json:"name"`
+	Description string `json:"description"`
+	ExpireDate  string `json:"expireDate"`
+	Id          string `json:"id"`
+	Attr        string `json:"attr"`
+	Type        string `json:"type"`
+	Enabled     bool   `json:"enabled"`
+	Order       int    `json:"order"`
+}

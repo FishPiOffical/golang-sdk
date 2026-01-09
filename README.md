@@ -42,8 +42,6 @@
 - [ ] 新增
     - [x] 获取用户VIP信息 通用 GET /api/membership/{userId}
     - [x] 获取操作日志 通用 GET /logs/more
-    - [x] 修改头像 通用 POST /api/settings/avatar
-    - [x] 修改信息 通用 POST /api/settings/profiles
 - [ ] 杂项
     - [ ] 勋章链接生成
     - [ ] 客户端版本解析
@@ -61,6 +59,10 @@
     - [x] 转账
     - [x] 关注用户
     - [x] 取关用户
+    - [x] 修改信息 通用 POST /api/settings/profiles
+    - [x] 修改头像 通用 POST /api/settings/avatar
+    - [x] 查询指定用户积分 GET /user/{username}/point
+    - [x] 查询用户勋章 GET /user/{用户名}/medal
 - [x] 通知
     - [x] 通知计数
     - [x] 通知详情
@@ -355,8 +357,8 @@ Apache 2.0
 ## 相关链接
 
 - [摸鱼派社区](https://fishpi.cn)
-- [API文档 v2.2.0](https://fishpi.cn/article/1636516552191)
-- [TypeScript SDK 2025.12.17](https://github.com/FishPiOffical/fishpi.js/commit/5e213dd8b5ad4f163152de45eac05f2e5a33db59)
+- [API文档 v2.2.3](https://fishpi.cn/article/1636516552191)
+- [TypeScript SDK 2026.01.09](https://github.com/FishPiOffical/fishpi.js/commit/3980e4768afba4d181781d45078e6ca629244af1)
 
 ## 贡献
 
