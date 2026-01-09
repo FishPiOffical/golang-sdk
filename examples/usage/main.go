@@ -139,7 +139,7 @@ func main() {
 	// 帖子
 	//postArticle()
 	//putArticle()
-	//getArticles()
+	getArticles()
 	//getArticleDetail()
 	//getUserArticles()
 	//postVoteUpArticle()
@@ -207,7 +207,7 @@ func main() {
 	//postMedalAdminGrant()
 	//postMedalAdminRevoke()
 	//postMedalAdminOwners()
-	getMedalUrl()
+	//getMedalUrl()
 
 }
 

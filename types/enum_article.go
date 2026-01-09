@@ -13,18 +13,6 @@ reply // 回复
 */
 type ArticleListType string
 
-// ArticleType 文章类型
-/*
-ENUM(
-normal=0 // 普通帖子
-private=1 // 机要
-broadcast=2 // 同城广播
-thought=3 // 思绪
-question=5 // 问题
-)
-*/
-type ArticleType int
-
 // ArticlePerfect 是否精选文章
 /*
 ENUM(
@@ -33,15 +21,6 @@ no=0 // 否
 )
 */
 type ArticlePerfect int
-
-// ArticleShowInList 文章是否在列表展示
-/*
-ENUM(
-yes=1 // 是
-no=0 // 否
-)
-*/
-type ArticleShowInList int
 
 // GetArticleType 获取文章类型
 /*

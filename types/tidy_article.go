@@ -1,21 +1,65 @@
+//go:generate go-enum --names --values --ptr --mustparse
 package types
 
 import "fmt"
 
 // PostArticleRequest 发布文章请求
 type PostArticleRequest struct {
-	ArticleTitle           string            `json:"articleTitle"`                   // 帖子标题
-	ArticleContent         string            `json:"articleContent"`                 // 帖子内容
-	ArticleTags            string            `json:"articleTags"`                    // 帖子标签
-	ArticleCommentable     bool              `json:"articleCommentable"`             // 是否允许评论
-	ArticleNotifyFollowers bool              `json:"articleNotifyFollowers"`         // 是否通知帖子关注着
-	ArticleType            ArticleType       `json:"articleType"`                    // 帖子类型
-	ArticleShowInList      ArticleShowInList `json:"articleShowInList"`              // 是否在列表展示
-	ArticleRewardContent   *string           `json:"articleRewardContent,omitempty"` // 打赏内容
-	ArticleRewardPoint     *int              `json:"articleRewardPoint,omitempty"`   // 打赏积分
-	ArticleAnonymous       *bool             `json:"articleAnonymous,omitempty"`     // 是否匿名
-	ArticleQnAOfferPoint   *int              `json:"articleQnAOfferPoint,omitempty"` // 提问悬赏积分
+	ArticleTitle           string               `json:"articleTitle"`                   // 帖子标题
+	ArticleContent         string               `json:"articleContent"`                 // 帖子内容
+	ArticleTags            string               `json:"articleTags"`                    // 帖子标签
+	ArticleCommentable     bool                 `json:"articleCommentable"`             // 是否允许评论
+	ArticleNotifyFollowers bool                 `json:"articleNotifyFollowers"`         // 是否通知帖子关注着
+	ArticleType            ArticleType          `json:"articleType"`                    // 帖子类型
+	ArticleShowInList      ArticleShowInList    `json:"articleShowInList"`              // 是否在列表展示
+	ArticleStatement       ArticleStatement     `json:"articleStatement"`               // 文章声明类型
+	IsGoodArticle          ArticleIsGoodArticle `json:"isGoodArticle,omitempty"`        // 是否为好文
+	ArticleRewardContent   *string              `json:"articleRewardContent,omitempty"` // 打赏内容
+	ArticleRewardPoint     *int                 `json:"articleRewardPoint,omitempty"`   // 打赏积分
+	ArticleAnonymous       *bool                `json:"articleAnonymous,omitempty"`     // 是否匿名
+	ArticleQnAOfferPoint   *int                 `json:"articleQnAOfferPoint,omitempty"` // 提问悬赏积分
 }
+
+// ArticleType 文章类型
+/*
+ENUM(
+normal=0 // 普通帖子
+private=1 // 机要
+broadcast=2 // 同城广播
+thought=3 // 思绪
+question=5 // 问题
+)
+*/
+type ArticleType int
+
+// ArticleShowInList 文章是否在列表展示
+/*
+ENUM(
+yes=1 // 是
+no=0 // 否
+)
+*/
+type ArticleShowInList int
+
+// ArticleStatement 文章声明类型
+/*
+ENUM(
+none=0 // 无声明
+ai = 1 // 包含AI辅助创作
+spoiler = 2 // 包含剧透
+fiction = 3 // 虚构演绎，仅供娱乐
+)
+*/
+type ArticleStatement int
+
+// ArticleIsGoodArticle 是否为好文
+/*
+ENUM(
+yes // 好文
+no // 随便写写
+)
+*/
+type ArticleIsGoodArticle string
 
 type PostArticleResponse struct {
 	Code      int    `json:"code"`
@@ -166,7 +210,7 @@ type ArticleInfo struct {
 	ArticlePermalink             string                `json:"articlePermalink"`
 	ArticleAuthor                *ArticleAuthor        `json:"articleAuthor"`
 	ArticleRewardPoint           int                   `json:"articleRewardPoint"`
-	ArticleStatement             int                   `json:"articleStatement"`
+	ArticleStatement             ArticleStatement      `json:"articleStatement"`
 	ArticleCommentable           bool                  `json:"articleCommentable"`
 	ArticleAnonymousView         int                   `json:"articleAnonymousView"`
 	ArticleCity                  string                `json:"articleCity"`
@@ -352,7 +396,7 @@ type ArticleDetail struct {
 	ArticleRevisionCount         int               `json:"articleRevisionCount"`
 	ArticleLatestCmtTime         string            `json:"articleLatestCmtTime"`
 	ArticleThumbnailURL          string            `json:"articleThumbnailURL"`
-	ArticleStatement             int               `json:"articleStatement"`
+	ArticleStatement             ArticleStatement  `json:"articleStatement"`
 	ArticleAuthorName            string            `json:"articleAuthorName"`
 	ArticleType                  int               `json:"articleType"`
 	ArticleCreateTimeStr         string            `json:"articleCreateTimeStr"`
