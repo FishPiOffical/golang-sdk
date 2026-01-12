@@ -1,3 +1,4 @@
+//go:generate go-enum --marshal --names --values --ptr --mustparse
 package types
 
 import "encoding/json"
@@ -37,7 +38,7 @@ type User struct {
 	UserIntro          string      `json:"userIntro"`
 	UserPoint          int         `json:"userPoint"`
 	UserAppRole        UserAppRole `json:"userAppRole"`
-	UserRole           string      `json:"userRole"`
+	UserRole           UserRole    `json:"userRole"`
 	OnlineMinute       int         `json:"onlineMinute"`
 	UserCity           string      `json:"userCity"`
 	SysMetal           string      `json:"sysMetal"`
@@ -49,6 +50,19 @@ type User struct {
 	MBTI               string      `json:"mbti"`
 	AllMetalOwned      string      `json:"allMetalOwned"`
 }
+
+// UserRole 用户角色 新手、成员、超级会员、纪律委员、OP、管理员
+/*
+ENUM(
+new=新手
+vip=会员
+svip=超级会员
+police=纪律委员
+op=OP
+admin=管理员
+)
+*/
+type UserRole string
 
 func (user *User) GetMetalList() ([]*Metal, error) {
 	if user.SysMetal == "" {
