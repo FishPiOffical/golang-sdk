@@ -105,7 +105,7 @@ func main() {
 	//postSettingsAvatar()
 	//postSettingsProfiles()
 	//getUserUsernamePoint()
-	getUserUsernameMedal()
+	//getUserUsernameMedal()
 
 	// 通知
 	//getNotificationCount()
@@ -210,6 +210,7 @@ func main() {
 	//postMedalAdminRevoke()
 	//postMedalAdminOwners()
 	//getMedalUrl()
+	postMedalAdminUserMedals()
 
 }
 
@@ -1511,4 +1512,16 @@ func getMedalUrl() {
 		MedalName: medalNameSister,
 	})
 	logger.Info("获取徽章图片链接结果", slog.String("link", link))
+}
+
+func postMedalAdminUserMedals() {
+	resp, err := client.PostMedalAdminUserMedals(&types.PostMedalAdminUserMedalsRequest{
+		//UserId: userIdYui,
+		UserName: username,
+	})
+	if err != nil {
+		logger.Error("获取用户所有徽章列表失败", slog.String("error", err.Error()))
+		return
+	}
+	logger.Info("获取用户所有徽章列表结果", slog.Any("resp", resp))
 }

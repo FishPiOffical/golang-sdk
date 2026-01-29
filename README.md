@@ -154,6 +154,7 @@
     - [x] 给指定用户发指定勋章(medal_admin_write)
     - [x] 给指定用户移除指定勋章(medal_admin_write)
     - [x] 读取指定勋章拥有的用户和拥有总数（分页）(medal_admin_read)
+    - [x] 读取指定用户的所有勋章(medal_admin_read)
   - [x] description/data（变量渲染说明补充）
   - [x] 勋章生成页（SVG）
     - [x] 通过勋章ID显示勋章

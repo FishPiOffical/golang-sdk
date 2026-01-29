@@ -99,3 +99,9 @@ bottom-right // 从右下到左上
 )
 */
 type BadgeWay string
+
+type PostMedalAdminUserMedalsRequest struct {
+	GoldFingerKey string `json:"goldFingerKey"`      // 管理员金手指密钥
+	UserId        string `json:"userId,omitempty"`   // 用户ID
+	UserName      string `json:"userName,omitempty"` // 用户名
+}

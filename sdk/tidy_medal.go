@@ -280,3 +280,20 @@ func (s *FishPiSDK) GetMedalUrl(data *types.GetMedalUrlRequest) string {
 
 	return s.GetConfig().BaseUrl + addr.String()
 }
+
+// PostMedalAdminUserMedals 读取用户的所有勋章
+func (s *FishPiSDK) PostMedalAdminUserMedals(req *types.PostMedalAdminUserMedalsRequest) (*types.ApiResponse[[]*types.Medal], error) {
+	req.GoldFingerKey = s.GetConfig().MedalReadFingerKey
+	response := new(types.ApiResponse[[]*types.Medal])
+	_, err := s.client.R().
+		SetBodyJsonMarshal(req).
+		SetSuccessResult(response).
+		SetErrorResult(response).
+		Post("/api/medal/admin/user-medals")
+
+	if err != nil {
+		return nil, err
+	}
+
+	return response, nil
+}
