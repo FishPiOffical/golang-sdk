@@ -1,6 +1,6 @@
 package sdk
 
-import "github.com/FishPiOffical/golang-sdk/types"
+import "github.com/fishpioffical/golang-sdk/types"
 
 // GetChatMessage 获取用户私聊历史消息
 func (s *FishPiSDK) GetChatMessage(toUser string, page, pageSize int) (*types.ResultResponse[[]*types.ChatMessage], error) {

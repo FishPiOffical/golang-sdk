@@ -1,7 +1,7 @@
 package sdk
 
 import (
-	"github.com/FishPiOffical/golang-sdk/types"
+	"github.com/fishpioffical/golang-sdk/types"
 )
 
 // GetBreezemoons 获取清风明月列表

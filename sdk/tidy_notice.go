@@ -1,7 +1,7 @@
 package sdk
 
 import (
-	"github.com/FishPiOffical/golang-sdk/types"
+	"github.com/fishpioffical/golang-sdk/types"
 )
 
 // GetNotificationCount 获取未读通知数量

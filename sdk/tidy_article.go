@@ -3,7 +3,7 @@ package sdk
 import (
 	"fmt"
 
-	"github.com/FishPiOffical/golang-sdk/types"
+	"github.com/fishpioffical/golang-sdk/types"
 )
 
 // PostArticle 发布文章

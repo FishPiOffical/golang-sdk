@@ -6,7 +6,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/FishPiOffical/golang-sdk/types"
+	"github.com/fishpioffical/golang-sdk/types"
 )
 
 // GetOpenIdUrl 获取登陆地址

@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"log/slog"
 
-	"github.com/FishPiOffical/golang-sdk/config"
+	"github.com/fishpioffical/golang-sdk/config"
 	"github.com/imroc/req/v3"
 )
 

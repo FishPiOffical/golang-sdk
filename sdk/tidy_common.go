@@ -1,7 +1,7 @@
 package sdk
 
 import (
-	"github.com/FishPiOffical/golang-sdk/types"
+	"github.com/fishpioffical/golang-sdk/types"
 )
 
 // GetUserInfoByUsername 根据用户名获取用户信息

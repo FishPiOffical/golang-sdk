@@ -1,4 +1,4 @@
-module github.com/FishPiOffical/golang-sdk
+module github.com/fishpioffical/golang-sdk
 
 go 1.24.0
 

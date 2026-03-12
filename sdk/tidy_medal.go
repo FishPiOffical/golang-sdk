@@ -3,7 +3,7 @@ package sdk
 import (
 	"net/url"
 
-	"github.com/FishPiOffical/golang-sdk/types"
+	"github.com/fishpioffical/golang-sdk/types"
 )
 
 // PostMedalMyList 读取当前登录用户的所有勋章

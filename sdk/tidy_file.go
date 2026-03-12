@@ -3,7 +3,7 @@ package sdk
 import (
 	"fmt"
 
-	"github.com/FishPiOffical/golang-sdk/types"
+	"github.com/fishpioffical/golang-sdk/types"
 )
 
 // PostUploadFile 上传文件

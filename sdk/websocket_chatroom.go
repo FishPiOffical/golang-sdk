@@ -1,6 +1,6 @@
 package sdk
 
-import "github.com/FishPiOffical/golang-sdk/types"
+import "github.com/fishpioffical/golang-sdk/types"
 
 // ChatroomWebSocket 聊天室WebSocket客户端
 type ChatroomWebSocket struct {

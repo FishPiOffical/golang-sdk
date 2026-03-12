@@ -7,10 +7,10 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/FishPiOffical/golang-sdk/config"
-	"github.com/FishPiOffical/golang-sdk/sdk"
-	"github.com/FishPiOffical/golang-sdk/types"
 	"github.com/duke-git/lancet/v2/convertor"
+	"github.com/fishpioffical/golang-sdk/config"
+	"github.com/fishpioffical/golang-sdk/sdk"
+	"github.com/fishpioffical/golang-sdk/types"
 	"github.com/golang-cz/devslog"
 
 	"log/slog"

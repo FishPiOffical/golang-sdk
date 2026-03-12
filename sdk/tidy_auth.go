@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/FishPiOffical/golang-sdk/types"
+	"github.com/fishpioffical/golang-sdk/types"
 	"github.com/pquerna/otp"
 	"github.com/pquerna/otp/totp"
 )

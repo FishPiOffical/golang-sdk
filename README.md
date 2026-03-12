@@ -163,7 +163,7 @@
 ## 安装
 
 ```bash
-go get github.com/FishPiOffical/golang-sdk
+go get github.com/fishpioffical/golang-sdk
 ```
 
 ## 快速开始
@@ -342,7 +342,7 @@ parsed, err := types.ParseArticleListType("hot")
 
 ```bash
 # 克隆项目
-git clone https://github.com/FishPiOffical/golang-sdk
+git clone https://github.com/fishpioffical/golang-sdk
 
 # 安装依赖
 go mod download

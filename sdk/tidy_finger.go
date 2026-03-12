@@ -1,7 +1,7 @@
 package sdk
 
 import (
-	"github.com/FishPiOffical/golang-sdk/types"
+	"github.com/fishpioffical/golang-sdk/types"
 )
 
 // PostMoFishScore 上传摸鱼大闯关关卡数据 未验证
