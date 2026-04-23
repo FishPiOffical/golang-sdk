@@ -59,16 +59,19 @@ type ChatroomMsg struct {
 	OId string `json:"oId"` // 消息ID
 
 	// 聊天消息
-	Time             string `json:"time"`             // 发布时间
-	UserName         string `json:"userName"`         // 用户名
-	UserNickname     string `json:"userNickname"`     // 用户昵称
-	UserAvatarURL    string `json:"userAvatarURL"`    // 用户头像
-	UserAvatarURL20  string `json:"userAvatarURL20"`  // 用户头像 20px
-	UserAvatarURL48  string `json:"userAvatarURL48"`  // 用户头像 48px
-	UserAvatarURL210 string `json:"userAvatarURL210"` // 用户邮箱 210px
-	SysMetal         string `json:"sysMetal"`         // 徽章数据 json字符串
-	Content          string `json:"content"`          // 消息内容 HTML格式 如果是红包则是JSON格式
-	Md               string `json:"md"`               // 消息内容 Markdown格式，红包消息无此栏位
+	Time                string             `json:"time"`                // 发布时间
+	UserOId             int64              `json:"userOId"`             // 用户ID
+	UserName            string             `json:"userName"`            // 用户名
+	UserNickname        string             `json:"userNickname"`        // 用户昵称
+	UserAvatarURL       string             `json:"userAvatarURL"`       // 用户头像
+	UserAvatarURL20     string             `json:"userAvatarURL20"`     // 用户头像 20px
+	UserAvatarURL48     string             `json:"userAvatarURL48"`     // 用户头像 48px
+	UserAvatarURL210    string             `json:"userAvatarURL210"`    // 用户邮箱 210px
+	SysMetal            string             `json:"sysMetal"`            // 徽章数据 json字符串
+	Content             string             `json:"content"`             // 消息内容 HTML格式 如果是红包则是JSON格式
+	Md                  string             `json:"md"`                  // 消息内容 Markdown格式，红包消息无此栏位
+	ReactionSummary     []*ReactionSummary `json:"reactionSummary"`     // 表情反应汇总
+	CurrentUserReaction string             `json:"currentUserReaction"` // 自己在该信息中的表情反应
 
 	// 红包领取消息
 	Count   int    `json:"count"`   // 红包个数
@@ -106,6 +109,21 @@ func (msg *ChatroomMsg) GetJsonInfo() *ChatroomMsgJsonInfo {
 	}
 
 	return data
+}
+
+type ReactionSummary struct {
+	Value       string                   `json:"value"`       // 表情值
+	Emoji       string                   `json:"emoji"`       // 表情字符
+	Count       int                      `json:"count"`       // 该表情当前总数
+	Selected    bool                     `json:"selected"`    // 当前登陆用户是否已选中该表情
+	Users       []string                 `json:"users"`       // 点赞过该表情的用户显示名列表
+	UserDetails []*ReactionSummaryDetail `json:"userDetails"` // 点赞过该表情的用户详情列表
+}
+
+type ReactionSummaryDetail struct {
+	UserName    string `json:"userName"`
+	DisplayName string `json:"displayName"`
+	AvatarURL   string `json:"avatarURL"`
 }
 
 type OnlineUserInfo struct {

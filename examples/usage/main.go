@@ -187,7 +187,7 @@ func main() {
 	// websocket
 	//userChannelWebsocket() // 通知
 	//chatChannelWebsocket() // 私聊
-	//chatroomWebsocket() // 聊天室
+	chatroomWebsocket() // 聊天室
 	//articleChannelWebsocket() // 文章热度通知
 
 	// openid
@@ -210,7 +210,7 @@ func main() {
 	//postMedalAdminRevoke()
 	//postMedalAdminOwners()
 	//getMedalUrl()
-	postMedalAdminUserMedals()
+	//postMedalAdminUserMedals()
 
 }
 
