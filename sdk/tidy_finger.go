@@ -217,3 +217,24 @@ func (s *FishPiSDK) PostYesterdayLivenessReward(userName string) (*types.PostYes
 
 	return response, nil
 }
+
+// PostUserEditNotification 发送指定用户系统通知
+func (s *FishPiSDK) PostUserEditNotification(userName string, notification string) (*types.SimpleResponse, error) {
+	response := new(types.SimpleResponse)
+
+	_, err := s.client.R().
+		SetBodyJsonMarshal(map[string]string{
+			"goldFingerKey": s.GetConfig().NotificationFingerKey,
+			"userName":      userName,
+			"notification":  notification,
+		}).
+		SetSuccessResult(response).
+		SetErrorResult(response).
+		Post("/user/edit/notification")
+
+	if err != nil {
+		return nil, err
+	}
+
+	return response, nil
+}

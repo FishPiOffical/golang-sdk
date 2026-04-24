@@ -184,6 +184,9 @@ const (
 	// GetArticleOrderPerfect is a GetArticleOrder of type perfect.
 	// 精选
 	GetArticleOrderPerfect GetArticleOrder = "perfect"
+	// GetArticleOrderLong is a GetArticleOrder of type long.
+	// 长文
+	GetArticleOrderLong GetArticleOrder = "long"
 )
 
 var ErrInvalidGetArticleOrder = fmt.Errorf("not a valid GetArticleOrder, try [%s]", strings.Join(_GetArticleOrderNames, ", "))
@@ -193,6 +196,7 @@ var _GetArticleOrderNames = []string{
 	string(GetArticleOrderGood),
 	string(GetArticleOrderReply),
 	string(GetArticleOrderPerfect),
+	string(GetArticleOrderLong),
 }
 
 // GetArticleOrderNames returns a list of possible string values of GetArticleOrder.
@@ -209,6 +213,7 @@ func GetArticleOrderValues() []GetArticleOrder {
 		GetArticleOrderGood,
 		GetArticleOrderReply,
 		GetArticleOrderPerfect,
+		GetArticleOrderLong,
 	}
 }
 
@@ -229,6 +234,7 @@ var _GetArticleOrderValue = map[string]GetArticleOrder{
 	"good":    GetArticleOrderGood,
 	"reply":   GetArticleOrderReply,
 	"perfect": GetArticleOrderPerfect,
+	"long":    GetArticleOrderLong,
 }
 
 // ParseGetArticleOrder attempts to convert a string to a GetArticleOrder.

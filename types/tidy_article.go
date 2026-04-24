@@ -28,6 +28,7 @@ private=1 // 机要
 broadcast=2 // 同城广播
 thought=3 // 思绪
 question=5 // 问题
+long=6 // 长文
 )
 */
 type ArticleType int
@@ -170,7 +171,7 @@ type ArticleInfo struct {
 	ArticleCreateTime            string                `json:"articleCreateTime"`
 	ArticleAuthorId              string                `json:"articleAuthorId"`
 	ArticleBadCnt                int                   `json:"articleBadCnt"`
-	ArticleParticipants          []*ArticleParticipant `json:"articleParticipants"`
+	ArticleParticipants          []*ArticleParticipant `json:"articleParticipants,omitempty"`
 	ArticleLatestCmtTime         string                `json:"articleLatestCmtTime"`
 	ArticleGoodCnt               int                   `json:"articleGoodCnt"`
 	ArticleQnAOfferPoint         int                   `json:"articleQnAOfferPoint"`
@@ -209,18 +210,21 @@ type ArticleInfo struct {
 	ArticleAuthorThumbnailURL210 string                `json:"articleAuthorThumbnailURL210"`
 	ArticlePermalink             string                `json:"articlePermalink"`
 	ArticleAuthor                *ArticleAuthor        `json:"articleAuthor"`
-	ArticleRewardPoint           int                   `json:"articleRewardPoint"`
-	ArticleStatement             ArticleStatement      `json:"articleStatement"`
-	ArticleCommentable           bool                  `json:"articleCommentable"`
-	ArticleAnonymousView         int                   `json:"articleAnonymousView"`
-	ArticleCity                  string                `json:"articleCity"`
-	ArticleEditorType            int                   `json:"articleEditorType"`
-	ArticleRandomDouble          float64               `json:"articleRandomDouble"`
-	ArticleAudioURL              string                `json:"articleAudioURL"`
-	ArticleImg1URL               string                `json:"articleImg1URL"`
-	ArticlePushOrder             int                   `json:"articlePushOrder"`
-	ArticleRewardContent         string                `json:"articleRewardContent"`
-	RedditScore                  float64               `json:"redditScore"`
+	ArticleRewardPoint           int                   `json:"articleRewardPoint,omitempty"`
+	ArticleStatement             ArticleStatement      `json:"articleStatement,omitempty"`
+	ArticleCommentable           bool                  `json:"articleCommentable,omitempty"`
+	ArticleAnonymousView         int                   `json:"articleAnonymousView,omitempty"`
+	ArticleCity                  string                `json:"articleCity,omitempty"`
+	ArticleEditorType            int                   `json:"articleEditorType,omitempty"`
+	ArticleRandomDouble          float64               `json:"articleRandomDouble,omitempty"`
+	ArticleAudioURL              string                `json:"articleAudioURL,omitempty"`
+	ArticleImg1URL               string                `json:"articleImg1URL,omitempty"`
+	ArticlePushOrder             int                   `json:"articlePushOrder,omitempty"`
+	ArticleRewardContent         string                `json:"articleRewardContent,omitempty"`
+	RedditScore                  float64               `json:"redditScore,omitempty"`
+	ChapterNo                    int                   `json:"chapterNo,omitempty"`
+	ColumnTitle                  string                `json:"columnTitle,omitempty"`
+	ColumnId                     string                `json:"columnId,omitempty"`
 }
 
 // ArticlePagination 分页信息
@@ -237,17 +241,17 @@ type ArticleTag struct {
 	TagBadCnt          int           `json:"tagBadCnt"`
 	TagRandomDouble    float64       `json:"tagRandomDouble"`
 	TagTitle           string        `json:"tagTitle"`
-	IsReserved         bool          `json:"isReserved"`
+	IsReserved         bool          `json:"isReserved,omitempty"`
 	OId                string        `json:"oId"`
 	TagURI             string        `json:"tagURI"`
 	TagAd              string        `json:"tagAd"`
 	TagGoodCnt         int           `json:"tagGoodCnt"`
 	TagCSS             string        `json:"tagCSS"`
 	TagCommentCount    int           `json:"tagCommentCount"`
-	TagDescriptionText string        `json:"tagDescriptionText"`
+	TagDescriptionText string        `json:"tagDescriptionText,omitempty"`
 	TagFollowerCount   int           `json:"tagFollowerCount"`
 	TagRelatedTags     []*ArticleTag `json:"tagRelatedTags,omitempty"`
-	TagDomains         []interface{} `json:"tagDomains"`
+	TagDomains         []interface{} `json:"tagDomains,omitempty"`
 	TagSeoTitle        string        `json:"tagSeoTitle"`
 	TagLinkCount       int           `json:"tagLinkCount"`
 	TagSeoDesc         string        `json:"tagSeoDesc"`
@@ -276,10 +280,10 @@ type ArticleDomain struct {
 
 // ArticleList 文章列表
 type ArticleList struct {
-	Articles   []*ArticleInfo    `json:"articles"`
-	Pagination ArticlePagination `json:"pagination,omitempty"`
-	Tag        ArticleTag        `json:"tag,omitempty"`
-	Domain     ArticleDomain     `json:"domain,omitempty"`
+	Articles   []*ArticleInfo     `json:"articles"`
+	Pagination *ArticlePagination `json:"pagination,omitempty"`
+	Tag        *ArticleTag        `json:"tag,omitempty"`
+	Domain     *ArticleDomain     `json:"domain,omitempty"`
 }
 
 type ArticleCommenter struct {

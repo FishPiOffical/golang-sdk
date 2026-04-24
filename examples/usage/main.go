@@ -145,7 +145,7 @@ func main() {
 	//postEmojiGroupAddEmoji()
 	//postEmojiGroupAddUrlEmoji()
 	//postEmojiGroupRemoveEmoji()
-	postEmojiEmojiUpdate()
+	//postEmojiEmojiUpdate()
 	//postEmojiEmojiMigrate()
 
 	// 图床
@@ -196,6 +196,7 @@ func main() {
 	//postUserEditPoints()
 	//postUserLiveness()
 	//postYesterdayLivenessReward()
+	postUserEditNotification()
 
 	// websocket
 	//userChannelWebsocket() // 通知
@@ -853,7 +854,7 @@ func getArticles() {
 	resp, err := client.GetArticles(&types.GetArticlesRequest{
 		Type:    types.GetArticleTypeRecent,
 		Keyword: "",
-		Order:   convertor.ToPointer(types.GetArticleOrderHot),
+		Order:   convertor.ToPointer(types.GetArticleOrderLong),
 		Page:    1,
 		Size:    10,
 	})
@@ -1121,6 +1122,15 @@ func postYesterdayLivenessReward() {
 		return
 	}
 	logger.Info("领取用户昨日活跃度奖励结果", slog.Any("resp", resp))
+}
+
+func postUserEditNotification() {
+	resp, err := client.PostUserEditNotification(username, "这是一条来自接口测试的通知内容")
+	if err != nil {
+		logger.Error("发送指定用户通知失败", slog.String("error", err.Error()))
+		return
+	}
+	logger.Info("发送指定用户通知结果", slog.Any("resp", resp))
 }
 
 func postApiGetKey() {

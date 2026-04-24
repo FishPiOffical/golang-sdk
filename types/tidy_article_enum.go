@@ -268,11 +268,14 @@ const (
 	// ArticleTypeQuestion is a ArticleType of type Question.
 	// 问题
 	ArticleTypeQuestion ArticleType = iota + 1
+	// ArticleTypeLong is a ArticleType of type Long.
+	// 长文
+	ArticleTypeLong
 )
 
 var ErrInvalidArticleType = fmt.Errorf("not a valid ArticleType, try [%s]", strings.Join(_ArticleTypeNames, ", "))
 
-const _ArticleTypeName = "normalprivatebroadcastthoughtquestion"
+const _ArticleTypeName = "normalprivatebroadcastthoughtquestionlong"
 
 var _ArticleTypeNames = []string{
 	_ArticleTypeName[0:6],
@@ -280,6 +283,7 @@ var _ArticleTypeNames = []string{
 	_ArticleTypeName[13:22],
 	_ArticleTypeName[22:29],
 	_ArticleTypeName[29:37],
+	_ArticleTypeName[37:41],
 }
 
 // ArticleTypeNames returns a list of possible string values of ArticleType.
@@ -297,6 +301,7 @@ func ArticleTypeValues() []ArticleType {
 		ArticleTypeBroadcast,
 		ArticleTypeThought,
 		ArticleTypeQuestion,
+		ArticleTypeLong,
 	}
 }
 
@@ -306,6 +311,7 @@ var _ArticleTypeMap = map[ArticleType]string{
 	ArticleTypeBroadcast: _ArticleTypeName[13:22],
 	ArticleTypeThought:   _ArticleTypeName[22:29],
 	ArticleTypeQuestion:  _ArticleTypeName[29:37],
+	ArticleTypeLong:      _ArticleTypeName[37:41],
 }
 
 // String implements the Stringer interface.
@@ -329,6 +335,7 @@ var _ArticleTypeValue = map[string]ArticleType{
 	_ArticleTypeName[13:22]: ArticleTypeBroadcast,
 	_ArticleTypeName[22:29]: ArticleTypeThought,
 	_ArticleTypeName[29:37]: ArticleTypeQuestion,
+	_ArticleTypeName[37:41]: ArticleTypeLong,
 }
 
 // ParseArticleType attempts to convert a string to a ArticleType.

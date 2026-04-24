@@ -39,6 +39,7 @@ hot // 热门
 good // 点赞
 reply // 回复
 perfect // 精选
+long // 长文
 )
 */
 type GetArticleOrder string
