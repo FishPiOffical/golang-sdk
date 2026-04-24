@@ -12,6 +12,75 @@ import (
 )
 
 const (
+	// ArticleIsGoodArticleYes is a ArticleIsGoodArticle of type yes.
+	// 好文
+	ArticleIsGoodArticleYes ArticleIsGoodArticle = "yes"
+	// ArticleIsGoodArticleNo is a ArticleIsGoodArticle of type no.
+	// 随便写写
+	ArticleIsGoodArticleNo ArticleIsGoodArticle = "no"
+)
+
+var ErrInvalidArticleIsGoodArticle = fmt.Errorf("not a valid ArticleIsGoodArticle, try [%s]", strings.Join(_ArticleIsGoodArticleNames, ", "))
+
+var _ArticleIsGoodArticleNames = []string{
+	string(ArticleIsGoodArticleYes),
+	string(ArticleIsGoodArticleNo),
+}
+
+// ArticleIsGoodArticleNames returns a list of possible string values of ArticleIsGoodArticle.
+func ArticleIsGoodArticleNames() []string {
+	tmp := make([]string, len(_ArticleIsGoodArticleNames))
+	copy(tmp, _ArticleIsGoodArticleNames)
+	return tmp
+}
+
+// ArticleIsGoodArticleValues returns a list of the values for ArticleIsGoodArticle
+func ArticleIsGoodArticleValues() []ArticleIsGoodArticle {
+	return []ArticleIsGoodArticle{
+		ArticleIsGoodArticleYes,
+		ArticleIsGoodArticleNo,
+	}
+}
+
+// String implements the Stringer interface.
+func (x ArticleIsGoodArticle) String() string {
+	return string(x)
+}
+
+// IsValid provides a quick way to determine if the typed value is
+// part of the allowed enumerated values
+func (x ArticleIsGoodArticle) IsValid() bool {
+	_, err := ParseArticleIsGoodArticle(string(x))
+	return err == nil
+}
+
+var _ArticleIsGoodArticleValue = map[string]ArticleIsGoodArticle{
+	"yes": ArticleIsGoodArticleYes,
+	"no":  ArticleIsGoodArticleNo,
+}
+
+// ParseArticleIsGoodArticle attempts to convert a string to a ArticleIsGoodArticle.
+func ParseArticleIsGoodArticle(name string) (ArticleIsGoodArticle, error) {
+	if x, ok := _ArticleIsGoodArticleValue[name]; ok {
+		return x, nil
+	}
+	return ArticleIsGoodArticle(""), fmt.Errorf("%s is %w", name, ErrInvalidArticleIsGoodArticle)
+}
+
+// MustParseArticleIsGoodArticle converts a string to a ArticleIsGoodArticle, and panics if is not valid.
+func MustParseArticleIsGoodArticle(name string) ArticleIsGoodArticle {
+	val, err := ParseArticleIsGoodArticle(name)
+	if err != nil {
+		panic(err)
+	}
+	return val
+}
+
+func (x ArticleIsGoodArticle) Ptr() *ArticleIsGoodArticle {
+	return &x
+}
+
+const (
 	// ArticleShowInListYes is a ArticleShowInList of type Yes.
 	// 是
 	ArticleShowInListYes ArticleShowInList = iota + 1
@@ -87,6 +156,99 @@ func MustParseArticleShowInList(name string) ArticleShowInList {
 }
 
 func (x ArticleShowInList) Ptr() *ArticleShowInList {
+	return &x
+}
+
+const (
+	// ArticleStatementNone is a ArticleStatement of type None.
+	// 无声明
+	ArticleStatementNone ArticleStatement = iota
+	// ArticleStatementAi is a ArticleStatement of type Ai.
+	// 包含AI辅助创作
+	ArticleStatementAi
+	// ArticleStatementSpoiler is a ArticleStatement of type Spoiler.
+	// 包含剧透
+	ArticleStatementSpoiler
+	// ArticleStatementFiction is a ArticleStatement of type Fiction.
+	// 虚构演绎，仅供娱乐
+	ArticleStatementFiction
+)
+
+var ErrInvalidArticleStatement = fmt.Errorf("not a valid ArticleStatement, try [%s]", strings.Join(_ArticleStatementNames, ", "))
+
+const _ArticleStatementName = "noneaispoilerfiction"
+
+var _ArticleStatementNames = []string{
+	_ArticleStatementName[0:4],
+	_ArticleStatementName[4:6],
+	_ArticleStatementName[6:13],
+	_ArticleStatementName[13:20],
+}
+
+// ArticleStatementNames returns a list of possible string values of ArticleStatement.
+func ArticleStatementNames() []string {
+	tmp := make([]string, len(_ArticleStatementNames))
+	copy(tmp, _ArticleStatementNames)
+	return tmp
+}
+
+// ArticleStatementValues returns a list of the values for ArticleStatement
+func ArticleStatementValues() []ArticleStatement {
+	return []ArticleStatement{
+		ArticleStatementNone,
+		ArticleStatementAi,
+		ArticleStatementSpoiler,
+		ArticleStatementFiction,
+	}
+}
+
+var _ArticleStatementMap = map[ArticleStatement]string{
+	ArticleStatementNone:    _ArticleStatementName[0:4],
+	ArticleStatementAi:      _ArticleStatementName[4:6],
+	ArticleStatementSpoiler: _ArticleStatementName[6:13],
+	ArticleStatementFiction: _ArticleStatementName[13:20],
+}
+
+// String implements the Stringer interface.
+func (x ArticleStatement) String() string {
+	if str, ok := _ArticleStatementMap[x]; ok {
+		return str
+	}
+	return fmt.Sprintf("ArticleStatement(%d)", x)
+}
+
+// IsValid provides a quick way to determine if the typed value is
+// part of the allowed enumerated values
+func (x ArticleStatement) IsValid() bool {
+	_, ok := _ArticleStatementMap[x]
+	return ok
+}
+
+var _ArticleStatementValue = map[string]ArticleStatement{
+	_ArticleStatementName[0:4]:   ArticleStatementNone,
+	_ArticleStatementName[4:6]:   ArticleStatementAi,
+	_ArticleStatementName[6:13]:  ArticleStatementSpoiler,
+	_ArticleStatementName[13:20]: ArticleStatementFiction,
+}
+
+// ParseArticleStatement attempts to convert a string to a ArticleStatement.
+func ParseArticleStatement(name string) (ArticleStatement, error) {
+	if x, ok := _ArticleStatementValue[name]; ok {
+		return x, nil
+	}
+	return ArticleStatement(0), fmt.Errorf("%s is %w", name, ErrInvalidArticleStatement)
+}
+
+// MustParseArticleStatement converts a string to a ArticleStatement, and panics if is not valid.
+func MustParseArticleStatement(name string) ArticleStatement {
+	val, err := ParseArticleStatement(name)
+	if err != nil {
+		panic(err)
+	}
+	return val
+}
+
+func (x ArticleStatement) Ptr() *ArticleStatement {
 	return &x
 }
 

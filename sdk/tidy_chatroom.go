@@ -185,6 +185,7 @@ func (s *FishPiSDK) PostRedPacketOpen(oId string, gesture types.GestureType) (*t
 }
 
 // PostCloudGet 从云获取指定Key内容
+// Deprecated: 该接口已废弃 详见 sdk/tidy_emoji.go
 func (s *FishPiSDK) PostCloudGet(gameId types.CloudGameId) (*types.ApiResponse[string], error) {
 	response := new(types.ApiResponse[string])
 
@@ -204,6 +205,7 @@ func (s *FishPiSDK) PostCloudGet(gameId types.CloudGameId) (*types.ApiResponse[s
 }
 
 // PostCloudSync 同步指定key数据到云
+// Deprecated: 该接口已废弃 详见 sdk/tidy_emoji.go
 func (s *FishPiSDK) PostCloudSync(gameId types.CloudGameId, data string) (*types.SimpleResponse, error) {
 	response := new(types.SimpleResponse)
 
