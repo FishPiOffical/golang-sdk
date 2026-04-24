@@ -24,6 +24,7 @@ redPacket // 红包
 redPacketStatus // 红包领取
 customMessage // 进入离开聊天室消息
 barrager // 弹幕
+chatReaction // 聊天消息贴emoji
 )
 */
 type ChatroomMsgType string
@@ -55,7 +56,10 @@ type ChatroomMsgJsonSubType string
 // ArticleChannelType 文章频道消息类型
 /*
 ENUM(
+comment // 文章评论
 articleHeat // 文章热度
+articleReaction // 文章响应
+commentReaction // 评论响应
 )
 */
 type ArticleChannelType string

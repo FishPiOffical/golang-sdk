@@ -177,6 +177,16 @@
   - [x] 勋章生成页（SVG）
     - [x] 通过勋章ID显示勋章
     - [x] 通过勋章名称显示勋章
+  - [x] 贴emoji
+    - [x] 帖子：获取指定帖子
+    - [x] 帖子：获取帖子的评论列表
+    - [x] 帖子：给帖子添加表情
+    - [x] 帖子：给评论添加表情
+    - [x] 聊天室：聊天历史消息
+    - [x] 聊天室：给聊天室消息添加表情
+    - [x] 可用emoji值
+    - [x] 聊天室WebSocket新增消息类型
+    - [x] 帖子页 /article-channel 新增消息类型
 
 ## 安装
 
@@ -376,7 +386,7 @@ Apache 2.0
 ## 相关链接
 
 - [摸鱼派社区](https://fishpi.cn)
-- [API文档 v2.2.3](https://fishpi.cn/article/1636516552191)
+- [API文档 v2.2.8](https://fishpi.cn/article/1636516552191)
 - [TypeScript SDK 2026.01.09](https://github.com/FishPiOffical/fishpi.js/commit/3980e4768afba4d181781d45078e6ca629244af1)
 
 ## 贡献

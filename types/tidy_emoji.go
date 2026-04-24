@@ -17,7 +17,7 @@ type EmojiGroup struct {
 	Type EmojiGroupType `json:"type"`
 }
 
-type Emoji struct {
+type EmojiData struct {
 	EmojiId string `json:"emojiId"`
 	Name    string `json:"name"`
 	OId     string `json:"oId"`

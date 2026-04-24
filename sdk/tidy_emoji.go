@@ -19,8 +19,8 @@ func (s *FishPiSDK) GetEmojiGroups() (*types.ApiResponse[[]*types.EmojiGroup], e
 }
 
 // GetEmojiGroupEmojis 获取分组内表情
-func (s *FishPiSDK) GetEmojiGroupEmojis(groupId string) (*types.ApiResponse[[]*types.Emoji], error) {
-	response := new(types.ApiResponse[[]*types.Emoji])
+func (s *FishPiSDK) GetEmojiGroupEmojis(groupId string) (*types.ApiResponse[[]*types.EmojiData], error) {
+	response := new(types.ApiResponse[[]*types.EmojiData])
 
 	_, err := s.client.R().
 		SetSuccessResult(response).

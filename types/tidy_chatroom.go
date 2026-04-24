@@ -37,6 +37,9 @@ type ChatroomMsgData struct {
 	UserAvatarURL20  string `json:"userAvatarURL20,omitempty"`
 	UserAvatarURL210 string `json:"userAvatarURL210,omitempty"`
 	UserAvatarURL48  string `json:"userAvatarURL48,omitempty"`
+
+	ReactionSummary     []*ReactionSummary `json:"reactionSummary"`
+	CurrentUserReaction string             `json:"currentUserReaction"`
 }
 
 func (msg *ChatroomMsgData) GetMetalList() ([]*Metal, error) {

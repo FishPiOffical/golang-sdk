@@ -107,6 +107,10 @@ type Metal struct {
 	BackgroundImage string `json:"backgroundImage,omitempty"`
 	ExpireDate      string `json:"expireDate,omitempty"`
 	Enabled         bool   `json:"enabled"`
+
+	Id    string `json:"id"`
+	Type  string `json:"type"`
+	Order int    `json:"order"`
 }
 
 type ArticleAuthor struct {
@@ -353,7 +357,7 @@ type ArticleCommenter struct {
 }
 
 type ArticleComment struct {
-	CommentNice               bool              `json:"commentNice,omitempty"`
+	CommentNice               bool              `json:"commentNice"`
 	CommentCreateTimeStr      string            `json:"commentCreateTimeStr"`
 	CommentAuthorId           string            `json:"commentAuthorId"`
 	CommentScore              float64           `json:"commentScore"`
@@ -387,6 +391,9 @@ type ArticleComment struct {
 	CommentOriginalAuthorThumbnailURL string `json:"commentOriginalAuthorThumbnailURL,omitempty"`
 	PaginationCurrentPageNum          int    `json:"paginationCurrentPageNum,omitempty"`
 	CommentThankLabel                 string `json:"commentThankLabel,omitempty"`
+
+	ReactionSummary     []*ReactionSummary `json:"reactionSummary"`
+	CurrentUserReaction string             `json:"currentUserReaction"`
 }
 
 type ArticleDetail struct {
@@ -461,6 +468,9 @@ type ArticleDetail struct {
 	ArticleUpdateTime            string            `json:"articleUpdateTime"`
 	ArticleStatus                int               `json:"articleStatus"`
 	ArticleAuthor                ArticleAuthor     `json:"articleAuthor"`
+
+	ReactionSummary     []*ReactionSummary `json:"reactionSummary"`
+	CurrentUserReaction string             `json:"currentUserReaction"`
 }
 
 // GetArticleData 文章数据

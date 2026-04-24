@@ -96,15 +96,27 @@ func (x *ArticleChannelOperation) UnmarshalText(text []byte) error {
 }
 
 const (
+	// ArticleChannelTypeComment is a ArticleChannelType of type comment.
+	// 文章评论
+	ArticleChannelTypeComment ArticleChannelType = "comment"
 	// ArticleChannelTypeArticleHeat is a ArticleChannelType of type articleHeat.
 	// 文章热度
 	ArticleChannelTypeArticleHeat ArticleChannelType = "articleHeat"
+	// ArticleChannelTypeArticleReaction is a ArticleChannelType of type articleReaction.
+	// 文章响应
+	ArticleChannelTypeArticleReaction ArticleChannelType = "articleReaction"
+	// ArticleChannelTypeCommentReaction is a ArticleChannelType of type commentReaction.
+	// 评论响应
+	ArticleChannelTypeCommentReaction ArticleChannelType = "commentReaction"
 )
 
 var ErrInvalidArticleChannelType = fmt.Errorf("not a valid ArticleChannelType, try [%s]", strings.Join(_ArticleChannelTypeNames, ", "))
 
 var _ArticleChannelTypeNames = []string{
+	string(ArticleChannelTypeComment),
 	string(ArticleChannelTypeArticleHeat),
+	string(ArticleChannelTypeArticleReaction),
+	string(ArticleChannelTypeCommentReaction),
 }
 
 // ArticleChannelTypeNames returns a list of possible string values of ArticleChannelType.
@@ -117,7 +129,10 @@ func ArticleChannelTypeNames() []string {
 // ArticleChannelTypeValues returns a list of the values for ArticleChannelType
 func ArticleChannelTypeValues() []ArticleChannelType {
 	return []ArticleChannelType{
+		ArticleChannelTypeComment,
 		ArticleChannelTypeArticleHeat,
+		ArticleChannelTypeArticleReaction,
+		ArticleChannelTypeCommentReaction,
 	}
 }
 
@@ -134,7 +149,10 @@ func (x ArticleChannelType) IsValid() bool {
 }
 
 var _ArticleChannelTypeValue = map[string]ArticleChannelType{
-	"articleHeat": ArticleChannelTypeArticleHeat,
+	"comment":         ArticleChannelTypeComment,
+	"articleHeat":     ArticleChannelTypeArticleHeat,
+	"articleReaction": ArticleChannelTypeArticleReaction,
+	"commentReaction": ArticleChannelTypeCommentReaction,
 }
 
 // ParseArticleChannelType attempts to convert a string to a ArticleChannelType.
@@ -402,6 +420,9 @@ const (
 	// ChatroomMsgTypeBarrager is a ChatroomMsgType of type barrager.
 	// 弹幕
 	ChatroomMsgTypeBarrager ChatroomMsgType = "barrager"
+	// ChatroomMsgTypeChatReaction is a ChatroomMsgType of type chatReaction.
+	// 聊天消息贴emoji
+	ChatroomMsgTypeChatReaction ChatroomMsgType = "chatReaction"
 )
 
 var ErrInvalidChatroomMsgType = fmt.Errorf("not a valid ChatroomMsgType, try [%s]", strings.Join(_ChatroomMsgTypeNames, ", "))
@@ -415,6 +436,7 @@ var _ChatroomMsgTypeNames = []string{
 	string(ChatroomMsgTypeRedPacketStatus),
 	string(ChatroomMsgTypeCustomMessage),
 	string(ChatroomMsgTypeBarrager),
+	string(ChatroomMsgTypeChatReaction),
 }
 
 // ChatroomMsgTypeNames returns a list of possible string values of ChatroomMsgType.
@@ -435,6 +457,7 @@ func ChatroomMsgTypeValues() []ChatroomMsgType {
 		ChatroomMsgTypeRedPacketStatus,
 		ChatroomMsgTypeCustomMessage,
 		ChatroomMsgTypeBarrager,
+		ChatroomMsgTypeChatReaction,
 	}
 }
 
@@ -459,6 +482,7 @@ var _ChatroomMsgTypeValue = map[string]ChatroomMsgType{
 	"redPacketStatus": ChatroomMsgTypeRedPacketStatus,
 	"customMessage":   ChatroomMsgTypeCustomMessage,
 	"barrager":        ChatroomMsgTypeBarrager,
+	"chatReaction":    ChatroomMsgTypeChatReaction,
 }
 
 // ParseChatroomMsgType attempts to convert a string to a ChatroomMsgType.

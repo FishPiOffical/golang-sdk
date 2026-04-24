@@ -196,7 +196,7 @@ func main() {
 	//postUserEditPoints()
 	//postUserLiveness()
 	//postYesterdayLivenessReward()
-	postUserEditNotification()
+	//postUserEditNotification()
 
 	// websocket
 	//userChannelWebsocket() // 通知
@@ -225,6 +225,11 @@ func main() {
 	//postMedalAdminOwners()
 	//getMedalUrl()
 	//postMedalAdminUserMedals()
+
+	// reaction
+	//postArticleReaction()
+	//postCommentReaction()
+	postChatRoomReaction()
 
 }
 
@@ -1646,4 +1651,31 @@ func postMedalAdminUserMedals() {
 		return
 	}
 	logger.Info("获取用户所有徽章列表结果", slog.Any("resp", resp))
+}
+
+func postArticleReaction() {
+	resp, err := client.PostArticleReaction(editArticleId, types.ReactionGroupTypeEmoji, types.ReactionEmojiValueThinking)
+	if err != nil {
+		logger.Error("文章表态失败", slog.String("error", err.Error()))
+		return
+	}
+	logger.Info("文章表态结果", slog.Any("resp", resp))
+}
+
+func postCommentReaction() {
+	resp, err := client.PostCommentReaction(editArticleCommentId, types.ReactionGroupTypeEmoji, types.ReactionEmojiValueThinking)
+	if err != nil {
+		logger.Error("评论表态失败", slog.String("error", err.Error()))
+		return
+	}
+	logger.Info("评论表态结果", slog.Any("resp", resp))
+}
+
+func postChatRoomReaction() {
+	resp, err := client.PostChatRoomReaction("1777014957669", types.ReactionGroupTypeEmoji, types.ReactionEmojiValueThinking)
+	if err != nil {
+		logger.Error("聊天室表态失败", slog.String("error", err.Error()))
+		return
+	}
+	logger.Info("聊天室表态结果", slog.Any("resp", resp))
 }
