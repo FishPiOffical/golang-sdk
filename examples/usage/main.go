@@ -1227,7 +1227,7 @@ func chatChannelWebsocket() {
 	ws := client.NewPrivateChatWebSocket(
 		botUserName,
 		// 可选：禁用自动重连
-		// sdk.WithAutoReconnect[types.ChatMessage](false),
+		// sdk.WithAutoReconnect[types.ChatChannelMsg](false),
 	)
 
 	// 设置开始回调
@@ -1302,13 +1302,13 @@ func chatroomWebsocket() {
 		// 可选：配置日志级别
 		sdk.WithLogger[types.ChatroomMsg](slog.Default()),
 		// 可选：配置重连策略（默认已启用指数退避）
-		// sdk.WithReconnectStrategy[types.ChatroomMessage](&sdk.ExponentialBackoffStrategy{
+		// sdk.WithReconnectStrategy[types.ChatroomMsg](&sdk.ExponentialBackoffStrategy{
 		// 	BaseDelay:  2 * time.Second,
 		// 	MaxDelay:   30 * time.Second,
 		// 	Multiplier: 1.5,
 		// }),
 		// 可选：配置最大重连次数（0表示无限重连）
-		// sdk.WithMaxReconnectAttempts[types.ChatroomMessage](10),
+		// sdk.WithMaxReconnectAttempts[types.ChatroomMsg](10),
 		// 可选：配置重连失败回调
 		sdk.WithReconnectFailedCallback[types.ChatroomMsg](func(attempts int, err error) {
 			slog.Error("重连失败", slog.Int("失败次数", attempts), slog.Any("错误", err))

@@ -1,13 +1,13 @@
 # FishPi Golang SDK
 
-摸鱼派社区 Golang SDK，提供完整的 API 接口封装。
+摸鱼派社区 Golang SDK，提供主要 API 接口封装。
 
 ## 特性
 
-- ✅ **完整的API支持** - 实现OpenAPI定义的76个接口中的76个（100%完成度）
+- ✅ **主要API支持** - HTTP 接口按业务域封装，已完成项见下方接口清单
 - ✅ **类型安全** - 使用go-enum自动生成枚举类型
 - ✅ **灵活配置** - 支持多种ConfigProvider（内存/文件）
-- ✅ **WebSocket支持** - 泛型架构，支持聊天室、私聊、用户通知
+- ✅ **WebSocket支持** - 泛型架构，支持聊天室、私聊、用户通知、帖子页事件
 - ✅ **自动重连** - 可配置重连策略（固定延迟/指数退避）
 - ✅ **心跳机制** - 可选的自定义心跳配置
 - ✅ **消息解析** - 完整的WebSocket消息解析器
@@ -47,7 +47,7 @@
     - [x] 获取用户VIP信息 通用 GET /api/membership/{userId}
     - [x] 获取操作日志 通用 GET /logs/more
 - [ ] 杂项
-    - [ ] 勋章链接生成
+    - [x] 勋章链接生成
     - [ ] 客户端版本解析
 - [ ] 通用
     - [x] 通过API累计用户的在线时间 WS
@@ -198,29 +198,49 @@ go get github.com/fishpioffical/golang-sdk
 ### 基础使用
 
 ```go
-// 使用 API Key 创建 SDK 实例
-fishpi := sdk.NewSDKWithAPIKey("your-api-key")
+package main
 
-// 获取用户信息
-userInfo, err := fishpi.GetUserInfo()
-if err != nil {
-    log.Fatal(err)
+import (
+    "fmt"
+    "log"
+
+    "github.com/fishpioffical/golang-sdk/sdk"
+)
+
+func main() {
+    // 使用 API Key 创建 SDK 实例
+    fishpi := sdk.NewSDKWithAPIKey("your-api-key")
+
+    // 获取当前登录用户信息
+    userInfo, err := fishpi.GetApiUser()
+    if err != nil {
+        log.Fatal(err)
+    }
+    fmt.Printf("用户: %s\n", userInfo.Data.UserName)
 }
-fmt.Printf("用户: %s\n", userInfo.Data.UserName)
 ```
 
 ### 配置方式
 
 ```go
+import (
+    "github.com/fishpioffical/golang-sdk/config"
+    "github.com/fishpioffical/golang-sdk/sdk"
+)
+
 // 方式1: API Key（推荐）
 fishpi := sdk.NewSDKWithAPIKey("your-api-key")
 
-// 方式2: 文件配置
-provider := sdk.NewFileConfigProvider("config.json")
+// 方式2: JSON 文件配置
+provider := config.NewFileJsonProvider("config.json")
 fishpi := sdk.NewSDK(provider)
 
-// 方式3: 内存配置
-provider := sdk.NewMemoryConfigProvider(&sdk.Config{
+// 方式3: YAML 文件配置
+provider := config.NewFileYamlProvider("config.yaml")
+fishpi := sdk.NewSDK(provider)
+
+// 方式4: 内存配置
+provider := config.NewMemoryConfigProvider(&config.Config{
     BaseUrl: "https://fishpi.cn",
     ApiKey:  "your-api-key",
 })
@@ -249,7 +269,7 @@ fishpi := sdk.NewSDK(provider,
 - **配置管理**: 使用 YAML 配置文件
 - **日志配置**: 使用 devslog 美化日志输出
 - **API 调用**: 用户信息、文章、清风明月等功能
-- **WebSocket**: 聊天室、私聊、通知的实时通信
+- **WebSocket**: 聊天室、私聊、通知、帖子页事件的实时通信
 - **错误处理**: 完整的错误处理示例
 
 运行示例：
@@ -273,6 +293,9 @@ gameGoldFingerKey: "your-game-gold-finger-key-here"
 queryGoldFingerKey: "your-query-gold-finger-key-here"
 metalGoldFingerKey: "your-metal-gold-finger-key-here"
 itemGoldFingerKey: "your-item-gold-finger-key-here"
+medalReadFingerKey: "your-medal-read-finger-key-here"
+medalWriteFingerKey: "your-medal-write-finger-key-here"
+notificationFingerKey: "your-notification-finger-key-here"
 
 ```
 
@@ -306,27 +329,51 @@ go run main.go
 
 ```go
 // 1. 聊天室（自动重连）
-ws := fishpi.NewChatroomWebSocket("wss://fishpi.cn/chat-room-channel?apiKey=xxx")
-ws.OnMessage(func(msg *types.ChatroomMessage) {
+node, err := fishpi.GetChatroomNode()
+if err != nil {
+    log.Fatal(err)
+}
+ws := fishpi.NewChatroomWebSocket(node.Data)
+ws.OnMessage(func(msg *types.ChatroomMsg) {
     fmt.Printf("收到消息: %s\n", msg.Type)
 })
-ws.Connect()
-ws.SendMessage("Hello!")
+if err := ws.Connect(); err != nil {
+    log.Fatal(err)
+}
+if _, err := fishpi.PostChatroomSend("Hello!"); err != nil {
+    log.Fatal(err)
+}
 
 // 2. 私聊
-ws := fishpi.NewPrivateChatWebSocket()
-ws.OnMessage(func(msg *types.ChatMessage) {
-    fmt.Printf("[私聊] %s\n", msg.Data.Content)
+privateWS := fishpi.NewPrivateChatWebSocket("target-user-name")
+privateWS.OnMessage(func(msg *types.ChatChannelMsg) {
+    fmt.Printf("[私聊] %s\n", msg.Content)
 })
-ws.Connect()
+if err := privateWS.Connect(); err != nil {
+    log.Fatal(err)
+}
 
 // 3. 用户通知（带心跳）
-ws := fishpi.NewUserNotificationWebSocket(
-    sdk.WithHeartbeat[types.UserMessage](30*time.Second, func() []byte {
+noticeWS := fishpi.NewUserNotificationWebSocket(
+    sdk.WithHeartbeat[types.UserChannelMsg](30*time.Second, func() []byte {
         return []byte(`{"type":"ping"}`)
     }),
 )
-ws.Connect()
+noticeWS.OnMessage(func(msg *types.UserChannelMsg) {
+    fmt.Printf("[通知] %s\n", msg.Command)
+})
+if err := noticeWS.Connect(); err != nil {
+    log.Fatal(err)
+}
+
+// 4. 帖子页事件
+articleWS := fishpi.NewArticleChannelWebSocket("article-id", types.ArticleTypeNormal)
+articleWS.OnMessage(func(msg *types.ArticleChannelMsg) {
+    fmt.Printf("[帖子事件] %s\n", msg.Type)
+})
+if err := articleWS.Connect(); err != nil {
+    log.Fatal(err)
+}
 ```
 
 **高级配置**：
@@ -334,19 +381,19 @@ ws.Connect()
 ```go
 ws := fishpi.NewChatroomWebSocket("wss://...",
     // 重连策略
-    sdk.WithReconnectStrategy[types.ChatroomMessage](&sdk.ExponentialBackoffStrategy{
+    sdk.WithReconnectStrategy[types.ChatroomMsg](&sdk.ExponentialBackoffStrategy{
         BaseDelay:  1 * time.Second,
         MaxDelay:   60 * time.Second,
         Multiplier: 2.0,
     }),
     // 最大重连次数（0=无限）
-    sdk.WithMaxReconnectAttempts[types.ChatroomMessage](10),
+    sdk.WithMaxReconnectAttempts[types.ChatroomMsg](10),
     // 重连失败回调
-    sdk.WithReconnectFailedCallback[types.ChatroomMessage](func(attempts int, err error) {
+    sdk.WithReconnectFailedCallback[types.ChatroomMsg](func(attempts int, err error) {
         log.Printf("重连失败: %v", err)
     }),
     // 自定义日志
-    sdk.WithLogger[types.ChatroomMessage](customLogger),
+    sdk.WithLogger[types.ChatroomMsg](customLogger),
 )
 ```
 
@@ -358,8 +405,8 @@ SDK 使用 `go-enum` 自动生成所有枚举类型：
 
 ```go
 // 枚举使用
-articleType := types.ArticleListTypeRecent
-fmt.Println(articleType.String()) // "recent"
+articleType := types.ArticleListTypeHot
+fmt.Println(articleType.String()) // "hot"
 
 // 解析枚举
 parsed, err := types.ParseArticleListType("hot")
@@ -375,7 +422,7 @@ git clone https://github.com/fishpioffical/golang-sdk
 go mod download
 
 # 生成枚举代码
-go generate ./types/...
+go generate ./...
 ```
 
 ## 许可证
